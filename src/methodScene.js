@@ -31,6 +31,7 @@ var methodLayer=cc.Layer.extend({
         title.attr({
             x:visibleOrigin.x+91,
             y:visibleOrigin.y+visibleSize.height-24,
+            scale:visibleSize.height/1080,
             anchorX:0,
             anchorY:1,
         });
@@ -42,6 +43,7 @@ var methodLayer=cc.Layer.extend({
         methodLeft.attr({
             x:visibleOrigin.x+155,
             y:visibleOrigin.y+visibleSize.height/2*0.8,
+            scale:visibleSize.height/1080,
             anchorX:0,
             anchorY:0.5,
         });
@@ -49,7 +51,7 @@ var methodLayer=cc.Layer.extend({
         // 游戏方法文字内容
         var text = new ccui.Text("两人轮流翻牌，根据翻出的卡牌计分。每翻完一张卡牌，即时结算。翻完所有卡牌后，分数最多者获胜。 各卡牌的效果如右图。", "AmericanTypewriter", 45);
         text.ignoreContentAdaptWithSize(false);
-        text.setContentSize(cc.size(methodLeftSize.width/1.2,methodLeftSize.height/1.2));
+        text.setContentSize(cc.size(methodLeftSize.width*visibleSize.height/1080/1.2,methodLeftSize.height*visibleSize.height/1080/1.2));
         text.setTextHorizontalAlignment(cc.TEXTURE_ATLAS_USE_TRIANGLE_STRIP);
         text.setTouchScaleChangeEnabled(true);
         text.setTouchEnabled(true);
@@ -68,6 +70,7 @@ var methodLayer=cc.Layer.extend({
         methodRight.attr({
             x:visibleOrigin.x+155+methodLeftSize.width,
             y:visibleOrigin.y+visibleSize.height/2*0.8,
+            scale:visibleSize.height/1080,
             anchorX:0,
             anchorY:0.5,
         });
@@ -77,23 +80,23 @@ var methodLayer=cc.Layer.extend({
         var scrollView = new ccui.ScrollView();
         scrollView.setDirection(ccui.ScrollView.DIR_VERTICAL);
         scrollView.setTouchEnabled(true);
-        scrollView.setContentSize(cc.size(methodRightSize.width/0.85,methodRightSize.height/1.2));
+        scrollView.setContentSize(cc.size(methodRightSize.width/0.85,methodRightSize.height));
         scrollView.attr({
-            x:visibleOrigin.x+visibleSize.width-20,
+            x:visibleOrigin.x+155+methodLeftSize.width,
             y:visibleOrigin.y+visibleSize.height/2*0.8,
-            anchorX:1,
-            anchorY:0.5,
+            scale:visibleSize.height/1080,
+            anchorY:0.5
         });
         var imageView = new ccui.ImageView("res/method-explain.png");
 
         var innerWidth = scrollView.width;
-        var innerHeight = imageView.height;
+        var innerHeight = imageView.height*1.1;
 
         scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
         // scrollView.setInnerContainerSize(methodRightSize);
-        imageView.x = innerWidth / 2;
-        imageView.y = imageView.height / 2;
-        imageView.anchorX=0.55;
+        imageView.x = innerWidth / 2*visibleSize.height/1080;
+        imageView.y = visibleOrigin.y+visibleSize.height/2*1.1;
+        imageView.anchorX=0.5;
         scrollView.addChild(imageView);
         layer.addChild(scrollView,20);
         // 返回

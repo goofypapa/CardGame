@@ -22,6 +22,7 @@
         "src/registerScene.js",
         "src/dlScene.js",
         "src/loginScene.js",
-        "src/gradeScene.js"
+        "src/gradeScene.js",
+        "src/shareScene.js"
     ]
 }

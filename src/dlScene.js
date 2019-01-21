@@ -45,7 +45,6 @@ var dlLayer = cc.Layer.extend({
         sprite.attr({
             x:visibleOrigin.x + visibleSize.width /2,
             y:visibleOrigin.y + visibleSize.height/ 2,
-            // scale:(visibleSize.width / spriteSize.width),
         });
 
         layer.addChild( sprite );
@@ -57,6 +56,7 @@ var dlLayer = cc.Layer.extend({
             title.attr({
                 x:visibleOrigin.x+91,
                 y:visibleOrigin.y+visibleSize.height-24,
+                scale:visibleSize.height/1080,
                 anchorX:0,
                 anchorY:1,
             });
@@ -219,6 +219,7 @@ var dlLayer = cc.Layer.extend({
             goback.attr({
                 x:visibleOrigin.x+visibleSize.width-159,
                 y:visibleOrigin.y+visibleSize.height-102,
+                scale:visibleSize.height/1080,
             });
 
             var mu=new cc.Menu(startBtn,goback);

@@ -52,6 +52,7 @@ var medalLayer = cc.Layer.extend({
             title.attr({
                 x:visibleOrigin.x+91,
                 y:visibleOrigin.y+visibleSize.height-24,
+                scale:visibleSize.height/1080,
                 anchorX:0,
                 anchorY:1,
             });

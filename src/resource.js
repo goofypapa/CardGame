@@ -32,8 +32,14 @@ var res = {
     method_plist:"res/method.plist",//游戏方法页面plist
     method_png:"res/method.png",
 };
-
-var g_resources = [];
+var g_resources = [
+    //fonts
+    {
+        type:"font",
+        name:"poster.ttf",
+        srcs:["res/fonts/poster.ttf"]
+    }
+];
 for (var i in res) {
     g_resources.push(res[i]);
 }
