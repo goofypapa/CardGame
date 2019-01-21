@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'com.goofypapa.kapai' target in the 'com.goofypapa.kapai' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+	#import <UIKit/UIKit.h>
+#endif
