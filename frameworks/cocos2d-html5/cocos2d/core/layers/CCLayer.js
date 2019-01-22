@@ -98,7 +98,7 @@ cc.Layer = cc.Node.extend(/** @lends cc.Layer# */{
                 }
                 // draw children zOrder < 0
                 for (i = 0; i < len; i++) {
-                    child = children[i];
+                    var child = children[i];
                     if (child._localZOrder < 0) {
                         child.visit(this);
                     }
@@ -277,7 +277,7 @@ cc.LayerColor = cc.Layer.extend(/** @lends cc.LayerColor# */{
                 }
                 // draw children zOrder < 0
                 for (i = 0; i < len; i++) {
-                    child = children[i];
+                    var child = children[i];
                     if (child._localZOrder < 0) {
                         child.visit(this);
                     }

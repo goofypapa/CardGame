@@ -916,19 +916,22 @@ cc.LabelTTF.create = function (text, fontName, fontSize, dimensions, hAlignment,
  */
 cc.LabelTTF.createWithFontDefinition = cc.LabelTTF.create;
 
-cc.LabelTTF.__labelHeightDiv = document.createElement("div");
-cc.LabelTTF.__labelHeightDiv.style.fontFamily = "Arial";
-cc.LabelTTF.__labelHeightDiv.style.position = "absolute";
-cc.LabelTTF.__labelHeightDiv.style.left = "-100px";
-cc.LabelTTF.__labelHeightDiv.style.top = "-100px";
-cc.LabelTTF.__labelHeightDiv.style.lineHeight = "normal";
+if (!window.wx) {
 
-document.body ?
-    document.body.appendChild(cc.LabelTTF.__labelHeightDiv) :
-    window.addEventListener('load', function () {
-        this.removeEventListener('load', arguments.callee, false);
-        document.body.appendChild(cc.LabelTTF.__labelHeightDiv);
-    }, false);
+    cc.LabelTTF.__labelHeightDiv = document.createElement("div");
+    cc.LabelTTF.__labelHeightDiv.style.fontFamily = "Arial";
+    cc.LabelTTF.__labelHeightDiv.style.position = "absolute";
+    cc.LabelTTF.__labelHeightDiv.style.left = "-100px";
+    cc.LabelTTF.__labelHeightDiv.style.top = "-100px";
+    cc.LabelTTF.__labelHeightDiv.style.lineHeight = "normal";
+
+    document.body ?
+        document.body.appendChild(cc.LabelTTF.__labelHeightDiv) :
+        window.addEventListener('load', function () {
+            this.removeEventListener('load', arguments.callee, false);
+            document.body.appendChild(cc.LabelTTF.__labelHeightDiv);
+        }, false);
+}
 
 /**
  * Returns the height of text with an specified font family and font size, in
@@ -940,35 +943,47 @@ document.body ?
  * @private
  */
 cc.LabelTTF.__getFontHeightByDiv = function (fontName, fontSize) {
-    var clientHeight, labelDiv = cc.LabelTTF.__labelHeightDiv;
-    if(fontName instanceof cc.FontDefinition){
-        /** @type cc.FontDefinition */
-        var fontDef = fontName;
-        clientHeight = cc.LabelTTF.__fontHeightCache[fontDef._getCanvasFontStr()];
-        if (clientHeight > 0) return clientHeight;
-        labelDiv.innerHTML = "ajghl~!";
-        labelDiv.style.fontFamily = fontDef.fontName;
-        labelDiv.style.fontSize = fontDef.fontSize + "px";
-        labelDiv.style.fontStyle = fontDef.fontStyle;
-        labelDiv.style.fontWeight = fontDef.fontWeight;
+    if (window.wx) {
+        var clientHeight = 18;
+        var coefficient = cc.LabelCoefficientConfig[fontName] || 1.34;
+        if(fontName instanceof cc.FontDefinition){
+            var fontDef = fontName;
+            clientHeight = fontDef.fontSize * coefficient;
+        } else {
+            clientHeight = fontSize * coefficient;
+        }
+        clientHeight = Math.ceil(clientHeight);
+        return clientHeight;
+    } else {
+        var clientHeight, labelDiv = cc.LabelTTF.__labelHeightDiv;
+        if(fontName instanceof cc.FontDefinition){
+            /** @type cc.FontDefinition */
+            var fontDef = fontName;
+            clientHeight = cc.LabelTTF.__fontHeightCache[fontDef._getCanvasFontStr()];
+            if (clientHeight > 0) return clientHeight;
+            labelDiv.innerHTML = "ajghl~!";
+            labelDiv.style.fontFamily = fontDef.fontName;
+            labelDiv.style.fontSize = fontDef.fontSize + "px";
+            labelDiv.style.fontStyle = fontDef.fontStyle;
+            labelDiv.style.fontWeight = fontDef.fontWeight;
 
-        clientHeight = labelDiv.clientHeight;
-        cc.LabelTTF.__fontHeightCache[fontDef._getCanvasFontStr()] = clientHeight;
-        labelDiv.innerHTML = "";
+            clientHeight = labelDiv.clientHeight;
+            cc.LabelTTF.__fontHeightCache[fontDef._getCanvasFontStr()] = clientHeight;
+            labelDiv.innerHTML = "";
+        }
+        else {
+            //Default
+            clientHeight = cc.LabelTTF.__fontHeightCache[fontName + "." + fontSize];
+            if (clientHeight > 0) return clientHeight;
+            labelDiv.innerHTML = "ajghl~!";
+            labelDiv.style.fontFamily = fontName;
+            labelDiv.style.fontSize = fontSize + "px";
+            clientHeight = labelDiv.clientHeight;
+            cc.LabelTTF.__fontHeightCache[fontName + "." + fontSize] = clientHeight;
+            labelDiv.innerHTML = "";
+        }
+        return clientHeight;
     }
-    else {
-        //Default
-        clientHeight = cc.LabelTTF.__fontHeightCache[fontName + "." + fontSize];
-        if (clientHeight > 0) return clientHeight;
-        labelDiv.innerHTML = "ajghl~!";
-        labelDiv.style.fontFamily = fontName;
-        labelDiv.style.fontSize = fontSize + "px";
-        clientHeight = labelDiv.clientHeight;
-        cc.LabelTTF.__fontHeightCache[fontName + "." + fontSize] = clientHeight;
-        labelDiv.innerHTML = "";
-    }
-    return clientHeight;
-
 };
 
 cc.LabelTTF.__fontHeightCache = {};

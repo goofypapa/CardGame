@@ -101,8 +101,7 @@ var HelloWorldLayer = cc.Layer.extend({
             // 排行榜
             var rankMenuItem=new cc.MenuItemImage(
                 "#explain.png",
-                "#explain.png",
-                // this.menuItemExplainGameCallback,this
+                "#explain.png"
             );
             rankMenuItem.attr({
                 x:visibleSize.width/2,

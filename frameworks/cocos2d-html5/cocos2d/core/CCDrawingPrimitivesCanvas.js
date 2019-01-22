@@ -56,9 +56,11 @@ cc.DrawingPrimitiveCanvas = cc.Class.extend(/** @lends cc.DrawingPrimitiveCanvas
         if (!size) {
             size = 1;
         }
+        var locScaleX = cc.view.getScaleX(), locScaleY = cc.view.getScaleY();
+        var newPoint = cc.p(point.x  * locScaleX, point.y * locScaleY);
         var ctx = this._renderContext.getContext();
         ctx.beginPath();
-        ctx.arc(point.x, -point.y, size, 0, Math.PI * 2, false);
+        ctx.arc(newPoint.x, -newPoint.y, size * locScaleX, 0, Math.PI * 2, false);
         ctx.closePath();
         ctx.fill();
     },
@@ -77,11 +79,11 @@ cc.DrawingPrimitiveCanvas = cc.Class.extend(/** @lends cc.DrawingPrimitiveCanvas
         if (!size) {
             size = 1;
         }
-        var locContext = this._renderContext.getContext();
+        var locContext = this._renderContext.getContext(),locScaleX = cc.view.getScaleX(), locScaleY = cc.view.getScaleY();
 
         locContext.beginPath();
         for (var i = 0, len = points.length; i < len; i++)
-            locContext.arc(points[i].x, -points[i].y, size, 0, Math.PI * 2, false);
+            locContext.arc(points[i].x * locScaleX, -points[i].y * locScaleY, size * locScaleX, 0, Math.PI * 2, false);
         locContext.closePath();
         locContext.fill();
     },
@@ -93,7 +95,7 @@ cc.DrawingPrimitiveCanvas = cc.Class.extend(/** @lends cc.DrawingPrimitiveCanvas
      * @param {cc.Point} destination
      */
     drawLine:function (origin, destination) {
-        var locContext = this._renderContext.getContext();
+        var locContext = this._renderContext.getContext(), locScaleX = cc.view.getScaleX(), locScaleY = cc.view.getScaleY();
         locContext.beginPath();
         locContext.moveTo(origin.x , -origin.y );
         locContext.lineTo(destination.x, -destination.y );
@@ -149,6 +151,7 @@ cc.DrawingPrimitiveCanvas = cc.Class.extend(/** @lends cc.DrawingPrimitiveCanvas
             throw new Error("Polygon's point must greater than 2");
 
         var firstPoint = vertices[0], locContext = this._renderContext.getContext();
+        var locScaleX = cc.view.getScaleX(), locScaleY = cc.view.getScaleY();
         locContext.beginPath();
         locContext.moveTo(firstPoint.x , -firstPoint.y );
         for (var i = 1, len = vertices.length; i < len; i++)
@@ -186,6 +189,7 @@ cc.DrawingPrimitiveCanvas = cc.Class.extend(/** @lends cc.DrawingPrimitiveCanvas
     drawCircle: function (center, radius, angle, segments, drawLineToCenter) {
         drawLineToCenter = drawLineToCenter || false;
         var locContext = this._renderContext.getContext();
+        var locScaleX = cc.view.getScaleX(), locScaleY = cc.view.getScaleY();
         locContext.beginPath();
         var endAngle = angle - Math.PI * 2;
         locContext.arc(0 | (center.x ), 0 | -(center.y ), radius , -angle, -endAngle, false);
@@ -375,6 +379,7 @@ cc.DrawingPrimitiveCanvas = cc.Class.extend(/** @lends cc.DrawingPrimitiveCanvas
     drawColorBall:function (ctx, radius, color) {
         var wrapper = ctx || this._renderContext;
         var context = wrapper.getContext();
+        radius *= cc.view.getScaleX();
         var colorStr = "rgba(" +(0|color.r) + "," + (0|color.g) + "," + (0|color.b);
         var subRadius = radius / 10;
 
@@ -427,6 +432,6 @@ cc.DrawingPrimitiveCanvas = cc.Class.extend(/** @lends cc.DrawingPrimitiveCanvas
      * @param {Number} width
      */
     setLineWidth:function (width) {
-        this._renderContext.getContext().lineWidth = width;
+        this._renderContext.getContext().lineWidth = width * cc.view.getScaleX();
     }
 });

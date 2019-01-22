@@ -287,7 +287,12 @@ cc.EditBox = cc.Node.extend({
 
     createDomElementIfNeeded: function () {
         if (!this._renderCmd._edTxt) {
-            this._renderCmd._createDomTextArea();
+            if (window.wx) {
+                this._renderCmd._createWXInput(this._editBoxInputMode === cc.EDITBOX_INPUT_MODE_ANY)
+            }
+            else {
+                this._renderCmd._createDomTextArea();
+            }
         }
     },
 
@@ -1033,6 +1038,63 @@ cc.EditBox.create = function (size, normal9SpriteBg, press9SpriteBg, disabled9Sp
         return tmpEdTxt;
     };
 
+    proto._createWXInput = function (multiline) {
+        this._removeDomFromGameContainer();
+        var thisPointer = this;
+        var tmpEdTxt = this._edTxt = document.createElement("input");
+        tmpEdTxt.type = "text";
+
+        tmpEdTxt.focus = function() {
+            var editBox = thisPointer._editBox;
+            wx.showKeyboard({
+                defaultValue: editBox._text,
+                maxLength: 140,
+                multiple: multiline,
+                confirmHold: true,
+                confirmType: "done",
+                success: function (res) {
+                    if (editBox._delegate && editBox._delegate.editBoxEditingDidBegin) {
+                        editBox._delegate.editBoxEditingDidBegin(editBox);
+                    }
+                },
+                fail: function (res) {
+                    cc.warn(res.errMsg);
+                    thisPointer._endEditing();
+                }
+            });
+            wx.onKeyboardConfirm(function (res) {
+                editBox._text = res.value;
+                thisPointer._updateDomTextCases();
+                if (editBox._delegate && editBox._delegate.editBoxReturn) {
+                    editBox._delegate.editBoxReturn(editBox);
+                }
+                wx.hideKeyboard({
+                    success: function (res) {
+                        if (editBox._delegate && editBox._delegate.editBoxEditingDidEnd) {
+                            editBox._delegate.editBoxEditingDidEnd(editBox);
+                        }
+                    },
+                    fail: function (res) {
+                        cc.warn(res.errMsg);
+                    }
+                });
+            });
+            wx.onKeyboardInput(function (res) {
+                if (editBox._delegate && editBox._delegate.editBoxTextChanged && editBox._text !== res.value) {
+                    editBox._text = res.value;
+                    thisPointer._updateDomTextCases();
+                    editBox._delegate.editBoxTextChanged(editBox, editBox._text);
+                }
+            });
+            wx.onKeyboardComplete(function () {
+                thisPointer._endEditing();
+                wx.offKeyboardConfirm();
+                wx.offKeyboardInput();
+                wx.offKeyboardComplete();
+            });
+        }
+    };
+
     proto._createLabels = function () {
         var editBoxSize = this._editBox.getContentSize();
         if (!this._textLabel) {
@@ -1149,18 +1211,22 @@ cc.EditBox.create = function (size, normal9SpriteBg, press9SpriteBg, disabled9Sp
     };
 
     proto._beginEditing = function () {
-        if (!this._editBox._alwaysOnTop) {
-            if (this._edTxt.style.display === 'none') {
-                this._edTxt.style.display = '';
-                this._edTxt.focus();
+        var self = this;
+        if (window.wx) {
+            self._edTxt.focus();
+        }
+        else if (!self._editBox._alwaysOnTop) {
+            if (self._edTxt.style.display === 'none') {
+                self._edTxt.style.display = '';
+                self._edTxt.focus();
             }
         }
 
-        if (cc.sys.isMobile && !this._editingMode) {
+        if (cc.sys.isMobile && !self._editingMode) {
             // Pre adaptation and 
-            this._beginEditingOnMobile(this._editBox);
+            self._beginEditingOnMobile(self._editBox);
         }
-        this._editingMode = true;
+        self._editingMode = true;
     };
 
     proto._endEditing = function () {
@@ -1168,7 +1234,7 @@ cc.EditBox.create = function (size, normal9SpriteBg, press9SpriteBg, disabled9Sp
             this._edTxt.style.display = 'none';
         }
         this._showLabels();
-        if (cc.sys.isMobile && this._editingMode) {
+        if (!window.wx && cc.sys.isMobile && this._editingMode) {
             var self = this;
             // Delay end editing adaptation to ensure virtual keyboard is disapeared
             setTimeout(function () {
@@ -1274,7 +1340,10 @@ cc.EditBox.create = function (size, normal9SpriteBg, press9SpriteBg, disabled9Sp
     };
 
     proto.setInputMode = function (inputMode) {
-        if (inputMode === cc.EDITBOX_INPUT_MODE_ANY) {
+        if (window.wx) {
+            this._createWXInput(inputMode === cc.EDITBOX_INPUT_MODE_ANY);
+        }
+        else if (inputMode === cc.EDITBOX_INPUT_MODE_ANY) {
             this._createDomTextArea();
         }
         else {
@@ -1354,17 +1423,36 @@ cc.EditBox.create = function (size, normal9SpriteBg, press9SpriteBg, disabled9Sp
         cc.game.container.appendChild(this._edTxt);
     };
 
+    function _contains (refNode, otherNode) {
+        if (typeof refNode.contains === 'function') {
+            return refNode.contains(otherNode);
+        }
+        else if (typeof refNode.compareDocumentPosition === 'function') {
+            return !!(refNode.compareDocumentPosition(otherNode) & 16);
+        }
+        else {
+            var node = otherNode.parentNode;
+            if (node) {
+                do {
+                    if (node === refNode) {
+                        return true;
+                    }
+                    else {
+                        node = node.parentNode;
+                    }
+                } while (node !== null);
+            }
+            return false;
+        }
+    }
+
     proto._removeDomFromGameContainer = function () {
         var editBox = this._edTxt;
         if (editBox) {
-            var hasChild = false;
-            if ('contains' in cc.game.container) {
-                hasChild = cc.game.container.contains(editBox);
-            } else {
-                hasChild = cc.game.container.compareDocumentPosition(editBox) % 16;
-            }
-            if (hasChild)
+            var hasChild = _contains(cc.game.container, editBox);
+            if (hasChild) {
                 cc.game.container.removeChild(editBox);
+            }
         }
         this._edTxt = null;
     };

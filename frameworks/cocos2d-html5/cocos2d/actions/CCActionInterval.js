@@ -137,7 +137,7 @@ cc.ActionInterval = cc.FiniteTimeAction.extend(/** @lends cc.ActionInterval# */{
      *
      * @example
      * //example
-     * action.easing(cc.easeIn(3.0));
+     * action.easeing(cc.easeIn(3.0));
      * @param {Object} easeObj
      * @returns {cc.ActionInterval}
      */
@@ -997,7 +997,7 @@ cc.Spawn = cc.ActionInterval.extend(/** @lends cc.Spawn# */{
  * Create a spawn action which runs several actions in parallel.
  * @function
  * @param {Array|cc.FiniteTimeAction}tempArray
- * @return {cc.Spawn}
+ * @return {cc.FiniteTimeAction}
  * @example
  * // example
  * var action = cc.spawn(cc.jumpBy(2, cc.p(300, 0), 50, 4), cc.rotateBy(2, 720));
@@ -1022,7 +1022,7 @@ cc.spawn = function (/*Multiple Arguments*/tempArray) {
  * @static
  * @deprecated since v3.0 <br /> Please use cc.spawn instead.
  * @param {Array|cc.FiniteTimeAction}tempArray
- * @return {cc.Spawn}
+ * @return {cc.FiniteTimeAction}
  */
 cc.Spawn.create = cc.spawn;
 
@@ -3393,8 +3393,8 @@ cc.Animate = cc.ActionInterval.extend(/** @lends cc.Animate# */{
         var numberOfFrames = frames.length, locSplitTimes = this._splitTimes;
         for (var i = this._nextFrame; i < numberOfFrames; i++) {
             if (locSplitTimes[i] <= dt) {
-                _currFrameIndex = i;
-                this.target.setSpriteFrame(frames[_currFrameIndex].getSpriteFrame());
+                this._currFrameIndex = i;
+                this.target.setSpriteFrame(frames[this._currFrameIndex].getSpriteFrame());
                 this._nextFrame = i + 1;
             } else {
                 // Issue 1438. Could be more than one frame per tick, due to low frame rate or frame delta < 1/FPS

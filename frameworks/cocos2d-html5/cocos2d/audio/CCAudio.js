@@ -118,8 +118,10 @@ cc.Audio = cc.Class.extend({
         this._element.loop = loop;
         this._element.play();
         if (this._AUDIO_TYPE === 'AUDIO' && this._element.paused) {
-            this.stop();
-            cc.Audio.touchPlayList.push({ loop: loop, offset: offset, audio: this._element });
+            if (!window.wx) {
+                this.stop();
+                cc.Audio.touchPlayList.push({ loop: loop, offset: offset, audio: this._element });
+            }
         }
 
         if (cc.Audio.bindTouch === false) {
@@ -176,11 +178,14 @@ cc.Audio = cc.Class.extend({
         var audio = new cc.Audio(this.src);
         if (this._AUDIO_TYPE === "AUDIO") {
             var elem = document.createElement("audio");
-            var sources = elem.getElementsByTagName('source');
-            for (var i = 0; i < sources.length; i++) {
-                elem.appendChild(sources[i]);
+            if (window.wx) {
+                elem.src = this.src;
+            } else {
+                var sources = elem.getElementsByTagName('source');
+                for (var i = 0; i < sources.length; i++) {
+                    elem.appendChild(sources[i]);
+                }
             }
-            elem.src = this.src;
             audio.setElement(elem);
         } else {
             audio.setBuffer(this._element.buffer);
@@ -443,6 +448,7 @@ cc.Audio.WebAudio.prototype = {
         },
 
         loadAudioFromExtList: function (realUrl, typeList, audio, cb) {
+            realUrl = window.REMOTE_SERVER_ROOT + realUrl;
             if (typeList.length === 0) {
                 var ERRSTR = "can not found the resource of audio! Last match url is : ";
                 ERRSTR += realUrl.replace(/\.(.*)?$/, "(");
@@ -470,16 +476,21 @@ cc.Audio.WebAudio.prototype = {
 
             // 加载统一使用dom
             var dom = document.createElement('audio');
-            for (var i = 0; i < num; i++) {
-                var source = document.createElement('source');
-                source.src = cc.path.changeExtname(realUrl, typeList[i]);
-                dom.appendChild(source);
+
+            if (window.wx) {
+                dom.src = cc.path.changeExtname(realUrl, typeList[0]);
+            } else {
+                for (var i = 0; i < num; i++) {
+                    var source = document.createElement('source');
+                    source.src = cc.path.changeExtname(realUrl, typeList[i]);
+                    dom.appendChild(source);
+                }
             }
 
             audio.setElement(dom);
-
             var timer = setTimeout(function () {
                 if (dom.readyState === 0) {
+                    console.log("loadAudioFromExtList timeout 8000");
                     failure();
                 } else {
                     success();
@@ -602,6 +613,44 @@ cc.Audio.WebAudio.prototype = {
                 audio.resume();
         },
 
+        //T-Add Begin
+        preLoadEffect: function (url) {
+            var audio = cc.loader.getRes(url);
+
+            if (audio && SWA && audio._AUDIO_TYPE === 'AUDIO') {
+                cc.loader.release(url);
+                audio = null;
+            }
+
+            var effectList = this._audioPool[url];
+            if (!effectList) {
+                effectList = this._audioPool[url] = [];
+            }
+
+            if (audio) {
+                if (SWA && audio._AUDIO_TYPE === 'AUDIO') {
+                    loader.loadBuffer(url, function (error, buffer) {
+                        audio.setBuffer(buffer);
+                        audio.setVolume(cc.audioEngine._effectVolume);
+                    });
+                } else {
+                    audio = audio.cloneNode();
+                    audio.setVolume(this._effectVolume);
+                    effectList.push(audio);
+                    return;
+                }
+
+            }
+
+            cc.loader.load(url, function (audio) {
+                audio = cc.loader.getRes(url);
+                audio = audio.cloneNode();
+                audio.setVolume(cc.audioEngine._effectVolume);
+                effectList.push(audio);
+            });
+        },
+         //T-Add End
+
         /**
          * Rewind playing music.
          * @example
@@ -681,6 +730,20 @@ cc.Audio.WebAudio.prototype = {
          * var soundId = cc.audioEngine.playEffect(path);
          */
         playEffect: function (url, loop) {
+
+            if (window.wx) {
+                var audio = cc.loader.getRes(url);
+                if (!audio) {
+                    cc.loader.load(url, function () {
+                        audio.setVolume(cc.audioEngine._effectVolume);
+                        audio.play(0, loop || false);
+                    });
+                    audio = cc.loader.getRes(url);
+                }
+                audio.setVolume(cc.audioEngine._effectVolume);
+                audio.play(0, loop || false);
+                return
+            }
 
             if (SWB && this._currMusic && this._currMusic.getPlaying()) {
                 cc.log('Browser is only allowed to play one audio');

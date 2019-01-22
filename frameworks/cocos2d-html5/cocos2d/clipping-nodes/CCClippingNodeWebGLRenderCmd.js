@@ -35,6 +35,12 @@ function setProgram (node, program) {
 
 // ------------------------------- ClippingNode's WebGL render cmd ------------------------------
 (function () {
+
+    var _currentState = {
+        stencilEnabled: false,
+        depthWriteMask: true
+    };
+
     cc.ClippingNode.WebGLRenderCmd = function (renderable) {
         this._rootCtor(renderable);
         this._needDraw = false;
@@ -43,8 +49,15 @@ function setProgram (node, program) {
         this._afterDrawStencilCmd = new cc.CustomRenderCmd(this, this._onAfterDrawStencil);
         this._afterVisitCmd = new cc.CustomRenderCmd(this, this._onAfterVisit);
 
-        this._currentStencilEnabled = null;
-        this._mask_layer_le = null;
+        this._previousState = null;
+        this._state = {
+            stencilEnabled: true,
+            stencilWriteMask: 0,
+            depthWriteMask: false,
+            stencilFunc: 0,
+            stencilRef: 0,
+            stencilValueMask: 0
+        };
     };
 
     var proto = cc.ClippingNode.WebGLRenderCmd.prototype = Object.create(cc.Node.WebGLRenderCmd.prototype);
@@ -105,7 +118,6 @@ function setProgram (node, program) {
 
         cc.renderer.pushRenderCommand(this._beforeVisitCmd);
 
-        // node._stencil._stackMatrix = node._stackMatrix;
         node._stencil.visit(node);
 
         cc.renderer.pushRenderCommand(this._afterDrawStencilCmd);
@@ -134,6 +146,23 @@ function setProgram (node, program) {
         if (node._stencil)
             node._stencil._parent = node;
     };
+    
+    proto._drawFullScreenQuadClearStencil = function () {
+        // draw a fullscreen solid rectangle to clear the stencil buffer
+        var projStack = cc.projection_matrix_stack;
+        projStack.push();
+        projStack.top.identity();
+    
+        var modelViewStack = cc.modelview_matrix_stack;
+        modelViewStack.push();
+        modelViewStack.top.identity();
+    
+        cc._drawingUtil.drawSolidRect(cc.p(-1, -1), cc.p(1, 1), cc.color(255, 255, 255, 255));
+    
+        projStack.pop();
+    
+        modelViewStack.pop();
+    };
 
     proto.resetProgramByStencil = function () {
         var node = this._node;
@@ -152,22 +181,23 @@ function setProgram (node, program) {
         // mask of all layers less than the current (ie: for layer 3: 00000011)
         var mask_layer_l = mask_layer - 1;
         // mask of all layers less than or equal to the current (ie: for layer 3: 00000111)
-        //var mask_layer_le = mask_layer | mask_layer_l;
-        this._mask_layer_le = mask_layer | mask_layer_l;
+        var mask_layer_le = mask_layer | mask_layer_l;
         // manually save the stencil state
-        this._currentStencilEnabled = gl.isEnabled(gl.STENCIL_TEST);
+        this._previousState = _currentState;
 
-        gl.clear(gl.DEPTH_BUFFER_BIT);
         // enable stencil use
         gl.enable(gl.STENCIL_TEST);
+        gl.stencilMask(mask_layer);
 
         gl.depthMask(false);
 
         gl.stencilFunc(gl.NEVER, mask_layer, mask_layer);
-        gl.stencilOp(gl.REPLACE, gl.KEEP, gl.KEEP);
+        gl.stencilOp(!this._node.inverted ? gl.ZERO : gl.REPLACE, gl.KEEP, gl.KEEP);
+        
+        this._drawFullScreenQuadClearStencil();
 
-        gl.stencilMask(mask_layer);
-        gl.clear(gl.STENCIL_BUFFER_BIT);
+        gl.stencilFunc(gl.NEVER, mask_layer, mask_layer);
+        gl.stencilOp(!this._node.inverted ? gl.REPLACE : gl.ZERO, gl.KEEP, gl.KEEP);
 
         if (node.alphaThreshold < 1) {            //TODO desktop
             var program = cc.shaderCache.programForKey(cc.SHADER_POSITION_TEXTURECOLORALPHATEST);
@@ -177,31 +207,41 @@ function setProgram (node, program) {
             program.setUniformLocationWithMatrix4fv(cc.UNIFORM_MVMATRIX_S, cc.renderer.mat4Identity.mat);
             cc.setProgram(node._stencil, program);
         }
+
+        // Save the current stencil states
+        this._state.stencilWriteMask = mask_layer;
+        this._state.stencilRef = this._state.stencilValueMask = mask_layer_le;
+        this._state.stencilFunc = gl.NEVER;
+
+        _currentState = this._state;
     };
 
     proto._onAfterDrawStencil = function (ctx) {
         var gl = ctx || cc._renderContext;
-        gl.depthMask(true);
-        gl.stencilFunc(!this._node.inverted ? gl.EQUAL : gl.NOTEQUAL, this._mask_layer_le, this._mask_layer_le);
+        gl.depthMask(this._previousState.depthWriteMask);
+        gl.stencilFunc(gl.EQUAL, this._state.stencilRef, this._state.stencilValueMask);
         gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP);
+        this._state.stencilFunc = gl.EQUAL;
     };
 
     proto._onAfterVisit = function (ctx) {
         var gl = ctx || cc._renderContext;
 
-        cc.ClippingNode.WebGLRenderCmd._layer--;
-
-        if (this._currentStencilEnabled) {
-            var mask_layer = 0x1 << cc.ClippingNode.WebGLRenderCmd._layer;
-            var mask_layer_l = mask_layer - 1;
-            var mask_layer_le = mask_layer | mask_layer_l;
-
-            gl.stencilMask(mask_layer);
-            gl.stencilFunc(gl.EQUAL, mask_layer_le, mask_layer_le);
+        var state = this._previousState;
+        if (!state.stencilEnabled) {
+            gl.disable(gl.STENCIL_TEST);
         }
         else {
-            gl.disable(gl.STENCIL_TEST);
-
+            gl.stencilFunc(state.stencilFunc, state.stencilRef, state.stencilValueMask);
+            gl.stencilOp(gl.KEEP, gl.KEEP, gl.KEEP);
+            gl.stencilMask(state.stencilWriteMask);
         }
+    
+        // restore _currentState, so self states won't affect other nodes any longer
+        _currentState = this._previousState;
+        this._previousState = null;
+
+        // we are done using this layer, decrement
+        cc.ClippingNode.WebGLRenderCmd._layer--;
     };
 })();

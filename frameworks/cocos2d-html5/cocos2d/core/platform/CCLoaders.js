@@ -94,6 +94,26 @@ cc._fontLoader = {
         ".svg": "svg"
     },
     _loadFont: function (name, srcs, type) {
+        if (window.wx) {
+            if (srcs instanceof Array) {
+                for (var i = 0, li = srcs.length; i < li; i++) {
+                    var src = srcs[i];
+                    // var url = cc.loader.getUrl('', src);
+                    var url = src;
+                    var family = wx.loadFont(url);
+                    cc._renderContext.font = "16px " + family;
+                    console.log("load font url : " + url);
+                }
+            } else {
+                // var url = cc.loader.getUrl('', srcs);
+                var url = srcs;
+                var family = wx.loadFont(url);
+                cc._renderContext.font = "16px " + family;
+                console.log("load font url : " + url);
+            }
+            return;
+        }
+
         var doc = document, path = cc.path, TYPE = this.TYPE, fontStyle = document.createElement("style");
         fontStyle.type = "text/css";
         doc.body.appendChild(fontStyle);

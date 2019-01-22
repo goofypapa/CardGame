@@ -187,8 +187,6 @@ cc.EGLView = cc.Class.extend(/** @lends cc.view# */{
 
         if (sys.isMobile) {
             window.addEventListener('orientationchange', this._orientationChange);
-        } else {
-            this._orientationChanging = false;
         }
     },
 
@@ -372,6 +370,9 @@ cc.EGLView = cc.Class.extend(/** @lends cc.view# */{
     },
 
     _setViewportMeta: function (metas, overwrite) {
+        if (window.wx) {
+            return
+        }
         var vp = document.getElementById("cocosMetaElement");
         if (vp && overwrite) {
             document.head.removeChild(vp);

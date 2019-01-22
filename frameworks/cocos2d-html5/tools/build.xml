@@ -18,13 +18,11 @@
                 <file name="cocos2d/core/platform/CCClass.js"/>
                 <file name="cocos2d/core/platform/CCCommon.js"/>
                 <file name="cocos2d/core/cocoa/CCGeometry.js"/>
-                <file name="cocos2d/core/platform/CCTypesPropertyDefine.js"/>
                 <file name="cocos2d/core/platform/CCSAXParser.js"/>
                 <file name="cocos2d/core/platform/CCLoaders.js"/>
                 <file name="cocos2d/core/platform/CCConfig.js"/>
                 <file name="cocos2d/core/platform/miniFramework.js"/>
                 <file name="cocos2d/core/platform/CCMacro.js"/>
-                <file name="cocos2d/core/platform/CCTypesWebGL.js"/>
                 <file name="cocos2d/core/platform/CCTypes.js"/>
                 <file name="cocos2d/core/platform/CCEGLView.js"/>
                 <file name="cocos2d/core/platform/CCScreen.js"/>
@@ -75,13 +73,10 @@
                 <file name="cocos2d/core/sprites/CCSpriteFrame.js"/>
                 <file name="cocos2d/core/sprites/CCSpriteFrameCache.js"/>
                 <file name="cocos2d/core/sprites/CCSpriteBatchNode.js"/>
-                <file name="cocos2d/core/sprites/CCSpriteBatchNodeCanvasRenderCmd.js"/>
-                <file name="cocos2d/core/sprites/CCSpriteBatchNodeWebGLRenderCmd.js"/>
                 <file name="cocos2d/core/CCConfiguration.js"/>
                 <file name="cocos2d/core/CCDirector.js"/>
                 <file name="cocos2d/core/CCDirectorCanvas.js"/>
                 <file name="cocos2d/core/CCDirectorWebGL.js"/>
-                <file name="cocos2d/core/CCCamera.js"/>
                 <file name="cocos2d/core/CCScheduler.js"/>
                 <file name="cocos2d/core/utils/CCProfiler.js"/>
                 <file name="cocos2d/core/CCDrawingPrimitivesCanvas.js"/>
@@ -131,7 +126,6 @@
                 <file name="cocos2d/actions/CCAction.js"/>
                 <file name="cocos2d/actions/CCActionInterval.js"/>
                 <file name="cocos2d/actions/CCActionInstant.js"/>
-                <file name="cocos2d/actions/CCActionCamera.js"/>
                 <file name="cocos2d/actions/CCActionEase.js"/>
                 <file name="cocos2d/actions/CCActionCatmullRom.js"/>
                 <file name="cocos2d/actions/CCActionTween.js"/>
@@ -201,7 +195,6 @@
                 <file name="extensions/ccb-reader/CCBSequence.js"/>
                 <file name="extensions/ccb-reader/CCBRelativePositioning.js"/>
                 <file name="extensions/ccb-reader/CCBAnimationManager.js"/>
-                <file name="extensions/editbox/CCdomNode.js"/>
                 <file name="extensions/editbox/CCEditBox.js"/>
                 <file name="extensions/ccui/system/CocosGUI.js"/>
                 <file name="extensions/ccui/base-classes/UIWidget.js"/>
@@ -320,7 +313,6 @@
                 <file name="cocos2d/core/platform/CCConfig.js"/>
                 <file name="cocos2d/core/platform/miniFramework.js"/>
                 <file name="cocos2d/core/platform/CCMacro.js"/>
-                <file name="cocos2d/core/platform/CCTypesPropertyDefine.js"/>
                 <file name="cocos2d/core/platform/CCTypes.js"/>
                 <file name="cocos2d/core/platform/CCEGLView.js"/>
                 <file name="cocos2d/core/platform/CCVisibleRect.js"/>

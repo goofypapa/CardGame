@@ -317,6 +317,9 @@ ccui.VideoPlayer.EventType = {
 };
 
 (function (video) {
+    if (window.wx) {
+        return
+    }
     /**
      * Adapter various machines
      * @devicePixelRatio Whether you need to consider devicePixelRatio calculated position
@@ -363,6 +366,10 @@ ccui.VideoPlayer.EventType = {
 
 (function (polyfill) {
 
+    if (window.wx) {
+        return
+    }
+    
     var RenderCmd = null;
     if (cc._renderType === cc.game.RENDER_TYPE_WEBGL) {
         RenderCmd = cc.Node.WebGLRenderCmd;

@@ -256,6 +256,14 @@ cc.inputManager = /** @lends cc.inputManager# */{
                 height: parseInt(element.style.height)
             };
         }
+        if (window.wx) {
+            return {
+                left: 0,
+                top: 0,
+                width: box.width,
+                height: box.height
+            };
+        }
         return {
             left: box.left + win.pageXOffset - docElem.clientLeft,
             top: box.top + win.pageYOffset - docElem.clientTop,
@@ -408,6 +416,11 @@ cc.inputManager = /** @lends cc.inputManager# */{
         var selfPointer = this;
         var supportMouse = ('mouse' in cc.sys.capabilities), supportTouches = ('touches' in cc.sys.capabilities);
 
+        if (window.wx) {
+            supportMouse = false;
+            supportTouches = true
+        }
+
         //HACK
         //  - At the same time to trigger the ontouch event and onmouse event
         //  - The function will execute 2 times
@@ -555,20 +568,24 @@ cc.inputManager = /** @lends cc.inputManager# */{
                 if (!event.changedTouches) return;
 
                 var pos = selfPointer.getHTMLElementPosition(element);
-                pos.left -= document.body.scrollLeft;
-                pos.top -= document.body.scrollTop;
+                if (!window.wx) {
+                    pos.left -= document.body.scrollLeft;
+                    pos.top -= document.body.scrollTop;
+                }
                 selfPointer.handleTouchesBegin(selfPointer.getTouchesByEvent(event, pos));
                 event.stopPropagation();
                 event.preventDefault();
-                element.focus();
+                !window.wx && element.focus();
             }, false);
 
             element.addEventListener("touchmove", function (event) {
                 if (!event.changedTouches) return;
 
                 var pos = selfPointer.getHTMLElementPosition(element);
-                pos.left -= document.body.scrollLeft;
-                pos.top -= document.body.scrollTop;
+                if (!window.wx) {
+                    pos.left -= document.body.scrollLeft;
+                    pos.top -= document.body.scrollTop;
+                }
                 selfPointer.handleTouchesMove(selfPointer.getTouchesByEvent(event, pos));
                 event.stopPropagation();
                 event.preventDefault();
@@ -578,8 +595,10 @@ cc.inputManager = /** @lends cc.inputManager# */{
                 if (!event.changedTouches) return;
 
                 var pos = selfPointer.getHTMLElementPosition(element);
-                pos.left -= document.body.scrollLeft;
-                pos.top -= document.body.scrollTop;
+                if (!window.wx) {
+                    pos.left -= document.body.scrollLeft;
+                    pos.top -= document.body.scrollTop;
+                }
                 selfPointer.handleTouchesEnd(selfPointer.getTouchesByEvent(event, pos));
                 event.stopPropagation();
                 event.preventDefault();
@@ -589,8 +608,10 @@ cc.inputManager = /** @lends cc.inputManager# */{
                 if (!event.changedTouches) return;
 
                 var pos = selfPointer.getHTMLElementPosition(element);
-                pos.left -= document.body.scrollLeft;
-                pos.top -= document.body.scrollTop;
+                if (!window.wx) {
+                    pos.left -= document.body.scrollLeft;
+                    pos.top -= document.body.scrollTop;
+                }
                 selfPointer.handleTouchesCancel(selfPointer.getTouchesByEvent(event, pos));
                 event.stopPropagation();
                 event.preventDefault();
@@ -609,10 +630,6 @@ cc.inputManager = /** @lends cc.inputManager# */{
     _registerKeyboardEvent: function () {
     },
 
-    /**
-     * Register Accelerometer event
-     * @function
-     */
     _registerAccelerometerEvent: function () {
     },
 

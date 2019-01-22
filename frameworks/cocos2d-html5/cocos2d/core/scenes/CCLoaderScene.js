@@ -54,13 +54,13 @@ cc.LoaderScene = cc.Scene.extend({
 
         //image move to CCSceneFile.js
         var fontSize = 24, lblHeight =  -logoHeight / 2 + 100;
-        if(cc._loaderImage){
+        if(cc._loaderImage) {
             //loading logo
-            cc.loader.loadImg(cc._loaderImage, {isCrossOrigin : false }, function(err, img){
-                logoWidth = img.width;
-                logoHeight = img.height;
-                self._initStage(img, cc.visibleRect.center);
-            });
+            var image = new Image();
+            image.src = cc._loaderImage;
+            logoWidth = image.width;
+            logoHeight = image.height;
+            self._initStage(image, cc.visibleRect.center);
             fontSize = 14;
             lblHeight = -logoHeight / 2 - 10;
         }
