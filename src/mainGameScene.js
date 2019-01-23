@@ -737,7 +737,4 @@ var mainGameScene=cc.Scene.extend({
 
 
 
-var actionBy = cc.rotateBy(0.5, 0, -180);
-var delay = cc.delayTime(0.1);
-target.runAction(cc.sequence(actionBy, delay.clone()));
 
