@@ -6,12 +6,12 @@ var mainGameLayer=cc.Layer.extend({
         var playId = guid();
         var playName = "haha" + playId;
         var playScore = Math.floor( Math.random() * 1000 );
-        ws.send( JSON.stringify({
+        ws.send(  JSON.stringify({
             cmd: "Pair",
-            id: playId,
-            name: playName,
-            score: playScore
-        }) );
+            id: "12345",
+            name: "playName",
+            score: 5
+        }));
 
         function S4() {
             return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
@@ -20,11 +20,13 @@ var mainGameLayer=cc.Layer.extend({
         function guid() {
             return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
         }
+
     },
 
 
     ctor:function(){
         //获取玩家信息
+        var dataA;
         var that = this;
         function connectServer(){
             ws = new WebSocket("ws://192.168.5.100:8010");
@@ -46,9 +48,7 @@ var mainGameLayer=cc.Layer.extend({
             console.log("error");
         };
 
-        ws.onmessage = function(e){
-            console.log("recv:" + e.data + " by:" + e.origin);
-        };
+
 
 
 
@@ -445,18 +445,6 @@ var mainGameLayer=cc.Layer.extend({
         game.addChild(medalSprite);
 
 
-        // var beginSprite = cc.Sprite("res/kaishi.png");
-        // beginSprite.attr({
-        //     x:-50,
-        //     y:visibleSize.height/7,
-        //     anchorX:0,
-        //     anchorY:1,
-        //     scale:visibleSize.width/1920,
-        // });
-        //
-
-        // game.addChild(beginSprite);
-
         var beginSprite=new ccui.Button(
             "res/kaishi.png",
             "res/kaishi.png"
@@ -473,7 +461,8 @@ var mainGameLayer=cc.Layer.extend({
         game.addChild(beginSprite);
 
         beginSprite.addTouchEventListener(that.startGame);
-        // cc.eventManager.addListener(that.startGame, beginSprite);
+
+
         var stopSprite = new cc.Sprite("res/zanting.png");
         stopSprite.attr({
             x:400,
@@ -483,7 +472,7 @@ var mainGameLayer=cc.Layer.extend({
             scale:visibleSize.width/1920,
         });
 
-
+        // cc.eventManager.addListener(that.startGame,stopSprite);
         game.addChild(stopSprite);
 
         var jiluSprite = new cc.Sprite("res/youxijilu.png");
@@ -513,7 +502,11 @@ var mainGameLayer=cc.Layer.extend({
 
 
         game.addChild(medal,2);
-        layer.addChild(game,50);
+
+
+
+
+
 
         // 随机正面数组
         var arr=[];
@@ -530,7 +523,51 @@ var mainGameLayer=cc.Layer.extend({
         // 总分数
         var scoreTotle=0;
         // 12张图片添加事件监听
-        var listener=cc.EventListener.create({
+        ws.onmessage = function(e){
+            // console.log("recv:" + e.data + " by:" + e.origin);
+            var arrRecive = [];
+            dataA = JSON.parse(e.data);
+            arrRecive.push(dataA);
+            console.log(arrRecive)
+            // data = E.data;
+            console.log(typeof dataA);
+            console.log(dataA);
+            var PleaseSelectCard = dataA.cmd;
+            // var self =  player.self
+            // var opponent =  player.opponent
+            // var randomS =  self["random"]
+            // var randomO =  opponent["random"]
+
+            if(PleaseSelectCard==="PleaseSelectCard"){
+                // dataA = null;
+            }
+            if(PleaseSelectCard !=="PleaseSelectCard" && undefined){
+                    console.log("--------------------翻牌")
+                    if(dataA.card ){
+
+                        // game.removeChildByTag(target.tag,true);
+                        var kapai=new cc.Sprite("res/"+dataA.card+".png");
+
+                        kapai.attr({
+                            x:150,
+                            y:visibleSize.height/30*17,
+                            anchorX:0.5,
+                            anchorY:1,
+                            scale:visibleSize.width/1920,
+                        });
+                        // var actionBy2 = cc.scaleBy(1, 2);
+                        // var actionBy = cc.moveBy(1,cc.p(40, 40));
+                        // var actionByBack = actionBy.reverse();
+                        // kapai.runAction(cc.sequence(actionBy2, cc.delayTime(0.2), actionBy2.reverse()));
+                        // kapai.runAction(cc.sequence(actionBy, actionByBack));
+                        game.addChild(kapai,100);
+
+                    }
+            }
+
+        };
+
+        var listener = cc.EventListener.create({
             event:cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches:true,
             cancelable:false,
@@ -540,12 +577,28 @@ var mainGameLayer=cc.Layer.extend({
                 var s=target.getContentSize();
                 var rect=cc.rect(0,0,s.width,s.height);
                 if(cc.rectContainsPoint(rect,locationInNode)){
-                    console.log("------->"+ JSON.stringify(target.tag));
-                    console.log("------->"+ JSON.stringify(target.getName()));
-                    console.log(target.getPosition());
-                    console.log("------->"+ JSON.stringify( "spriteBegan...x="+locationInNode.x+",y="+locationInNode.y  ));
-                    count+=1;
-                    console.log(count);
+
+                    console.log( "---->", target.getTag() )
+
+                    ws.send( JSON.stringify({
+                        cmd: "SelectedCard",
+                        card: parseInt(target.getTag())
+                    }) );
+
+                    var cardName = dataA.card;
+                    var cardCmd = dataA.cmd;
+                    console.log(cardCmd);
+
+                    // {"success":true,"cmd":
+                    //     "SelectedCard","card":
+                    //     "mars","effect":
+                    //     "BonusScore","self":
+                    //     {"userScore":4},
+                    //     "opponent":
+                    //     {"userScore":0}
+                    // }
+
+                    console.log("------------------"+cardName);
                     flop(target);
                     // 翻牌效果
                     function flop(card){
@@ -556,7 +609,7 @@ var mainGameLayer=cc.Layer.extend({
 
                         setTimeout(function(){
                             game.removeChildByTag(target.tag,true);
-                            var kapai=new cc.Sprite("res/"+target.getName()+".png");
+                            var kapai=new cc.Sprite("res/"+cardName+".png");
                             kapai.setContentSize(s.width,s.height);
                             kapai.setTag(target.tag);
                             kapai.setName(target.getName());
@@ -575,163 +628,12 @@ var mainGameLayer=cc.Layer.extend({
                         },500);
                     };
 
-                    function scoring(card,role){
-                        target=card;
-                        // 获取上一次分数
-                        var lastscore=role.getChildByTag(1).getName();
-                        console.log("上一次分数"+lastscore);
-
-                        console.log("目标Tag"+target.tag);
-                        // 删除点过的卡牌Tag
-                        var index = flopArr.indexOf(target.tag);
-                        flopArr.splice(index,1);
-                        turnCard.push(target.tag);
-                        // // 当前的分数=上一次分数+加上点击的分数
-                        // 判断如果是太阳分数*2
-                        if(target.getName()==9){
-                            alert("太阳--分数*2");
-                            scoreTotle=lastscore*2;
-                            changeScore(role);
-                        // 判断小行星分数-6
-                        }else if(target.getName()==11){
-                            alert("小行星--分数-6");
-                            scoreTotle=lastscore-6;
-                            changeScore(role);
-                        // 判断冥王星
-                        }else if(target.getName()==0){
-                            alert("冥王星--交换分数");
-                            if(role==Leftscore){
-                                Rightscore.removeChildByTag(1);
-                                var nickText=new ccui.Text(""+lastscore+"","AmericanTypewriter", 24);
-                                // 玩家分数Tag为1
-                                nickText.setName(lastscore);
-                                nickText.setTag(1);
-                                nickText.attr({
-                                    x:(visibleSize.width/6-2)/2,
-                                    y:0,
-                                    anchorX:0.5,
-                                    anchorY:-0.2,
-                                });
-                                Rightscore.addChild(nickText);
-                            }else{
-                                Leftscore.removeChildByTag(1);
-                                var nickText=new ccui.Text(""+lastscore+"","AmericanTypewriter", 24);
-                                // 玩家分数Tag为1
-                                nickText.setName(lastscore);
-                                nickText.setTag(1);
-                                nickText.attr({
-                                    x:(visibleSize.width/6-2)/2,
-                                    y:0,
-                                    anchorX:0.5,
-                                    anchorY:-0.2,
-                                });
-                                Leftscore.addChild(nickText);
-                            }
-                            changeScore(role);
-                        // 判断月球
-                        }else if(target.getName()===10){
-                            alert("月球--选择一张卡牌进行复制");
-
-                            for(var i=0;i<turnCard.length;i++){
-                                var action1 = cc.blink(2, 10);
-                                game.getChildByTag(turnCard[i]).runAction(action1);
-                                var moon=cc.EventListener.create({
-                                    event: cc.EventListener.TOUCH_ONE_BY_ONE,
-                                    swallowTouches: true,
-                                    cancelable:false,
-                                    onTouchBegan: function (touch, event) {
-                                        var target = event.getCurrentTarget();
-                                        var locationInNode = target.convertToNodeSpace(touch.getLocation());
-                                        var s = target.getContentSize();
-                                        var rect = cc.rect(0, 0, s.width, s.height);
-                                        if(cc.rectContainsPoint(rect,locationInNode)) {
-                                            console.log(target.getName());
-                                            if(target.getName()==9){
-                                                scoreTotle=lastscore*2;
-                                            }else{
-
-                                                scoreTotle=target.getName()+scoreTotle;
-                                            }
-                                            console.log(scoreTotle);
-                                            role.removeChildByTag(1);
-                                            var nickText=new ccui.Text(""+scoreTotle+"","AmericanTypewriter", 24);
-                                            // 玩家分数Tag为1
-                                            nickText.setName(scoreTotle);
-                                            nickText.setTag(1);
-                                            nickText.attr({
-                                                x:(visibleSize.width/6-2)/2,
-                                                y:0,
-                                                anchorX:0.5,
-                                                anchorY:-0.2,
-                                            });
-                                            role.addChild(nickText);
-                                        }
-                                    }
-                                });
-                                cc.eventManager.addListener(moon,game.getChildByTag(turnCard[i]));
-
-                            }
-                        }else{
-                            alert("此卡分数为"+target.getName());
-                            cc.audioEngine.playMusic("res/a3.mp3", false);
-                            scoreTotle=lastscore+target.getName();
-
-                            changeScore(role);
-                        }
-                        console.log("当前分数"+scoreTotle);
-
-                    }
-                    function changeScore(role){
-                        // 删除原有分数改成新的分数
-                        role.removeChildByTag(1);
-                        var nickText=new ccui.Text(""+scoreTotle+"","AmericanTypewriter", 24);
-                        // 玩家分数Tag为1
-                        nickText.setName(scoreTotle);
-                        nickText.setTag(1);
-                        nickText.attr({
-                            x:(visibleSize.width/6-2)/2,
-                            y:0,
-                            anchorX:0.5,
-                            anchorY:-0.2,
-                        });
-                        role.addChild(nickText);
-                    }
-                    // 区分玩家和电脑
-                    if(count%2!=0){
-                        console.log("玩家");
-                        scoring(target,Leftscore);
-                        setTimeout(function(){
-                            count+=1;
-                            // 在翻牌剩余的数组里随机抽取一个翻牌
-                            console.log("翻牌剩余数组长度"+flopArr.length);
-                            var rank=Math.floor(Math.random()*flopArr.length+0);
-                            console.log("在翻牌剩余池里随机一个数"+rank);
-                            flop(game.getChildByTag(flopArr[rank]));
-                            console.log("电脑");
-                            scoring(game.getChildByTag(flopArr[rank]),Rightscore);
-                            // 判断flopArr为空时为翻牌完成
-                            setTimeout(function(){
-                                // 判断flopArr为空时为翻牌完成
-                                if(flopArr.length==0){
-                                    var left=Leftscore.getChildByTag(1).getName();
-                                    var right=Rightscore.getChildByTag(1).getName();
-                                    console.log(left,right);
-                                    if(left>right){
-                                        alert("玩家胜利！")
-                                    }else{
-                                        alert("电脑胜利！")
-                                    }
-                                }
-                            },1000)
-                        },5000)
-                    }
-
-
-
                 }
 
             }
         });
+
+
         for(var i=0;i<arr.length;i++){
             var imgSprite=new cc.Sprite("res/kapaibeimian.png");
             var imgSpriteSize=imgSprite.getContentSize();
@@ -807,10 +709,17 @@ var mainGameLayer=cc.Layer.extend({
             //         scale:visibleSize.height/1080,
             //     });
             // }
+            console.log("44556678");
             game.addChild(imgSprite);
             cc.eventManager.addListener(listener.clone(),game.getChildByTag(i));
         };
 
+
+
+
+
+
+        layer.addChild(game,50);
     },
 
 
@@ -824,3 +733,11 @@ var mainGameScene=cc.Scene.extend({
         this.addChild(layer);
     }
 })
+
+
+
+
+var actionBy = cc.rotateBy(0.5, 0, -180);
+var delay = cc.delayTime(0.1);
+target.runAction(cc.sequence(actionBy, delay.clone()));
+
