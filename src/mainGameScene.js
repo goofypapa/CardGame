@@ -68,12 +68,14 @@ var mainGameLayer=cc.Layer.extend({
         var visibleOrigin = cc.director.getVisibleOrigin();
 
         //创建背景层添加背景图
-        var bgSprite = new cc.Sprite("res/beijing.png");
+        var bgSprite =new cc.Sprite("res/beijing.png");
         var bgSize = bgSprite.getContentSize();
         console.log("------->" + JSON.stringify( bgSize ) )
-        bgSprite.setScale(visibleSize.width / bgSize.width,  visibleSize.height / bgSize.height );
+        // bgSprite.setScale(visibleSize.width / bgSize.width,  visibleSize.height / bgSize.height );
         bgSprite.setPosition( visibleOrigin.x + visibleSize.width / 2, visibleOrigin.y + visibleSize.height / 2 );
-
+        bgSprite.attr({
+            scale:visibleSize.width / 1920
+        })
         layer.addChild(bgSprite);
 
         console.log( "------->" + JSON.stringify( visibleSize.width/bgSize.width) );
