@@ -19,6 +19,21 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>method-explain.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{817,1112}</string>
+                <key>spriteSourceSize</key>
+                <string>{817,1112}</string>
+                <key>textureRect</key>
+                <string>{{98,0},{817,1112}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>method-left.png</key>
             <dict>
                 <key>aliases</key>
@@ -30,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{590,667}</string>
                 <key>textureRect</key>
-                <string>{{1014,219},{590,667}}</string>
+                <string>{{915,0},{590,667}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,11 +60,11 @@
                 <key>spriteSourceSize</key>
                 <string>{1014,664}</string>
                 <key>textureRect</key>
-                <string>{{0,219},{1014,664}}</string>
+                <string>{{0,1112},{1014,664}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>method.png</key>
+            <key>youxifangfa.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -60,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{569,219}</string>
                 <key>textureRect</key>
-                <string>{{98,0},{569,219}}</string>
+                <string>{{1014,1112},{569,219}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -76,9 +91,9 @@
             <key>realTextureFileName</key>
             <string>method.png</string>
             <key>size</key>
-            <string>{1604,886}</string>
+            <string>{1583,1776}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ffa0e8813d2a1fedf05f6ddaaef65fc1:1bcea7192c3312b16b6115074ccb0bbf:55071328912814d906d12cb74de7d52d$</string>
+            <string>$TexturePacker:SmartUpdate:e8f7aba6defe196f000d0e1a9ac61432:673c6894dc942bc30257e386e838f5f4:55071328912814d906d12cb74de7d52d$</string>
             <key>textureFileName</key>
             <string>method.png</string>
         </dict>

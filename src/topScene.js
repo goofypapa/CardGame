@@ -22,7 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-var gradeLayer = cc.Layer.extend({
+var topLayer = cc.Layer.extend({
     sprite:null,
     ctor:function () {
         this._super();
@@ -45,10 +45,10 @@ var gradeLayer = cc.Layer.extend({
         });
 
         layer.addChild( sprite );
-        cc.loader.load(["res/grade.plist","res/grade.png","res/gradeInfo.png"], function(err, results){
-            cc.spriteFrameCache.addSpriteFrames("res/grade.plist");
+        cc.loader.load(["res/top.plist","res/top.png"], function(err, results){
+            cc.spriteFrameCache.addSpriteFrames("res/top.plist");
             // 标题
-            var title=new cc.Sprite("#youxidengjiyuchenghao.png");
+            var title=new cc.Sprite("#top.png");
             title.attr({
                 x:visibleOrigin.x+91,
                 y:visibleOrigin.y+visibleSize.height-24,
@@ -58,47 +58,92 @@ var gradeLayer = cc.Layer.extend({
             });
             layer.addChild(title,10);
             // 边框
-            var memberBk=new cc.Sprite("#beijingkuang.png");
-            var memberBkSize=memberBk.getContentSize();
-            memberBk.attr({
+            var topBk=new cc.Sprite("#top-bk.png");
+            var topBkSize=topBk.getContentSize();
+            topBk.attr({
                 x:visibleSize.width/2,
-                y:visibleSize.height/2,
+                y:visibleOrigin.y+visibleSize.height/2,
+                scale:visibleSize.height/1080
             });
-            layer.addChild(memberBk,10);
-            // 游戏等级及称号
+            layer.addChild(topBk,10);
+
+            // 名次
+            var rank=new cc.Sprite("#rank.png");
+            rank.attr({
+                x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5,
+                y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/3-20,
+                scale:visibleSize.height/1080,
+            });
+            layer.addChild(rank,40);
+
+            // 昵称
+            var rank=new cc.Sprite("#nickName.png");
+            rank.attr({
+                x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*2,
+                y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/3-20,
+                scale:visibleSize.height/1080,
+            });
+            layer.addChild(rank,40);
+
+            // 等级
+            var rank=new cc.Sprite("#grade.png");
+            rank.attr({
+                x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*3,
+                y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/3-20,
+                scale:visibleSize.height/1080,
+            });
+            layer.addChild(rank,40);
+
+            // 称号
+            var rank=new cc.Sprite("#designation.png");
+            rank.attr({
+                x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*4,
+                y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/3-20,
+                scale:visibleSize.height/1080,
+            });
+            layer.addChild(rank,40);
+
             var scrollView = new ccui.ScrollView();
             scrollView.setDirection(ccui.ScrollView.DIR_VERTICAL);
-            scrollView.setTouchEnabled(true);
-            scrollView.setContentSize(cc.size(memberBkSize.width/0.85,memberBkSize.height*0.9));
+            scrollView.setContentSize(topBkSize);
             scrollView.attr({
                 x:visibleSize.width/2,
-                y:visibleSize.height/2,
-                anchorX:0.5,
-                anchorY:0.5
+                y:visibleOrigin.y+visibleSize.height/2,
+                scale:visibleSize.height/1080
             });
-            // var imageView = new ccui.ImageView("res/gradeInfo.png");
-            var imageView = new cc.Sprite("res/gradeInfo.png");
-            var innerWidth = scrollView.width;
-            var innerHeight = 3500;
 
+            var n = 20;
+            var Texts = [];
+            var start = new ccui.Text("---start---", "Microsoft Yahei", 10);
+            var innerWidth = scrollView.width;
+            var innerHeight = n * start.height;
             scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
-            imageView.x = innerWidth / 2;
-            imageView.y = imageView.height / 2*0.8;
-            scrollView.addChild(imageView);
-            layer.addChild(scrollView,20);
+
+            start.x = innerWidth / 2;
+            start.y = scrollView.getInnerContainerSize().height - start.height / 2;
+            Texts[0] = start;
+            scrollView.addChild(start);
+
+            for (var i = 1; i < n; i++) {
+                var text = new ccui.Text("This is a test label: " + i, "Thonburi", 10);
+                text.x = innerWidth / 2;
+                text.y = Texts[i - 1].getBottomBoundary() - text.height / 2;
+                Texts[i] = text;
+                scrollView.addChild(Texts[i]);
+            }
+            layer.addChild(scrollView,10)
 
             // 返回
             var goback=new cc.MenuItemImage(
                 "#fanhui.png",
                 "#fanhui.png",
                 function(){
-                    cc.director.runScene( new gameShowsScene( ) );
+                    cc.director.runScene( new HelloWorldScene( ) );
                 },this
             );
             goback.attr({
                 x:visibleOrigin.x+visibleSize.width-159,
                 y:visibleOrigin.y+visibleSize.height-102,
-                scale:visibleSize.height/1080,
             });
 
             var mu=new cc.Menu(goback);
@@ -113,10 +158,10 @@ var gradeLayer = cc.Layer.extend({
 
 });
 
-var gradeScene = cc.Scene.extend({
+var topScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
-        var layer = new gradeLayer();
+        var layer = new topLayer();
         this.addChild(layer);
     },
     onExit:function(){

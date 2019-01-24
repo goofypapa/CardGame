@@ -57,6 +57,8 @@ var registerLayer = cc.Layer.extend({
                 anchorY:1,
             });
             layer.addChild(title,10);
+
+
             // 边框
             var memberBk=new cc.Sprite("#member-bk.png");
             var memberBkSize=memberBk.getContentSize();
@@ -66,6 +68,21 @@ var registerLayer = cc.Layer.extend({
                 anchorY:0.4
             });
             layer.addChild(memberBk,10);
+
+            // 文字内容
+            var text = new ccui.Text("您是想登陆注册还是试玩？", "Microsoft Yahei", 35);
+            text.attr({
+                x:visibleOrigin.x+visibleSize.width/2,
+                y:visibleSize.height/2+100,
+            });
+            layer.addChild(text,10);
+            var text = new ccui.Text("如果要保持进度或者分享，则需要注册", "Microsoft Yahei", 35);
+            text.attr({
+                x:visibleOrigin.x+visibleSize.width/2,
+                y:visibleSize.height/2,
+            });
+            layer.addChild(text,10);
+
 
             // 登录
             var registerMenuItem=new cc.MenuItemImage(

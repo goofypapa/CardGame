@@ -50,6 +50,7 @@ var loginLayer = cc.Layer.extend({
 
         layer.addChild( sprite );
 
+
         cc.loader.load(["res/dl.plist","res/dl.png"], function(err, results) {
             cc.spriteFrameCache.addSpriteFrames("res/dl.plist");
             // 标题
@@ -62,9 +63,6 @@ var loginLayer = cc.Layer.extend({
                 anchorY:1,
             });
             layer.addChild(title,10);
-
-
-
 
 
             // 昵称背景边框
@@ -95,21 +93,19 @@ var loginLayer = cc.Layer.extend({
             // }else{
             //     var textField = new ccui.TextField("您的昵称", "Marker Felt", 36);
             // }
-            var textField = new ccui.TextField("您的昵称", "Marker Felt", 36);
-            textField.setMaxLengthEnabled(true);
+            var nickNameInfo = new ccui.TextField("您的昵称", "Marker Felt", 36);
+            // textField.setMaxLengthEnabled(true);
             // textField.setMaxLength(8);
-            textField.setContentSize(nickNameFrameSize);
-            textField.setPlaceHolderColor(cc.color(104,99,128));
-            console.log(nickNameFrameSize);
-            console.log(textField.getContentSize());
+            nickNameInfo.setContentSize(nickNameFrameSize);
+            // textField.setPlaceHolderColor(cc.color(104,99,128));
             // textField.setColor(cc.color(255,255,255,0.2));
-            textField.attr({
+            nickNameInfo.attr({
                 x:visibleSize.width/2-nickNameFrameSize.width/2+40,
                 y:visibleOrigin.y+visibleSize.height/9*6,
                 anchorX:0,
                 anchorY:0.6
             });
-            layer.addChild(textField,1);
+            layer.addChild(nickNameInfo,1);
 
             // 密码背景边框
             var nickNameFrame=new cc.Sprite("#biankuang.png");
@@ -138,21 +134,26 @@ var loginLayer = cc.Layer.extend({
             // }else{
             //     var textField = new ccui.TextField("您的昵称", "Marker Felt", 36);
             // }
-            var textField = new ccui.TextField("您的密码", "Marker Felt", 36);
-            textField.setMaxLengthEnabled(true);
-            // textField.setMaxLength(8);
-            textField.setContentSize(nickNameFrameSize);
-            textField.setPlaceHolderColor(cc.color(104,99,128));
+            var passwordInfo= new ccui.TextField();
+            passwordInfo.setPasswordEnabled(true);
+            passwordInfo.setPasswordStyleText("*");
+            passwordInfo.setTouchEnabled(true);
+            passwordInfo.fontName = "Marker Felt";
+            passwordInfo.fontSize = 36;
+            passwordInfo.placeHolder = "您的密码（密码不得超过10位数）          ";
+            passwordInfo.setMaxLengthEnabled(true);
+            passwordInfo.setMaxLength(10);
+            passwordInfo.setContentSize(nickNameFrameSize);
+            passwordInfo.setPlaceHolderColor(cc.color(104,99,128));
             console.log(nickNameFrameSize);
-            console.log(textField.getContentSize());
-            // textField.setColor(cc.color(255,255,255,0.2));
-            textField.attr({
+            console.log(passwordInfo.getContentSize());
+            passwordInfo.attr({
                 x:visibleSize.width/2-nickNameFrameSize.width/2+40,
                 y:visibleOrigin.y+visibleSize.height/9*5,
                 anchorX:0,
                 anchorY:0.6
             });
-            layer.addChild(textField,1);
+            layer.addChild(passwordInfo,1);
 
 
             // 确认密码背景边框
@@ -182,21 +183,26 @@ var loginLayer = cc.Layer.extend({
             // }else{
             //     var textField = new ccui.TextField("您的昵称", "Marker Felt", 36);
             // }
-            var textField = new ccui.TextField("确认密码", "Marker Felt", 36);
-            textField.setMaxLengthEnabled(true);
-            // textField.setMaxLength(8);
-            textField.setContentSize(nickNameFrameSize);
-            textField.setPlaceHolderColor(cc.color(104,99,128));
+            var confirmInfo= new ccui.TextField();
+            confirmInfo.setPasswordEnabled(true);
+            confirmInfo.setPasswordStyleText("*");
+            confirmInfo.setTouchEnabled(true);
+            confirmInfo.fontName = "Marker Felt";
+            confirmInfo.fontSize = 36;
+            confirmInfo.placeHolder = "确认密码（密码不得超过10位数）          ";
+            confirmInfo.setMaxLengthEnabled(true);
+            confirmInfo.setMaxLength(10);
+            confirmInfo.setContentSize(nickNameFrameSize);
+            confirmInfo.setPlaceHolderColor(cc.color(104,99,128));
             console.log(nickNameFrameSize);
-            console.log(textField.getContentSize());
-            // textField.setColor(cc.color(255,255,255,0.2));
-            textField.attr({
+            console.log(confirmInfo.getContentSize());
+            confirmInfo.attr({
                 x:visibleSize.width/2-nickNameFrameSize.width/2+40,
                 y:visibleOrigin.y+visibleSize.height/9*4,
                 anchorX:0,
                 anchorY:0.6
             });
-            layer.addChild(textField,1);
+            layer.addChild(confirmInfo,1);
 
             // 或者
             var maybe=new cc.Sprite("#huozhe.png");
@@ -226,6 +232,8 @@ var loginLayer = cc.Layer.extend({
             mu.y=0;
             layer.addChild(mu,100);
 
+
+
             // 开始游戏
             var startBtn=new cc.MenuItemImage(
                 "#anniu.png",
@@ -241,9 +249,69 @@ var loginLayer = cc.Layer.extend({
                     // console.log(name);
                     // ls.setItem("nickname",name);
                     // console.log(ls.getItem("nickname"));
-                    cc.director.runScene( new mainGameScene( ) );
+                    // cc.director.runScene( new mainGameScene( ) );
+
+                    // 获取用户输入昵称
+                    var userName=nickNameInfo.getString();
+                    //获取用户输入密码
+                    var userPwd=passwordInfo.getString();
+                    //获取用户输入确认密码
+                    var confirmPwd=confirmInfo.getString();
+                    console.log(userName,userPwd,confirmPwd);
+                   if(confirmPwd!=userPwd){
+                       var errorImg=new cc.Sprite("res/pwdError.png");
+                       errorImg.attr({
+                           x:visibleSize.width/2-nickNameFrameSize.width/2+40+nickNameFrameSize.width,
+                           y:visibleOrigin.y+visibleSize.height/9*4,
+                           anchorX:0,
+                           anchorY:0.6
+                       });
+                       errorImg.setTag(1);
+                       layer.addChild(errorImg,10);
+                   }else{
+                       $.ajax({
+                           type: "post",
+                           url: "http://192.168.5.100:8080/gameUser/userRegister.do",
+                           dataType: "jsonp",
+                           // 参数:userName（用户名称）, userPwd（密码:试玩无需密码）, type（类型：0:试玩；1：账号；2：微信）
+                           data: {"userName":userName,"userPwd":userPwd,"type":1}, //以键/值对的形式
+                           async: true,
+                           success: function (data) {
+                               console.log(data);
+                               var userId=data.msg;
+                               if(userId=="账号已存在"){
+                                   var errorImg=new cc.Sprite("res/error.png");
+                                   errorImg.attr({
+                                       x:visibleOrigin.x+visibleSize.width/2,
+                                       y:visibleOrigin.y+visibleSize.height/2
+                                   });
+                                   errorImg.setTag(1);
+                                   layer.addChild(errorImg,10);
+                                   var text = new ccui.Text("账号已存在", "Microsoft Yahei", 35);
+                                   text.attr({
+                                       x:visibleOrigin.x+visibleSize.width/2,
+                                       y:visibleOrigin.y+visibleSize.height/2
+                                   });
+                                   text.setTag(2);
+                                   layer.addChild(text,10);
+
+                                   setTimeout(function(){
+                                       layer.removeChildByTag(1);
+                                       layer.removeChildByTag(2);
+                                   },1000)
+                               }else{
+                                   cc.director.runScene( new HelloWorldScene( ) );
+                               }
+                           },
+                           error:function(error){
+                               console.log( "error: ", error);
+                           }
+                       })
+                   }
+                    // this.addTouchEventListener(this.touchEvent,this);
 
                 }
+
             );
 
             startBtn.attr({
@@ -280,7 +348,6 @@ var loginLayer = cc.Layer.extend({
 
 
 });
-
 var loginScene = cc.Scene.extend({
     onEnter:function () {
         this._super();

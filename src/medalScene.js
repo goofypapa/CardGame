@@ -62,28 +62,29 @@ var medalLayer = cc.Layer.extend({
             var memberBkSize=memberBk.getContentSize();
             memberBk.attr({
                 x:visibleSize.width/2,
-                y:visibleSize.height/2,
+                y:visibleOrigin.y+visibleSize.height/2,
             });
             layer.addChild(memberBk,10);
             // 游戏勋章
             var scrollView = new ccui.ScrollView();
             scrollView.setDirection(ccui.ScrollView.DIR_VERTICAL);
             scrollView.setTouchEnabled(true);
-            scrollView.setContentSize(cc.size(memberBkSize.width,memberBkSize.height*0.85));
+            scrollView.setContentSize(cc.size(memberBkSize.width,memberBkSize.height*0.9));
             scrollView.attr({
                 x:visibleSize.width/2,
-                y:visibleSize.height/2,
+                y:visibleOrigin.y+visibleSize.height/2,
                 anchorX:0.5,
                 anchorY:0.5
             });
             var imageView = new ccui.ImageView("res/medalInfo.png");
 
             var innerWidth = scrollView.width;
-            var innerHeight = imageView.height;
+            var innerHeight = 1700;
 
             scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
             imageView.x = innerWidth / 2;
-            imageView.y = imageView.height / 2;
+            imageView.y = visibleOrigin.y+visibleSize.height/2-memberBkSize.height;
+            imageView.anchorY=0;
             scrollView.addChild(imageView);
             layer.addChild(scrollView,20);
 

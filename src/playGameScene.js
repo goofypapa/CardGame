@@ -97,21 +97,21 @@ var playGameLayer = cc.Layer.extend({
         // }else{
         //     var textField = new ccui.TextField("您的昵称", "Marker Felt", 36);
         // }
-        var textField = new ccui.TextField("您的昵称", "Marker Felt", 36);
-        textField.setMaxLengthEnabled(true);
+        var nickNameInfo = new ccui.TextField("您的昵称", "Marker Felt", 36);
+        // textField.setMaxLengthEnabled(true);
         // textField.setMaxLength(8);
-        textField.setContentSize(nickNameFrameSize);
-        textField.setPlaceHolderColor(cc.color(104,99,128));
+        nickNameInfo.setContentSize(nickNameFrameSize);
+        nickNameInfo.setPlaceHolderColor(cc.color(104,99,128));
         console.log(nickNameFrameSize);
-        console.log(textField.getContentSize());
+        console.log(nickNameInfo.getContentSize());
         // textField.setColor(cc.color(255,255,255,0.2));
-        textField.attr({
+        nickNameInfo.attr({
             x:visibleSize.width/2-nickNameFrameSize.width/2+40,
             y:visibleOrigin.y+visibleSize.height/2,
             anchorX:0,
             anchorY:0.6
         });
-        layer.addChild(textField,1);
+        layer.addChild(nickNameInfo,1);
 
         // 开始游戏
         var startBtn=new cc.MenuItemImage(
@@ -128,8 +128,43 @@ var playGameLayer = cc.Layer.extend({
                 // console.log(name);
                 // ls.setItem("nickname",name);
                 // console.log(ls.getItem("nickname"));
-                cc.director.runScene( new mainGameScene( ) );
+                // cc.director.runScene( new mainGameScene( ) );
+                // 获取用户输入昵称
+                var userName=nickNameInfo.getString();
+                $.ajax({
+                    type: "post",
+                    url: "http://192.168.5.100:8080/gameUser/userRegister.do",
+                    dataType: "jsonp",
+                    // 参数:userName（用户名称）, userPwd（密码:试玩无需密码）, type（类型：0:试玩；1：账号；2：微信）
+                    data: {"userName": userName, "type": 0}, //以键/值对的形式
+                    async: true,
+                    success: function (data) {
+                        var userId=data.msg;
+                        if(userId=="账号已存在"){
+                            var errorImg=new cc.Sprite("res/error.png");
+                            errorImg.attr({
+                                x:visibleOrigin.x+visibleSize.width/2,
+                                y:visibleOrigin.y+visibleSize.height/2
+                            });
+                            errorImg.setTag(1);
+                            layer.addChild(errorImg,10);
+                            var text = new ccui.Text("账号已存在", "Microsoft Yahei", 35);
+                            text.attr({
+                                x:visibleOrigin.x+visibleSize.width/2,
+                                y:visibleOrigin.y+visibleSize.height/2
+                            });
+                            text.setTag(2);
+                            layer.addChild(text,10);
 
+                            setTimeout(function(){
+                                layer.removeChildByTag(1);
+                                layer.removeChildByTag(2);
+                            },1000)
+                        }else{
+                            cc.director.runScene( new HelloWorldScene( ) );
+                        }
+                    }
+                })
             }
         );
 
