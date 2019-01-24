@@ -100,8 +100,8 @@ var HelloWorldLayer = cc.Layer.extend({
 
             // 排行榜
             var rankMenuItem=new cc.MenuItemImage(
-                "res/medalBtn.png",
-                "res/medalBtn.png",
+                "#medalBtn.png",
+                "#medalBtn.png",
                 function(){
                     cc.director.runScene( new topScene( ) );
                 },this

@@ -200,6 +200,27 @@ var dlLayer = cc.Layer.extend({
                     // cc.director.runScene( new mainGameScene( ) );
                     var userName=nickName.getString();
                     var userPwd=pwd.getString();
+                    if(userName==""){
+                        var errorImg=new cc.Sprite("res/error.png");
+                        errorImg.attr({
+                            x:visibleOrigin.x+visibleSize.width/2,
+                            y:visibleOrigin.y+visibleSize.height/2
+                        });
+                        errorImg.setTag(1);
+                        layer.addChild(errorImg,10);
+                        var text = new ccui.Text("昵称不能为空", "Microsoft Yahei", 35);
+                        text.attr({
+                            x:visibleOrigin.x+visibleSize.width/2,
+                            y:visibleOrigin.y+visibleSize.height/2
+                        });
+                        text.setTag(2);
+                        layer.addChild(text,10);
+
+                        setTimeout(function(){
+                            layer.removeChildByTag(1);
+                            layer.removeChildByTag(2);
+                        },1000)
+                    }
                     console.log(userName,userPwd);
                         $.ajax({
                             type: "post",
