@@ -374,8 +374,10 @@ var loginLayer = cc.Layer.extend({
                 },this
             );
             goback.attr({
-                x:visibleOrigin.x+visibleSize.width-159,
-                y:visibleOrigin.y+visibleSize.height-102,
+                x:visibleOrigin.x,
+                y:visibleOrigin.y+visibleSize.height/10*9,
+                anchorX:0,
+                anchorY:1,
                 scale:visibleSize.height/1080,
             });
 
