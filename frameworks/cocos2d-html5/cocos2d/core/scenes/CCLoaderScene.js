@@ -57,7 +57,7 @@ cc.LoaderScene = cc.Scene.extend({
         if(cc._loaderImage) {
             //loading logo
             var image = new Image();
-            image.src = cc._loaderImage;
+            image.src = "res/shouye.png";
             logoWidth = image.width;
             logoHeight = image.height;
             self._initStage(image, cc.visibleRect.center);
