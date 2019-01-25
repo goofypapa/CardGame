@@ -34,7 +34,7 @@ var playGameLayer = cc.Layer.extend({
         var layer = new cc.Layer();
         this.addChild(layer);
 
-        console.log(layer.getPosition().x, layer.getPosition().y)
+        console.log(layer.getPosition().x, layer.getPosition().y);
 
         var visibleSize = cc.director.getVisibleSize();
         var visibleOrigin = cc.director.getVisibleOrigin();

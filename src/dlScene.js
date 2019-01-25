@@ -265,6 +265,7 @@ var dlLayer = cc.Layer.extend({
 
                         }else{
                             cc.director.runScene( new mainGameScene( ) );
+
                             }
                      })
                 }

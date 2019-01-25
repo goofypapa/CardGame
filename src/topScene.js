@@ -96,6 +96,7 @@ var topLayer = cc.Layer.extend({
 
             // 称号
             var rank=new cc.Sprite("#designation.png");
+            var rankSize=rank.getContentSize();
             rank.attr({
                 x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*4,
                 y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/3-20,
@@ -105,29 +106,31 @@ var topLayer = cc.Layer.extend({
 
             var scrollView = new ccui.ScrollView();
             scrollView.setDirection(ccui.ScrollView.DIR_VERTICAL);
-            scrollView.setContentSize(topBkSize);
+            scrollView.setContentSize(cc.size(topBkSize.width,topBkSize.height-rankSize.height*4));
             scrollView.attr({
                 x:visibleSize.width/2,
-                y:visibleOrigin.y+visibleSize.height/2,
-                scale:visibleSize.height/1080
+                y:visibleOrigin.y+visibleSize.height/2-rankSize.height,
+                scale:visibleSize.height/1080,
+                anchorX:0.5,
+                anchorY:0.5
             });
 
             var n = 20;
             var Texts = [];
-            var start = new ccui.Text("---start---", "Microsoft Yahei", 10);
+            var start = new ccui.Text("---start---", "Microsoft Yahei", 40);
             var innerWidth = scrollView.width;
             var innerHeight = n * start.height;
             scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
 
             start.x = innerWidth / 2;
-            start.y = scrollView.getInnerContainerSize().height - start.height / 2;
+            start.y = scrollView.getInnerContainerSize().height - start.height ;
             Texts[0] = start;
             scrollView.addChild(start);
 
             for (var i = 1; i < n; i++) {
-                var text = new ccui.Text("This is a test label: " + i, "Thonburi", 10);
+                var text = new ccui.Text("This is a test label: " + i, "Thonburi", 40);
                 text.x = innerWidth / 2;
-                text.y = Texts[i - 1].getBottomBoundary() - text.height / 2;
+                text.y = Texts[i - 1].getBottomBoundary() - text.height ;
                 Texts[i] = text;
                 scrollView.addChild(Texts[i]);
             }
@@ -142,8 +145,11 @@ var topLayer = cc.Layer.extend({
                 },this
             );
             goback.attr({
-                x:visibleOrigin.x+visibleSize.width-159,
-                y:visibleOrigin.y+visibleSize.height-102,
+                x:visibleOrigin.x,
+                y:visibleOrigin.y+visibleSize.height/10*9,
+                anchorX:0,
+                anchorY:1,
+                scale:visibleSize.height/1080,
             });
 
             var mu=new cc.Menu(goback);
