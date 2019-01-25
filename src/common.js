@@ -1,4 +1,4 @@
-let levelScoreList = [ 
+var _levelScoreList = [ 
     [-200, -10, "奴隶"],
     [-180, -9, "奴仆"], [-160, -8, "奴仆"], [-140, -7, "奴仆"], 
     [-120, -6, "佣人"], [-100, -5, "佣人"], [-80, -4, "佣人"],
@@ -33,13 +33,13 @@ let levelScoreList = [
 function getLevel( score ){
 
 
-    for( var i = 0; i < levelScoreList.length - 1; ++i ){
-        if( score > levelScoreList[i][0] &&  score < levelScoreList[i + 1][0] ){
-            return levelScoreList[i];
+    for( var i = 0; i < _levelScoreList.length - 1; ++i ){
+        if( score > _levelScoreList[i][0] &&  score < _levelScoreList[i + 1][0] ){
+            return _levelScoreList[i];
         }
     }
 
-    return levelScoreList[ i ];
+    return _levelScoreList[ i ];
 
 }
 
