@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\kapai\com.goofypapa.kapai\frameworks\cocos2d-x\cocos\platform\android\libcocos2dx\src\main\shaders"/></dataSet><dataSet config="debug"><source path="D:\kapai\com.goofypapa.kapai\frameworks\cocos2d-x\cocos\platform\android\libcocos2dx\src\debug\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\CardGame_n\frameworks\cocos2d-x\cocos\platform\android\libcocos2dx\src\main\shaders"/></dataSet><dataSet config="debug"><source path="D:\CardGame_n\frameworks\cocos2d-x\cocos\platform\android\libcocos2dx\src\debug\shaders"/></dataSet></merger>

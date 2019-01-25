@@ -63,6 +63,13 @@ var dlLayer = cc.Layer.extend({
             layer.addChild(title,10);
 
 
+            // 测试输入框
+            var textField = new ccui.TextField("PlaceHolder", "Marker Felt", 30);
+            textField.x = visibleSize.width / 2.0;
+            textField.y = visibleSize.height / 3;
+            textField.addEventListener(this.textFieldEvent, this);
+            layer.addChild(textField);
+
 
 
 
@@ -215,11 +222,6 @@ var dlLayer = cc.Layer.extend({
                         });
                         text.setTag(2);
                         layer.addChild(text,10);
-
-                        // setTimeout(function(){
-                        //     layer.removeChildByTag(1);
-                        //     layer.removeChildByTag(2);
-                        // },1000)
                     }
                     console.log(userName,userPwd);
                     var BASE_URL="http://192.168.5.100:8080/gameUser/login.do";
@@ -243,10 +245,7 @@ var dlLayer = cc.Layer.extend({
                             text.setTag(2);
                             layer.addChild(text,10);
 
-                            // setTimeout(function(){
-                            //     layer.removeChildByTag(1);
-                            //     layer.removeChildByTag(2);
-                            //     },1000)
+
 
                         }else if(userId=="账号或密码不正确"){
                             var errorImg=new cc.Sprite("res/error.png");
@@ -263,15 +262,12 @@ var dlLayer = cc.Layer.extend({
                             });
                             text.setTag(2);
                             layer.addChild(text,10);
-                            // setTimeout(function(){
-                            //     layer.removeChildByTag(1);
-                            //     layer.removeChildByTag(2);
-                            //     },1000)
 
                         }else{
                             localStorage.setItem( "userId", data.data[0].gameUserId );
                             cc.director.runScene( new gameScene( ) );
                         }
+
                      })
                 }
             );
@@ -291,8 +287,10 @@ var dlLayer = cc.Layer.extend({
                 },this
             );
             goback.attr({
-                x:visibleOrigin.x+visibleSize.width-159,
-                y:visibleOrigin.y+visibleSize.height-102,
+                x:visibleOrigin.x,
+                y:visibleOrigin.y+visibleSize.height/10*9,
+                anchorX:0,
+                anchorY:1,
                 scale:visibleSize.height/1080,
             });
 
@@ -302,6 +300,25 @@ var dlLayer = cc.Layer.extend({
             layer.addChild(mu,100);
         });
         return true;
+    },
+    textFieldEvent: function (textField, type) {
+        switch (type) {
+            case ccui.TextField.EVENT_ATTACH_WITH_IME:
+                var widgetSize = this._widget.getContentSize();
+                textField.runAction(cc.moveTo(0.225,
+                    cc.p(widgetSize.width / 2, widgetSize.height / 2 + 30)));
+                break;
+            case ccui.TextField.EVENT_DETACH_WITH_IME:
+                var widgetSize = this._widget.getContentSize();
+                textField.runAction(cc.moveTo(0.175, cc.p(widgetSize.width / 2.0, widgetSize.height / 2.0)));
+                break;
+            case ccui.TextField.EVENT_INSERT_TEXT:
+                break;
+            case ccui.TextField.EVENT_DELETE_BACKWARD:
+                break;
+            default:
+                break;
+        }
     },
     menuItemgobackGameCallback:function(){
         cc.director.runScene( new HelloWorldScene( ) );

@@ -34,7 +34,7 @@ var playGameLayer = cc.Layer.extend({
         var layer = new cc.Layer();
         this.addChild(layer);
 
-        console.log(layer.getPosition().x, layer.getPosition().y)
+        console.log(layer.getPosition().x, layer.getPosition().y);
 
         var visibleSize = cc.director.getVisibleSize();
         var visibleOrigin = cc.director.getVisibleOrigin();
@@ -111,6 +111,7 @@ var playGameLayer = cc.Layer.extend({
             anchorX:0,
             anchorY:0.6
         });
+        // nickNameInfo.addEventListener(this.textFieldEvent, this);
         layer.addChild(nickNameInfo,1);
 
         // 开始游戏
@@ -176,7 +177,7 @@ var playGameLayer = cc.Layer.extend({
                         //     layer.removeChildByTag(2);
                         //     },1000)
                     }else{
-                        cc.director.runScene( new HelloWorldScene( ) );
+                        cc.director.runScene( new mainGameScene( ) );
                         }
                 })
 
@@ -199,8 +200,11 @@ var playGameLayer = cc.Layer.extend({
             },this
         );
         goback.attr({
-            x:visibleOrigin.x+visibleSize.width-159,
-            y:visibleOrigin.y+visibleSize.height-102,
+            x:visibleOrigin.x,
+            y:visibleOrigin.y+visibleSize.height/10*9,
+            anchorX:0,
+            anchorY:1,
+            scale:visibleSize.height/1080,
         });
 
         var mu=new cc.Menu(startBtn,goback);
@@ -214,7 +218,18 @@ var playGameLayer = cc.Layer.extend({
     menuItemgobackGameCallback:function(){
         cc.director.runScene( new HelloWorldScene( ) );
     },
-
+    // textFieldEvent: function (textField, type) {
+    //     switch (type) {
+    //         case ccui.TextField.EVENT_ATTACH_WITH_IME:
+    //             var widgetSize = this._widget.getContentSize();
+    //             textField.runAction(cc.moveTo(0.225,
+    //                 cc.p(widgetSize.width / 2, widgetSize.height / 2 + 30)));
+    //             this._topDisplayLabel.setString("attach with IME");
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
 
 });
 

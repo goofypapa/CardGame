@@ -9,7 +9,7 @@
     "renderMode" : 0,
     "engineDir":"frameworks/cocos2d-html5",
 
-    "modules" : ["cocos2d", "extensions","external"],
+    "modules" : ["cocos2d", "extensions","external","text-input"],
 
     "jsList" : [
         "src/resource.js",
@@ -25,6 +25,8 @@
         "src/gradeScene.js",
         "src/shareScene.js",
         "src/gameScene.js",
-        "src/common.js"
+        "src/common.js",
+        "src/topScene.js",
+        "src/loadingScene.js"
     ]
 }

@@ -11,11 +11,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{1129,500}</string>
+                <string>{1502,665}</string>
                 <key>spriteSourceSize</key>
-                <string>{1129,500}</string>
+                <string>{1502,665}</string>
                 <key>textureRect</key>
-                <string>{{0,0},{1129,500}}</string>
+                <string>{{0,228},{1502,665}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{98,81}</string>
                 <key>textureRect</key>
-                <string>{{1129,0},{98,81}}</string>
+                <string>{{0,0},{98,81}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{569,228}</string>
                 <key>textureRect</key>
-                <string>{{1227,0},{569,228}}</string>
+                <string>{{98,0},{569,228}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -61,9 +61,9 @@
             <key>realTextureFileName</key>
             <string>medal.png</string>
             <key>size</key>
-            <string>{1796,500}</string>
+            <string>{1502,893}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:185eb77ba97820d36ce55adf61a56f43:b5ffde7ceeb1b53c792f0c0da47064f9:f281c77b2ec6d7cfc3ca6a8c37d33c8f$</string>
+            <string>$TexturePacker:SmartUpdate:15e33d5026e97d2fb410bf926c221a80:e1fba9acddfd304d40cbd25bee9f0533:f281c77b2ec6d7cfc3ca6a8c37d33c8f$</string>
             <key>textureFileName</key>
             <string>medal.png</string>
         </dict>

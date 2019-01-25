@@ -4,48 +4,48 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>beijingkuang.png</key>
+            <key>biaoti.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{1502,665}</string>
+                <string>{1200,276}</string>
                 <key>spriteSourceSize</key>
-                <string>{1502,665}</string>
+                <string>{1200,276}</string>
                 <key>textureRect</key>
-                <string>{{0,229},{1502,665}}</string>
+                <string>{{0,0},{1200,276}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>fanhui.png</key>
+            <key>jindutiao1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{98,81}</string>
+                <string>{1135,14}</string>
                 <key>spriteSourceSize</key>
-                <string>{98,81}</string>
+                <string>{1135,14}</string>
                 <key>textureRect</key>
-                <string>{{0,0},{98,81}}</string>
+                <string>{{0,276},{1135,14}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>youxidengjiyuchenghao.png</key>
+            <key>jindutiao2.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{834,229}</string>
+                <string>{667,14}</string>
                 <key>spriteSourceSize</key>
-                <string>{834,229}</string>
+                <string>{667,14}</string>
                 <key>textureRect</key>
-                <string>{{98,0},{834,229}}</string>
+                <string>{{1135,276},{667,14}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -59,13 +59,13 @@
             <key>premultiplyAlpha</key>
             <false/>
             <key>realTextureFileName</key>
-            <string>grade.png</string>
+            <string>loading.png</string>
             <key>size</key>
-            <string>{1502,894}</string>
+            <string>{1802,290}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:64d678a1e5bb359dbc2246b3400337ee:07bf5f32fc546f6a8f9d5a038052c071:a6531bada6d68b221554bc55ddc308fc$</string>
+            <string>$TexturePacker:SmartUpdate:059c6a8d28c4b7644479ccc2b57f63c2:ea6d54b91b5791636139864f8c0c515e:e75714c0871c497b76d71a94e9da90fb$</string>
             <key>textureFileName</key>
-            <string>grade.png</string>
+            <string>loading.png</string>
         </dict>
     </dict>
 </plist>
