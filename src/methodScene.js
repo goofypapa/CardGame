@@ -86,6 +86,7 @@ var methodLayer=cc.Layer.extend({
                 x:visibleOrigin.x+155+methodLeftSize.width,
                 y:visibleOrigin.y+visibleSize.height/2*0.8,
                 scale:visibleSize.height/1080,
+                anchorX:0,
                 anchorY:0.5
             });
             // var imageView = new ccui.ImageView("#method-explain.png");
@@ -98,9 +99,9 @@ var methodLayer=cc.Layer.extend({
             console.log("----------------->", innerHeight);
             scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
             // scrollView.setInnerContainerSize(methodRightSize);
-            imageView.x = innerWidth / 2*visibleSize.height/1080;
-            imageView.y = visibleOrigin.y+visibleSize.height/2*1.2;
-            imageView.anchorX=0.5;
+            imageView.x =visibleOrigin.x+155+methodLeftSize.width;
+            imageView.y = visibleOrigin.y+visibleSize.height/2*0.8+methodRightSize.height/4,
+            imageView.anchorX=0.8;
             scrollView.addChild(imageView);
             layer.addChild(scrollView,20);
             // 返回

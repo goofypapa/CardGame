@@ -11,11 +11,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{1129,500}</string>
+                <string>{1502,665}</string>
                 <key>spriteSourceSize</key>
-                <string>{1129,500}</string>
+                <string>{1502,665}</string>
                 <key>textureRect</key>
-                <string>{{0,229},{1129,500}}</string>
+                <string>{{0,229},{1502,665}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -61,9 +61,9 @@
             <key>realTextureFileName</key>
             <string>grade.png</string>
             <key>size</key>
-            <string>{1129,729}</string>
+            <string>{1502,894}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6a43aa64279c3468ea63a99e9bb8431d:ce2ef501daf011a3e2367148f51eb3f9:a6531bada6d68b221554bc55ddc308fc$</string>
+            <string>$TexturePacker:SmartUpdate:64d678a1e5bb359dbc2246b3400337ee:07bf5f32fc546f6a8f9d5a038052c071:a6531bada6d68b221554bc55ddc308fc$</string>
             <key>textureFileName</key>
             <string>grade.png</string>
         </dict>
