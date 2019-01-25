@@ -269,8 +269,9 @@ var dlLayer = cc.Layer.extend({
                             //     },1000)
 
                         }else{
-                            cc.director.runScene( new HelloWorldScene( ) );
-                            }
+                            localStorage.setItem( "userId", data.data[0].gameUserId );
+                            cc.director.runScene( new gameScene( ) );
+                        }
                      })
                 }
             );

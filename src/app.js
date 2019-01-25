@@ -140,6 +140,12 @@ var HelloWorldLayer = cc.Layer.extend({
 var HelloWorldScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
+
+        if( typeof( localStorage.getItem( "userId" ) ) == "string" )
+        {
+            cc.director.runScene( new gameScene() );
+        }
+
         var layer = new HelloWorldLayer();
         this.addChild(layer);
     },

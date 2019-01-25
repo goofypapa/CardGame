@@ -31,6 +31,8 @@ var res = {
     methodJpg:"res/method.jpg",
     method_plist:"res/method.plist",//游戏方法页面plist
     method_png:"res/method.png",
+    gameBg: "res/GameResource.png",
+    gameBg: "res/GameResource.plist"
 };
 var g_resources = [
     //fonts
