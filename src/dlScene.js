@@ -94,11 +94,11 @@ var dlLayer = cc.Layer.extend({
             // }else{
             //     var textField = new ccui.TextField("您的昵称", "Marker Felt", 36);
             // }
-            var nickName = new ccui.TextField("您的昵称                      ", "Marker Felt", 36);
+            var nickName = new ccui.TextField("您的昵称", "Marker Felt", 36);
             // nickName.setMaxLengthEnabled(true);
             // textField.setMaxLength(8);
             nickName.setContentSize(cc.size(nickNameFrameSize.width,nickNameFrameSize.height));
-            nickName.setPlaceHolderColor(cc.color(104,99,128));
+            // nickName.setPlaceHolderColor(cc.color(104,99,128));
             // textField.setColor(cc.color(255,255,255,0.2));
             nickName.attr({
                 x:visibleSize.width/2-nickNameFrameSize.width/2+40,
@@ -216,75 +216,64 @@ var dlLayer = cc.Layer.extend({
                         text.setTag(2);
                         layer.addChild(text,10);
 
-                        setTimeout(function(){
-                            layer.removeChildByTag(1);
-                            layer.removeChildByTag(2);
-                        },1000)
+                        // setTimeout(function(){
+                        //     layer.removeChildByTag(1);
+                        //     layer.removeChildByTag(2);
+                        // },1000)
                     }
                     console.log(userName,userPwd);
-                        $.ajax({
-                            type: "post",
-                            url: "http://192.168.5.100:8080/gameUser/login.do",
-                            dataType: "jsonp",
-                            // 参数:userName（用户名称）, userPwd（密码:试玩无需密码）, type（类型：0:试玩；1：账号；2：微信）
-                            data: {"userName":userName,"userPwd":userPwd,"type":1}, //以键/值对的形式
-                            async: true,
-                            success: function (data) {
-                                console.log(data);
-                                var userId=data.msg;
-                                if(userId=="账号不存在"){
-                                    var errorImg=new cc.Sprite("res/error.png");
-                                    errorImg.attr({
-                                        x:visibleOrigin.x+visibleSize.width/2,
-                                        y:visibleOrigin.y+visibleSize.height/2
-                                    });
-                                    errorImg.setTag(1);
-                                    layer.addChild(errorImg,10);
-                                    var text = new ccui.Text("账号不存在", "Microsoft Yahei", 35);
-                                    text.attr({
-                                        x:visibleOrigin.x+visibleSize.width/2,
-                                        y:visibleOrigin.y+visibleSize.height/2
-                                    });
-                                    text.setTag(2);
-                                    layer.addChild(text,10);
+                    var BASE_URL="http://192.168.5.100:8080/gameUser/login.do";
+                    var data="userName="+userName+"&userPwd="+userPwd+"&userType=1";
+                    jsonp( BASE_URL + "?" + data, function(data){
+                        console.log(data);
+                        var userId=data.msg;
+                        if(userId=="账号不存在"){
+                            var errorImg=new cc.Sprite("res/error.png");
+                            errorImg.attr({
+                                x:visibleOrigin.x+visibleSize.width/2,
+                                y:visibleOrigin.y+visibleSize.height/2
+                            });
+                            errorImg.setTag(1);
+                            layer.addChild(errorImg,10);
+                            var text = new ccui.Text("账号不存在", "Microsoft Yahei", 35);
+                            text.attr({
+                                x:visibleOrigin.x+visibleSize.width/2,
+                                y:visibleOrigin.y+visibleSize.height/2
+                            });
+                            text.setTag(2);
+                            layer.addChild(text,10);
 
-                                    setTimeout(function(){
-                                        layer.removeChildByTag(1);
-                                        layer.removeChildByTag(2);
-                                    },1000)
+                            // setTimeout(function(){
+                            //     layer.removeChildByTag(1);
+                            //     layer.removeChildByTag(2);
+                            //     },1000)
 
-                                }else if(userId=="账号或密码不正确"){
-                                    var errorImg=new cc.Sprite("res/error.png");
-                                    errorImg.attr({
-                                        x:visibleOrigin.x+visibleSize.width/2,
-                                        y:visibleOrigin.y+visibleSize.height/2
-                                    });
-                                    errorImg.setTag(1);
-                                    layer.addChild(errorImg,10);
-                                    var text = new ccui.Text("登录名密码错误", "Microsoft Yahei", 35);
-                                    text.attr({
-                                        x:visibleOrigin.x+visibleSize.width/2,
-                                        y:visibleOrigin.y+visibleSize.height/2
-                                    });
-                                    text.setTag(2);
-                                    layer.addChild(text,10);
-                                    setTimeout(function(){
-                                        layer.removeChildByTag(1);
-                                        layer.removeChildByTag(2);
-                                    },1000)
+                        }else if(userId=="账号或密码不正确"){
+                            var errorImg=new cc.Sprite("res/error.png");
+                            errorImg.attr({
+                                x:visibleOrigin.x+visibleSize.width/2,
+                                y:visibleOrigin.y+visibleSize.height/2
+                            });
+                            errorImg.setTag(1);
+                            layer.addChild(errorImg,10);
+                            var text = new ccui.Text("登录名密码错误", "Microsoft Yahei", 35);
+                            text.attr({
+                                x:visibleOrigin.x+visibleSize.width/2,
+                                y:visibleOrigin.y+visibleSize.height/2
+                            });
+                            text.setTag(2);
+                            layer.addChild(text,10);
+                            // setTimeout(function(){
+                            //     layer.removeChildByTag(1);
+                            //     layer.removeChildByTag(2);
+                            //     },1000)
 
-                                }else{
-                                    cc.director.runScene( new HelloWorldScene( ) );
-                                }
-                            },
-                            error:function(error){
-                                console.log( "error: ", error);
+                        }else{
+                            cc.director.runScene( new HelloWorldScene( ) );
                             }
-                        })
-
+                     })
                 }
             );
-
             startBtn.attr({
                 x:visibleOrigin.x+visibleSize.width-190,
                 y:visibleOrigin.y+300,

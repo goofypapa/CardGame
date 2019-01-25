@@ -216,24 +216,24 @@ var loginLayer = cc.Layer.extend({
             // 微信
             var weixin=new cc.MenuItemImage(
                 "#weixin.png",
-                "#weixin.png",
-                function(){
-                    wx.login({
-                        success(res) {
-                            if (res.code) {
-                                // 发起网络请求
-                                wx.request({
-                                    url: 'https://test.com/onLogin',
-                                    data: {
-                                        code: res.code
-                                    }
-                                })
-                            } else {
-                                console.log('登录失败！' + res.errMsg)
-                            }
-                        }
-                    })
-                },this
+                "#weixin.png"
+                // function(){
+                //     wx.login({
+                //         success(res) {
+                //             if (res.code) {
+                //                 // 发起网络请求
+                //                 wx.request({
+                //                     url: 'https://test.com/onLogin',
+                //                     data: {
+                //                         code: res.code
+                //                     }
+                //                 })
+                //             } else {
+                //                 console.log('登录失败！' + res.errMsg)
+                //             }
+                //         }
+                //     })
+                // },this
             );
             weixin.attr({
                 x:visibleSize.width/2-nickNameFrameSize.width/2+25,
@@ -283,15 +283,9 @@ var loginLayer = cc.Layer.extend({
                        errorImg.setTag(1);
                        layer.addChild(errorImg,10);
                    }else{
-                       $.ajax({
-                           type: "post",
-                           url: "http://192.168.5.100:8080/gameUser/userRegister.do",
-                           dataType: "jsonp",
-                           // 参数:userName（用户名称）, userPwd（密码:试玩无需密码）, type（类型：0:试玩；1：账号；2：微信）
-                           data: {"userName":userName,"userPwd":userPwd,"type":1}, //以键/值对的形式
-                           async: true,
-                           success: function (data) {
-                               console.log(data);
+                       var BASE_URL="http://192.168.5.100:8080/gameUser/userRegister.do";
+                       var data="userName="+userName+"&userPwd="+userPwd+"&userType=1";
+                       jsonp( BASE_URL + "?" + data, function(data){
                                var userId=data.msg;
                                if(userId=="账号已存在"){
                                    var errorImg=new cc.Sprite("res/error.png");
@@ -316,11 +310,47 @@ var loginLayer = cc.Layer.extend({
                                }else{
                                    cc.director.runScene( new HelloWorldScene( ) );
                                }
-                           },
-                           error:function(error){
-                               console.log( "error: ", error);
-                           }
-                       })
+                       } )
+
+
+                       // $.ajax({
+                       //     type: "post",
+                       //     url: "http://192.168.5.100:8080/gameUser/userRegister.do",
+                       //     dataType: "jsonp",
+                       //     // 参数:userName（用户名称）, userPwd（密码:试玩无需密码）, type（类型：0:试玩；1：账号；2：微信）
+                       //     data: {"userName":userName,"userPwd":userPwd,"type":1}, //以键/值对的形式
+                       //     async: true,
+                       //     success: function (data) {
+                       //         console.log(data);
+                       //         var userId=data.msg;
+                       //         if(userId=="账号已存在"){
+                       //             var errorImg=new cc.Sprite("res/error.png");
+                       //             errorImg.attr({
+                       //                 x:visibleOrigin.x+visibleSize.width/2,
+                       //                 y:visibleOrigin.y+visibleSize.height/2
+                       //             });
+                       //             errorImg.setTag(1);
+                       //             layer.addChild(errorImg,10);
+                       //             var text = new ccui.Text("账号已存在", "Microsoft Yahei", 35);
+                       //             text.attr({
+                       //                 x:visibleOrigin.x+visibleSize.width/2,
+                       //                 y:visibleOrigin.y+visibleSize.height/2
+                       //             });
+                       //             text.setTag(2);
+                       //             layer.addChild(text,10);
+                       //
+                       //             setTimeout(function(){
+                       //                 layer.removeChildByTag(1);
+                       //                 layer.removeChildByTag(2);
+                       //             },1000)
+                       //         }else{
+                       //             cc.director.runScene( new HelloWorldScene( ) );
+                       //         }
+                       //     },
+                       //     error:function(error){
+                       //         console.log( "error: ", error);
+                       //     }
+                       // })
                    }
                     // this.addTouchEventListener(this.touchEvent,this);
 
