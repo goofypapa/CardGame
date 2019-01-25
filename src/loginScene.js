@@ -308,7 +308,7 @@ var loginLayer = cc.Layer.extend({
                                        layer.removeChildByTag(2);
                                    },1000)
                                }else{
-                                   cc.director.runScene( new HelloWorldScene( ) );
+                                   cc.director.runScene( new mainGameScene( ) );
                                }
                        } )
 

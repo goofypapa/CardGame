@@ -269,7 +269,7 @@ var dlLayer = cc.Layer.extend({
                             //     },1000)
 
                         }else{
-                            cc.director.runScene( new HelloWorldScene( ) );
+                            cc.director.runScene( new mainGameScene( ) );
                             }
                      })
                 }

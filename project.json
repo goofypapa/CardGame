@@ -24,6 +24,7 @@
         "src/loginScene.js",
         "src/gradeScene.js",
         "src/shareScene.js",
-        "src/mainGameScene.js"
+        "src/mainGameScene.js",
+        "src/topScene.js"
     ]
 }

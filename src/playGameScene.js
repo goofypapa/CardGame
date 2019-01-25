@@ -111,6 +111,7 @@ var playGameLayer = cc.Layer.extend({
             anchorX:0,
             anchorY:0.6
         });
+        // nickNameInfo.addEventListener(this.textFieldEvent, this);
         layer.addChild(nickNameInfo,1);
 
         // 开始游戏
@@ -176,7 +177,7 @@ var playGameLayer = cc.Layer.extend({
                         //     layer.removeChildByTag(2);
                         //     },1000)
                     }else{
-                        cc.director.runScene( new HelloWorldScene( ) );
+                        cc.director.runScene( new mainGameScene( ) );
                         }
                 })
 
@@ -214,7 +215,18 @@ var playGameLayer = cc.Layer.extend({
     menuItemgobackGameCallback:function(){
         cc.director.runScene( new HelloWorldScene( ) );
     },
-
+    // textFieldEvent: function (textField, type) {
+    //     switch (type) {
+    //         case ccui.TextField.EVENT_ATTACH_WITH_IME:
+    //             var widgetSize = this._widget.getContentSize();
+    //             textField.runAction(cc.moveTo(0.225,
+    //                 cc.p(widgetSize.width / 2, widgetSize.height / 2 + 30)));
+    //             this._topDisplayLabel.setString("attach with IME");
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
 
 });
 
