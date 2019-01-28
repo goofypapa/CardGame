@@ -146,7 +146,7 @@ var HelloWorldScene = cc.Scene.extend({
             cc.director.runScene( new gameScene() );
         }
 
-        var layer = new HelloWorldLayer();
+        var layer = new loadindLayer();
         this.addChild(layer);
     },
     onExit:function(){

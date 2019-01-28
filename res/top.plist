@@ -34,7 +34,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>grade.png</key>
+            <key>gradeDj.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -168,7 +168,7 @@
             <key>size</key>
             <string>{1502,894}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:3f78416a36de863036e9305df0266ad1:568999ed2b90a3fd95fc3d08999be064:ebeee8f59da13818df754e8044b6a295$</string>
+            <string>$TexturePacker:SmartUpdate:4bd8c987e42ee3d7789c7581070f322d:568999ed2b90a3fd95fc3d08999be064:ebeee8f59da13818df754e8044b6a295$</string>
             <key>textureFileName</key>
             <string>top.png</string>
         </dict>
