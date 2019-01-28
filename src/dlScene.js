@@ -71,8 +71,6 @@ var dlLayer = cc.Layer.extend({
             // layer.addChild(textField);
 
 
-
-
             // 昵称背景边框
             var nickNameFrame=new cc.Sprite("#biankuang.png");
             var nickNameFrameSize=nickNameFrame.getContentSize();
@@ -82,8 +80,10 @@ var dlLayer = cc.Layer.extend({
             });
             layer.addChild(nickNameFrame,10);
 
+
             // 您的昵称
             var titleLable=new cc.Sprite("#nickName.png");
+            // var titleLable=new cc.EditBox(cc.size(nickNameFrameSize),new cc.Sprite("#biankuang.png"));
             titleLable.attr({
                 x:visibleOrigin.x+visibleSize.width/2-nickNameFrameSize.width/2,
                 y:visibleOrigin.y+visibleSize.height/9*6,
@@ -101,19 +101,47 @@ var dlLayer = cc.Layer.extend({
             // }else{
             //     var textField = new ccui.TextField("您的昵称", "Marker Felt", 36);
             // }
-            var nickName = new ccui.TextField("您的昵称", "Marker Felt", 36);
+            // var nickName = new ccui.TextField("您的昵称", "Marker Felt", 36);
             // nickName.setMaxLengthEnabled(true);
             // textField.setMaxLength(8);
-            nickName.setContentSize(cc.size(nickNameFrameSize.width,nickNameFrameSize.height));
+            // nickName.setContentSize(cc.size(nickNameFrameSize.width,nickNameFrameSize.height));
             // nickName.setPlaceHolderColor(cc.color(104,99,128));
             // textField.setColor(cc.color(255,255,255,0.2));
-            nickName.attr({
+            // nickName.attr({
+            //     x:visibleSize.width/2-nickNameFrameSize.width/2+40,
+            //     y:visibleOrigin.y+visibleSize.height/9*6,
+            //     anchorX:0,
+            //     anchorY:0.6
+            // });
+            // layer.addChild(nickName,1);
+
+
+
+            var titleLable = new cc.EditBox(cc.size(360.00,40.00));
+
+            titleLable.attr({
                 x:visibleSize.width/2-nickNameFrameSize.width/2+40,
-                y:visibleOrigin.y+visibleSize.height/9*6,
-                anchorX:0,
-                anchorY:0.6
+                    y:visibleOrigin.y+visibleSize.height/9*6,
+                    anchorX:0,
+                    anchorY:0.5,
+                fontSize:36
             });
-            layer.addChild(nickName,1);
+
+            titleLable.setDelegate(this);
+
+            titleLable.setMaxLength(20);
+
+            titleLable.setPlaceHolder("您的昵称");
+            titleLable.setPlaceholderFontSize(36);
+
+            titleLable.setInputFlag(cc.EDITBOX_INPUT_FLAG_SENSITIVE);//修改为不使用密文
+
+            titleLable.setInputMode(cc.EDITBOX_INPUT_MODE_ANY);
+
+            layer.addChild(titleLable,1,10);
+
+
+
 
             // 密码背景边框
             var nickNameFrame=new cc.Sprite("#biankuang.png");
@@ -124,14 +152,38 @@ var dlLayer = cc.Layer.extend({
             });
             layer.addChild(nickNameFrame,10);
             // 您的密码
-            var titleLable=new cc.Sprite("#nindemima.png");
-            titleLable.attr({
+            var passWordLable=new cc.Sprite("#nindemima.png");
+            passWordLable.attr({
                 x:visibleOrigin.x+visibleSize.width/2-nickNameFrameSize.width/2,
                 y:visibleOrigin.y+visibleSize.height/9*5,
                 anchorX:1,
                 anchorY:0.5,
             });
-            layer.addChild(titleLable,1);
+            layer.addChild(passWordLable,1);
+
+
+
+            var passWordBox = new cc.EditBox(cc.size(360.00,40.00));
+
+            passWordBox.attr({
+                x:visibleSize.width/2-nickNameFrameSize.width/2+40,
+                y:visibleOrigin.y+visibleSize.height/9*5,
+                anchorX:0,
+                anchorY:0.6,
+                fontSize:36
+            });
+
+            passWordBox.setDelegate(this);
+
+            passWordBox.setMaxLength(20);
+
+            passWordBox.setPlaceHolder("您的密码");
+            passWordBox.setPlaceholderFontSize(36);
+
+            // titleLable.setInputFlag(cc.EDITBOX_INPUT_FLAG_SENSITIVE);//修改为不使用密文
+            passWordBox.setInputFlag(cc.EDITBOX_INPUT_FLAG_PASSWORD);
+
+            layer.addChild(passWordBox,1,10);
 
 
             // 获取之前的缓存昵称
@@ -142,24 +194,24 @@ var dlLayer = cc.Layer.extend({
             // }else{
             //     var textField = new ccui.TextField("您的昵称", "Marker Felt", 36);
             // }
-            var pwd=new ccui.TextField();
-            pwd.setPasswordEnabled(true);
-            pwd.setPasswordStyleText("*");
-            pwd.setTouchEnabled(true);
-            pwd.fontName = "Marker Felt";
-            pwd.fontSize = 36;
-            pwd.placeHolder = "您的密码                                      ";
-            pwd.setMaxLengthEnabled(true);
-            pwd.setMaxLength(10);
-            pwd.setContentSize(nickNameFrameSize);
-            pwd.setPlaceHolderColor(cc.color(104,99,128));
-            pwd.attr({
-                x:visibleSize.width/2-nickNameFrameSize.width/2+40,
-                y:visibleOrigin.y+visibleSize.height/9*5,
-                anchorX:0,
-                anchorY:0.6
-            });
-            layer.addChild(pwd,1);
+            // var pwd=new ccui.TextField();
+            // pwd.setPasswordEnabled(true);
+            // pwd.setPasswordStyleText("*");
+            // pwd.setTouchEnabled(true);
+            // pwd.fontName = "Marker Felt";
+            // pwd.fontSize = 36;
+            // pwd.placeHolder = "您的密码                                      ";
+            // pwd.setMaxLengthEnabled(true);
+            // pwd.setMaxLength(10);
+            // pwd.setContentSize(nickNameFrameSize);
+            // pwd.setPlaceHolderColor(cc.color(104,99,128));
+            // pwd.attr({
+            //     x:visibleSize.width/2-nickNameFrameSize.width/2+40,
+            //     y:visibleOrigin.y+visibleSize.height/9*5,
+            //     anchorX:0,
+            //     anchorY:0.6
+            // });
+            // layer.addChild(pwd,1);
 
             // 或者
             var maybe=new cc.Sprite("#huozhe.png");
@@ -205,8 +257,8 @@ var dlLayer = cc.Layer.extend({
                     // ls.setItem("nickname",name);
                     // console.log(ls.getItem("nickname"));
                     // cc.director.runScene( new mainGameScene( ) );
-                    var userName=nickName.getString();
-                    var userPwd=pwd.getString();
+                    var userName=titleLable.getText();
+                    var userPwd=passWordBox.getText();
                     if(userName==""){
                         var errorImg=new cc.Sprite("res/error.png");
                         errorImg.attr({
