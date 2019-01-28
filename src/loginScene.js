@@ -212,7 +212,7 @@ var loginLayer = cc.Layer.extend({
                 anchorX:1,
                 anchorY:0.5,
             });
-            layer.addChild(maybe,1);
+            // layer.addChild(maybe,1);
             // 微信
             var weixin=new cc.MenuItemImage(
                 "#weixin.png",
@@ -244,7 +244,7 @@ var loginLayer = cc.Layer.extend({
             var mu=new cc.Menu(weixin);
             mu.x=0;
             mu.y=0;
-            layer.addChild(mu,100);
+            // layer.addChild(mu,100);
 
 
 

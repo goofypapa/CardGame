@@ -41,8 +41,8 @@ var topLayer = cc.Layer.extend({
         });
 
         layer.addChild( sprite );
-        cc.loader.load(["res/top.plist","res/top.png"], function(err, results){
-            cc.spriteFrameCache.addSpriteFrames("res/top.plist");
+        cc.loader.load([res.top_plist,res.top_png], function(err, results){
+            cc.spriteFrameCache.addSpriteFrames(res.top_plist);
             // 标题
             var title=new cc.Sprite("#top.png");
             title.attr({
@@ -143,7 +143,8 @@ var topLayer = cc.Layer.extend({
                     // 获取等级
                     console.log(getLevel(score));
                     // 用户名次
-                    var rankText=new ccui.Text(i+1,"Microsoft Yahei", 40);
+                    // var rankText=new ccui.Text(i+1,"Microsoft Yahei", 40);
+                    var rankText=new cc.LabelTTF(i+1,"Poster",40);
                     var rankTextSize=100;
                     rankText.attr({
                         x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5,
@@ -154,6 +155,7 @@ var topLayer = cc.Layer.extend({
 
                     // 用户昵称
                     var nickNameText=new ccui.Text(datas[i].gameUserName,"Microsoft Yahei", 40);
+                    // var nickNameText=new cc.LabelTTF(datas[i].gameUserName,"Poster",40);
                     nickNameText.attr({
                         x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*2,
                         y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
@@ -162,7 +164,8 @@ var topLayer = cc.Layer.extend({
                     scrollView.addChild(nickNameText,20);
 
                     // 用户等级
-                    var gradeText=new ccui.Text(getLevel(score)[1]+"级","Microsoft Yahei", 40);
+                    // var gradeText=new ccui.Text(getLevel(score)[1]+"级","Microsoft Yahei", 40);
+                    var gradeText=new cc.LabelTTF(getLevel(score)[1]+"级","Poster",40);
                     gradeText.attr({
                         x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*3,
                         y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,

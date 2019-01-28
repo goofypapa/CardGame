@@ -49,8 +49,8 @@ var dlLayer = cc.Layer.extend({
 
         layer.addChild( sprite );
 
-        cc.loader.load(["res/dl.plist","res/dl.png"], function(err, results) {
-            cc.spriteFrameCache.addSpriteFrames("res/dl.plist");
+        cc.loader.load([res.dl_plist,res.dl_png], function(err, results) {
+            cc.spriteFrameCache.addSpriteFrames(res.dl_plist);
             // 标题
             var title=new cc.Sprite("#denglu.png");
             title.attr({
@@ -63,12 +63,12 @@ var dlLayer = cc.Layer.extend({
             layer.addChild(title,10);
 
 
-            // 测试输入框
-            var textField = new ccui.TextField("PlaceHolder", "Marker Felt", 30);
-            textField.x = visibleSize.width / 2.0;
-            textField.y = visibleSize.height / 3;
-            textField.addEventListener(this.textFieldEvent, this);
-            layer.addChild(textField);
+            // // 测试输入框
+            // var textField = new ccui.TextField("PlaceHolder", "Marker Felt", 30);
+            // textField.x = visibleSize.width / 2.0;
+            // textField.y = visibleSize.height / 3;
+            // textField.addEventListener(this.textFieldEvent, this);
+            // layer.addChild(textField);
 
 
 
@@ -169,7 +169,7 @@ var dlLayer = cc.Layer.extend({
                 anchorX:1,
                 anchorY:0.5,
             });
-            layer.addChild(maybe,1);
+            // layer.addChild(maybe,1);
             // 微信
             var weixin=new cc.MenuItemImage(
                 "#weixin.png",
@@ -187,7 +187,7 @@ var dlLayer = cc.Layer.extend({
             var mu=new cc.Menu(weixin);
             mu.x=0;
             mu.y=0;
-            layer.addChild(mu,100);
+            // layer.addChild(mu,100);
 
             // 开始游戏
             var startBtn=new cc.MenuItemImage(

@@ -45,8 +45,8 @@ var registerLayer = cc.Layer.extend({
         });
 
         layer.addChild( sprite );
-        cc.loader.load(["res/register.plist","res/register.png"], function(err, results){
-            cc.spriteFrameCache.addSpriteFrames("res/register.plist");
+        cc.loader.load([res.register_plist,res.register_png], function(err, results){
+            cc.spriteFrameCache.addSpriteFrames(res.register_plist);
             // 标题
             var title=new cc.Sprite("#biaoti.png");
             title.attr({

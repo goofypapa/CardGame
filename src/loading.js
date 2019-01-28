@@ -19,7 +19,7 @@ var loadindLayer = cc.LayerColor.extend({//继承LayerColor，初始化的时候
         this.addChild( sprite );
 
         // 标题
-        var title=new cc.Sprite("res/loadingTit.png");
+        var title=new cc.Sprite(res.loadingTit);
         title.attr({
             x:visibleSize.width/2,
             y:visibleOrigin.y+visibleSize.height/3*2,
@@ -32,14 +32,14 @@ var loadindLayer = cc.LayerColor.extend({//继承LayerColor，初始化的时候
         var text = new ccui.Text("北京笨爸爸科技有限公司出品","Arial", 38);
         text.attr({
             x:visibleSize.width/2,
-            y:visibleSize.height/3,
+            y:visibleSize.height*0.15,
         });
         this.addChild(text);
         var size = cc.winSize;
-        var spriteImg=new cc.Sprite("res/loadingGif.gif");
+        var spriteImg=new cc.Sprite(res.loadingGif);
         spriteImg.attr({
             x:size.width*0.5,
-            y:size.height*0.2,
+            y:size.height/3,
             scale:visibleSize.height/1080
         });
         this.addChild(spriteImg,20);
@@ -62,9 +62,9 @@ var loadindLayer = cc.LayerColor.extend({//继承LayerColor，初始化的时候
         l.y = size.height * 0.2;
         // this.addChild(l, 11, 12);
         //加载文件的几种方式，特别是在cc.loader里面，还有好多种加载的函数，记得把加载的资源路径和文件名改掉
-        ccs.armatureDataManager.addArmatureFileInfoAsync("res/shouye.png",this.loadCall,this);
-        cc.textureCache.addImage("res/shouye.png",this.loadCall,this);
-        cc.loader.load("res/shouye.png", this.loadCall,this);
+        ccs.armatureDataManager.addArmatureFileInfoAsync(res.indexBj,this.loadCall,this);
+        cc.textureCache.addImage(res.indexBj,this.loadCall,this);
+        cc.loader.load(res.indexBj, this.loadCall,this);
     },
 
     loadCall : function() {

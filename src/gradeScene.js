@@ -45,8 +45,8 @@ var gradeLayer = cc.Layer.extend({
         });
 
         layer.addChild( sprite );
-        cc.loader.load(["res/grade.plist","res/grade.png","res/gradeInfo.png"], function(err, results){
-            cc.spriteFrameCache.addSpriteFrames("res/grade.plist");
+        cc.loader.load([res.grade_plist,res.grade_png,res.gradeInfo], function(err, results){
+            cc.spriteFrameCache.addSpriteFrames(res.grade_plist);
             // 标题
             var title=new cc.Sprite("#youxidengjiyuchenghao.png");
             title.attr({

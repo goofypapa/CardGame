@@ -16,7 +16,6 @@
         "src/app.js",
         "src/gameShows.js",
         "src/methodScene.js",
-        "src/designationScene.js",
         "src/medalScene.js",
         "src/playGameScene.js",
         "src/registerScene.js",
