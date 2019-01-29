@@ -27,6 +27,7 @@
         "src/gameScene.js",
         "src/common.js",
         "src/topScene.js",
-        "src/loadingScene.js"
+        "src/loadingScene.js",
+        "src/gameClient.js"
     ]
 }

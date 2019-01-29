@@ -33,6 +33,7 @@
     <meta name="x5-page-mode" content="app">
 
     <script type="text/javascript">
+      let DATA_SERVER_HOST = "http://192.168.5.100:8080/";
       function jsonp(url, callback) {
           var callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
           window[callbackName] = function(data) {

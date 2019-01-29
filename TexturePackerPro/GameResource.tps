@@ -88,9 +88,9 @@
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
-            <int>2048</int>
+            <int>8192</int>
             <key>height</key>
-            <int>2048</int>
+            <int>8192</int>
         </QSize>
         <key>fixedTextureSize</key>
         <QSize>
@@ -187,7 +187,32 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../卡牌切图/游戏进行页面/beijing.png</key>
+            <key type="filename">GameResource/asteroid.png</key>
+            <key type="filename">GameResource/earth.png</key>
+            <key type="filename">GameResource/jupiter.png</key>
+            <key type="filename">GameResource/kapaibeimian.png</key>
+            <key type="filename">GameResource/mars.png</key>
+            <key type="filename">GameResource/mercury.png</key>
+            <key type="filename">GameResource/moon.png</key>
+            <key type="filename">GameResource/neptune.png</key>
+            <key type="filename">GameResource/pluto.png</key>
+            <key type="filename">GameResource/saturn.png</key>
+            <key type="filename">GameResource/sun.png</key>
+            <key type="filename">GameResource/uranus.png</key>
+            <key type="filename">GameResource/venus.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>77,56,154,111</rect>
+                <key>scale9Paddings</key>
+                <rect>77,56,154,111</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">GameResource/beijing.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -200,7 +225,182 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">../卡牌切图/游戏进行页面/zuobiankuang1.png</key>
+            <key type="filename">GameResource/changgong.png</key>
+            <key type="filename">GameResource/chuangzaozhushen.png</key>
+            <key type="filename">GameResource/chujimodaoshi.png</key>
+            <key type="filename">GameResource/chujimofashi.png</key>
+            <key type="filename">GameResource/damodaoshi.png</key>
+            <key type="filename">GameResource/damofashi.png</key>
+            <key type="filename">GameResource/datianshi.png</key>
+            <key type="filename">GameResource/gaojimodaoshi.png</key>
+            <key type="filename">GameResource/gaojimofashi.png</key>
+            <key type="filename">GameResource/huozhishen.png</key>
+            <key type="filename">GameResource/mofaxuetu.png</key>
+            <key type="filename">GameResource/muzhishen.png</key>
+            <key type="filename">GameResource/nuli.png</key>
+            <key type="filename">GameResource/nupu.png</key>
+            <key type="filename">GameResource/shengmodaoshi.png</key>
+            <key type="filename">GameResource/shuizhishen.png</key>
+            <key type="filename">GameResource/tianshi.png</key>
+            <key type="filename">GameResource/yonghengzhushen.png</key>
+            <key type="filename">GameResource/yongren.png</key>
+            <key type="filename">GameResource/zhigaoshen.png</key>
+            <key type="filename">GameResource/zhihuizhushen.png</key>
+            <key type="filename">GameResource/zhitianshi.png</key>
+            <key type="filename">GameResource/zhongjimodaoshi.png</key>
+            <key type="filename">GameResource/zhongjimofashi.png</key>
+            <key type="filename">GameResource/zhutianshi.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>94,105,187,210</rect>
+                <key>scale9Paddings</key>
+                <rect>94,105,187,210</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">GameResource/dingbiankuang.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>323,34,647,67</rect>
+                <key>scale9Paddings</key>
+                <rect>323,34,647,67</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">GameResource/kaishi.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>109,42,217,85</rect>
+                <key>scale9Paddings</key>
+                <rect>109,42,217,85</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">GameResource/xuanxiang.png</key>
+            <key type="filename">GameResource/youxijilu.png</key>
+            <key type="filename">GameResource/zanting.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>69,30,137,59</rect>
+                <key>scale9Paddings</key>
+                <rect>69,30,137,59</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">GameResource/youbiankaung6.png</key>
+            <key type="filename">GameResource/zuobiankuang6.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>63,22,125,44</rect>
+                <key>scale9Paddings</key>
+                <rect>63,22,125,44</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">GameResource/youbiankuang.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>68,228,136,455</rect>
+                <key>scale9Paddings</key>
+                <rect>68,228,136,455</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">GameResource/youbiankuang1.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>72,81,145,161</rect>
+                <key>scale9Paddings</key>
+                <rect>72,81,145,161</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">GameResource/youbiankuang2.png</key>
+            <key type="filename">GameResource/youbiankuang3.png</key>
+            <key type="filename">GameResource/youbiankuang4.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>56,22,112,44</rect>
+                <key>scale9Paddings</key>
+                <rect>56,22,112,44</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">GameResource/youbiankuang5.png</key>
+            <key type="filename">GameResource/zuobiankuang5.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>63,37,125,75</rect>
+                <key>scale9Paddings</key>
+                <rect>63,37,125,75</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">GameResource/zuobiankuan2.png</key>
+            <key type="filename">GameResource/zuobiankuang3.png</key>
+            <key type="filename">GameResource/zuobiankuang4.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>55,22,110,44</rect>
+                <key>scale9Paddings</key>
+                <rect>55,22,110,44</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">GameResource/zuobiankuang.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>69,228,138,455</rect>
+                <key>scale9Paddings</key>
+                <rect>69,228,138,455</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">GameResource/zuobiankuang1.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -216,8 +416,64 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>../卡牌切图/游戏进行页面/beijing.png</filename>
-            <filename>../卡牌切图/游戏进行页面/zuobiankuang1.png</filename>
+            <filename>GameResource/asteroid.png</filename>
+            <filename>GameResource/beijing.png</filename>
+            <filename>GameResource/changgong.png</filename>
+            <filename>GameResource/chuangzaozhushen.png</filename>
+            <filename>GameResource/chujimodaoshi.png</filename>
+            <filename>GameResource/chujimofashi.png</filename>
+            <filename>GameResource/damodaoshi.png</filename>
+            <filename>GameResource/damofashi.png</filename>
+            <filename>GameResource/datianshi.png</filename>
+            <filename>GameResource/dingbiankuang.png</filename>
+            <filename>GameResource/earth.png</filename>
+            <filename>GameResource/gaojimodaoshi.png</filename>
+            <filename>GameResource/gaojimofashi.png</filename>
+            <filename>GameResource/huozhishen.png</filename>
+            <filename>GameResource/jupiter.png</filename>
+            <filename>GameResource/kaishi.png</filename>
+            <filename>GameResource/kapaibeimian.png</filename>
+            <filename>GameResource/mars.png</filename>
+            <filename>GameResource/mercury.png</filename>
+            <filename>GameResource/mofaxuetu.png</filename>
+            <filename>GameResource/moon.png</filename>
+            <filename>GameResource/muzhishen.png</filename>
+            <filename>GameResource/neptune.png</filename>
+            <filename>GameResource/nuli.png</filename>
+            <filename>GameResource/nupu.png</filename>
+            <filename>GameResource/pluto.png</filename>
+            <filename>GameResource/saturn.png</filename>
+            <filename>GameResource/shengmodaoshi.png</filename>
+            <filename>GameResource/shuizhishen.png</filename>
+            <filename>GameResource/sun.png</filename>
+            <filename>GameResource/tianshi.png</filename>
+            <filename>GameResource/uranus.png</filename>
+            <filename>GameResource/venus.png</filename>
+            <filename>GameResource/xuanxiang.png</filename>
+            <filename>GameResource/yonghengzhushen.png</filename>
+            <filename>GameResource/yongren.png</filename>
+            <filename>GameResource/youbiankaung6.png</filename>
+            <filename>GameResource/youbiankuang.png</filename>
+            <filename>GameResource/youbiankuang1.png</filename>
+            <filename>GameResource/youbiankuang2.png</filename>
+            <filename>GameResource/youbiankuang3.png</filename>
+            <filename>GameResource/youbiankuang4.png</filename>
+            <filename>GameResource/youbiankuang5.png</filename>
+            <filename>GameResource/youxijilu.png</filename>
+            <filename>GameResource/zanting.png</filename>
+            <filename>GameResource/zhigaoshen.png</filename>
+            <filename>GameResource/zhihuizhushen.png</filename>
+            <filename>GameResource/zhitianshi.png</filename>
+            <filename>GameResource/zhongjimodaoshi.png</filename>
+            <filename>GameResource/zhongjimofashi.png</filename>
+            <filename>GameResource/zhutianshi.png</filename>
+            <filename>GameResource/zuobiankuan2.png</filename>
+            <filename>GameResource/zuobiankuang.png</filename>
+            <filename>GameResource/zuobiankuang1.png</filename>
+            <filename>GameResource/zuobiankuang3.png</filename>
+            <filename>GameResource/zuobiankuang4.png</filename>
+            <filename>GameResource/zuobiankuang5.png</filename>
+            <filename>GameResource/zuobiankuang6.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
