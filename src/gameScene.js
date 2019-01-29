@@ -355,7 +355,7 @@ var gameSceneLayer = cc.Layer.extend({
 
 
             layer.global.pairingLayer = new cc.Layer();
-
+            layer.global.pairingLayer.setPosition( visibleOrigin );
             layer.addChild( layer.global.pairingLayer );
 
             var mask = new cc.DrawNode();
