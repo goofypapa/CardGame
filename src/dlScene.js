@@ -297,14 +297,8 @@ var dlLayer = cc.Layer.extend({
                     xhr.onreadystatechange=function(){
                         if(xhr.readyState==4&&xhr.status==200){
                             var response=xhr.responseText;
-                            console.log("22222");
-                            console.log(response);
-                            console.log(typeof( response ));
                             var dataP=JSON.parse(response);
-                            // var userId=dataP.data[0].gameUserId;
-                            console.log(dataP["msg"]);
                             var userMsg=dataP["msg"];
-                            // console.log(userMsg);
                             if(userMsg=="账号不存在"){
                                 console.log("不   存   在");
                                 var errorImg=new cc.Sprite("res/error.png");
