@@ -77,7 +77,7 @@ var gradeLayer = cc.Layer.extend({
                 anchorY:0.5
             });
             // var imageView = new ccui.ImageView("res/gradeInfo.png");
-            var imageView = new cc.Sprite("res/gradeInfo.png");
+            var imageView = new cc.Sprite("res/gradeInfo01.png");
             var innerWidth = scrollView.width;
             var innerHeight = 3500;
 

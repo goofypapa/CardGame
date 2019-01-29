@@ -63,7 +63,7 @@ var HelloWorldLayer = cc.Layer.extend({
             // 标题
             var title=new cc.Sprite("#biaoti.png");
             title.attr({
-                x:visibleSize.width/2,
+                x:visibleOrigin.x +visibleSize.width/2,
                 y:visibleOrigin.y+visibleSize.height,
                 scale:visibleSize.height/1080,
                 anchorY:1,
@@ -85,7 +85,7 @@ var HelloWorldLayer = cc.Layer.extend({
             );
             var startMenuItemSize=startMenuItem.getContentSize();
             startMenuItem.attr({
-                x:visibleSize.width/2,
+                x:visibleOrigin.x +visibleSize.width/2,
                 y:visibleOrigin.y+visibleSize.height/7+startMenuItemSize.height*3-60,
                 scale:visibleSize.height/1080,
             });
@@ -99,7 +99,7 @@ var HelloWorldLayer = cc.Layer.extend({
                 },this
             );
             explainMenuItem.attr({
-                x:visibleSize.width/2,
+                x:visibleOrigin.x +visibleSize.width/2,
                 y:visibleOrigin.y+visibleSize.height/7+startMenuItemSize.height*2-40,
                 scale:visibleSize.height/1080,
             });
@@ -113,7 +113,7 @@ var HelloWorldLayer = cc.Layer.extend({
                 },this
             );
             rankMenuItem.attr({
-                x:visibleSize.width/2,
+                x:visibleOrigin.x +visibleSize.width/2,
                 y:visibleOrigin.y+visibleSize.height/7+startMenuItemSize.height-20,
                 scale:visibleSize.height/1080,
             });
@@ -127,7 +127,7 @@ var HelloWorldLayer = cc.Layer.extend({
                 },this
             );
             exitMenuItem.attr({
-                x:visibleSize.width/2,
+                x:visibleOrigin.x +visibleSize.width/2,
                 y:visibleOrigin.y+visibleSize.height/7,
                 scale:visibleSize.height/1080,
             });
