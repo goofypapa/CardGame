@@ -74,12 +74,13 @@ var HelloWorldLayer = cc.Layer.extend({
                 "#start.png",
                 "#start.png",
                 function(){
-                    if( typeof( localStorage.getItem( "userId" ) ) == "string" )
-                    {
+                    // var userId = localStorage.getItem( "userId" );
+                    // if( typeof( userId ) == "string" && userId.length )
+                    // {
                         cc.director.runScene( new gameScene() );
-                    }else{
-                        cc.director.runScene( new registerScene( ) );
-                    }
+                    // }else{
+                    //     cc.director.runScene( new registerScene( ) );
+                    // }
                 },this
             );
             var startMenuItemSize=startMenuItem.getContentSize();

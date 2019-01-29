@@ -1,6 +1,5 @@
 
-let servicehost = "ws://192.168.5.118:8010";
-
+var servicehost = "ws://192.168.5.118:8010";
 
 function GameClient(){
     this.ws = null;
