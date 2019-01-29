@@ -89,6 +89,31 @@ var playGameLayer = cc.Layer.extend({
         layer.addChild(titleLable,1);
 
 
+
+        var userLable = new cc.EditBox(cc.size(360.00,40.00));
+
+        userLable.attr({
+            x:visibleSize.width/2-nickNameFrameSize.width/2+40,
+            y:visibleOrigin.y+visibleSize.height/2,
+            anchorX:0,
+            anchorY:0.5,
+            fontSize:36
+        });
+
+        userLable.setDelegate(this);
+
+        userLable.setMaxLength(20);
+
+        userLable.setPlaceHolder("您的昵称");
+        userLable.setPlaceholderFontSize(36);
+
+        userLable.setInputFlag(cc.EDITBOX_INPUT_FLAG_SENSITIVE);//修改为不使用密文
+
+        userLable.setInputMode(cc.EDITBOX_INPUT_MODE_ANY);
+
+        layer.addChild(userLable,1,10);
+
+
         // 获取之前的缓存昵称
         // var r=ls.getItem("nickname");
         // 昵称输入框
@@ -97,22 +122,22 @@ var playGameLayer = cc.Layer.extend({
         // }else{
         //     var textField = new ccui.TextField("您的昵称", "Marker Felt", 36);
         // }
-        var nickNameInfo = new ccui.TextField("您的昵称", "Marker Felt", 36);
-        // textField.setMaxLengthEnabled(true);
-        // textField.setMaxLength(8);
-        nickNameInfo.setContentSize(nickNameFrameSize);
-        nickNameInfo.setPlaceHolderColor(cc.color(104,99,128));
-        console.log(nickNameFrameSize);
-        console.log(nickNameInfo.getContentSize());
-        // textField.setColor(cc.color(255,255,255,0.2));
-        nickNameInfo.attr({
-            x:visibleSize.width/2-nickNameFrameSize.width/2+40,
-            y:visibleOrigin.y+visibleSize.height/2,
-            anchorX:0,
-            anchorY:0.6
-        });
-        // nickNameInfo.addEventListener(this.textFieldEvent, this);
-        layer.addChild(nickNameInfo,1);
+        // var nickNameInfo = new ccui.TextField("您的昵称", "Marker Felt", 36);
+        // // textField.setMaxLengthEnabled(true);
+        // // textField.setMaxLength(8);
+        // nickNameInfo.setContentSize(nickNameFrameSize);
+        // nickNameInfo.setPlaceHolderColor(cc.color(104,99,128));
+        // console.log(nickNameFrameSize);
+        // console.log(nickNameInfo.getContentSize());
+        // // textField.setColor(cc.color(255,255,255,0.2));
+        // nickNameInfo.attr({
+        //     x:visibleSize.width/2-nickNameFrameSize.width/2+40,
+        //     y:visibleOrigin.y+visibleSize.height/2,
+        //     anchorX:0,
+        //     anchorY:0.6
+        // });
+        // // nickNameInfo.addEventListener(this.textFieldEvent, this);
+        // layer.addChild(nickNameInfo,1);
 
         // 开始游戏
         var startBtn=new cc.MenuItemImage(
@@ -131,7 +156,7 @@ var playGameLayer = cc.Layer.extend({
                 // console.log(ls.getItem("nickname"));
                 // cc.director.runScene( new mainGameScene( ) );
                 // 获取用户输入昵称
-                var userName=nickNameInfo.getString();
+                var userName=userLable.getString();
                 if(userName==""){
                     var errorImg=new cc.Sprite("res/error.png");
                     errorImg.attr({

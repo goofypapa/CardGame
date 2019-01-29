@@ -26,8 +26,10 @@ var dlLayer = cc.Layer.extend({
     sprite:null,
     // bottomDisplayText:null,
     // ls:null,//昵称缓存
+    userLable:null,
     ctor:function () {
         this._super();
+
         // 设置以及获取用户的昵称缓存
         // ls=cc.sys.localStorage;
 
@@ -117,9 +119,9 @@ var dlLayer = cc.Layer.extend({
 
 
 
-            var titleLable = new cc.EditBox(cc.size(360.00,40.00));
+            userLable = new cc.EditBox(cc.size(360.00,40.00));
 
-            titleLable.attr({
+            userLable.attr({
                 x:visibleSize.width/2-nickNameFrameSize.width/2+40,
                     y:visibleOrigin.y+visibleSize.height/9*6,
                     anchorX:0,
@@ -127,18 +129,18 @@ var dlLayer = cc.Layer.extend({
                 fontSize:36
             });
 
-            titleLable.setDelegate(this);
+            userLable.setDelegate(this);
 
-            titleLable.setMaxLength(20);
+            userLable.setMaxLength(20);
 
-            titleLable.setPlaceHolder("您的昵称");
-            titleLable.setPlaceholderFontSize(36);
+            userLable.setPlaceHolder("您的昵称");
+            userLable.setPlaceholderFontSize(36);
 
-            titleLable.setInputFlag(cc.EDITBOX_INPUT_FLAG_SENSITIVE);//修改为不使用密文
+            userLable.setInputFlag(cc.EDITBOX_INPUT_FLAG_SENSITIVE);//修改为不使用密文
 
-            titleLable.setInputMode(cc.EDITBOX_INPUT_MODE_ANY);
+            userLable.setInputMode(cc.EDITBOX_INPUT_MODE_ANY);
 
-            layer.addChild(titleLable,1,10);
+            layer.addChild(userLable,1,10);
 
 
 
@@ -257,9 +259,9 @@ var dlLayer = cc.Layer.extend({
                     // ls.setItem("nickname",name);
                     // console.log(ls.getItem("nickname"));
                     // cc.director.runScene( new mainGameScene( ) );
-                    var userName=titleLable.getText();
-                    var userPwd=passWordBox.getText();
-                    if(userName==""){
+                    var userGameName=userLable.getString();
+                    var userGamePwd=passWordBox.getString();
+                    if(userGameName==""){
                         var errorImg=new cc.Sprite("res/error.png");
                         errorImg.attr({
                             x:visibleOrigin.x+visibleSize.width/2,
@@ -275,11 +277,11 @@ var dlLayer = cc.Layer.extend({
                         text.setTag(2);
                         layer.addChild(text,10);
                     }
-                    console.log(userName,userPwd);
+                    console.log(userGameName,userGamePwd);
                     var BASE_URL="http://192.168.5.100:8080/gameUser/login.do";
-                    var data="userName="+userName+"&userPwd="+userPwd+"&userType=1";
+                    var data="userName="+userGameName+"&userPwd="+userGamePwd+"&userType=1";
                     jsonp( BASE_URL + "?" + data, function(data){
-                        console.log(data);
+                        console.log("1111");
                         var userId=data.msg;
                         if(userId=="账号不存在"){
                             var errorImg=new cc.Sprite("res/error.png");
@@ -352,6 +354,11 @@ var dlLayer = cc.Layer.extend({
             layer.addChild(mu,100);
         });
         return true;
+    },
+    editBoxTextChanged: function (editBox, text) {
+
+        console.log("editBox " + userLable.getName() + ", TextChanged, text: " + text);
+
     },
     textFieldEvent: function (textField, type) {
         switch (type) {
