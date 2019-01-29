@@ -54,8 +54,8 @@ var gameSceneLayer = cc.Layer.extend({
 
         var layer = this;
         cc.loader.load(["res/GameResource.plist","res/GameResource.png", 
-        "SkinResource.plist", "SkinResource.png", 
-        "CardResource.plist", "CardResource.png"], function(err, results) {
+        "res/SkinResource.plist", "res/SkinResource.png", 
+        "res/CardResource.plist", "res/CardResource.png"], function(err, results) {
 
             cc.spriteFrameCache.addSpriteFrames( "res/GameResource.plist" );
             cc.spriteFrameCache.addSpriteFrames( "res/SkinResource.plist" );
