@@ -187,31 +187,6 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">GameResource/asteroid.png</key>
-            <key type="filename">GameResource/earth.png</key>
-            <key type="filename">GameResource/jupiter.png</key>
-            <key type="filename">GameResource/kapaibeimian.png</key>
-            <key type="filename">GameResource/mars.png</key>
-            <key type="filename">GameResource/mercury.png</key>
-            <key type="filename">GameResource/moon.png</key>
-            <key type="filename">GameResource/neptune.png</key>
-            <key type="filename">GameResource/pluto.png</key>
-            <key type="filename">GameResource/saturn.png</key>
-            <key type="filename">GameResource/sun.png</key>
-            <key type="filename">GameResource/uranus.png</key>
-            <key type="filename">GameResource/venus.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>77,56,154,111</rect>
-                <key>scale9Paddings</key>
-                <rect>77,56,154,111</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
             <key type="filename">GameResource/beijing.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
@@ -222,43 +197,6 @@
                 <rect>480,270,960,540</rect>
                 <key>scale9Paddings</key>
                 <rect>480,270,960,540</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">GameResource/changgong.png</key>
-            <key type="filename">GameResource/chuangzaozhushen.png</key>
-            <key type="filename">GameResource/chujimodaoshi.png</key>
-            <key type="filename">GameResource/chujimofashi.png</key>
-            <key type="filename">GameResource/damodaoshi.png</key>
-            <key type="filename">GameResource/damofashi.png</key>
-            <key type="filename">GameResource/datianshi.png</key>
-            <key type="filename">GameResource/gaojimodaoshi.png</key>
-            <key type="filename">GameResource/gaojimofashi.png</key>
-            <key type="filename">GameResource/huozhishen.png</key>
-            <key type="filename">GameResource/mofaxuetu.png</key>
-            <key type="filename">GameResource/muzhishen.png</key>
-            <key type="filename">GameResource/nuli.png</key>
-            <key type="filename">GameResource/nupu.png</key>
-            <key type="filename">GameResource/shengmodaoshi.png</key>
-            <key type="filename">GameResource/shuizhishen.png</key>
-            <key type="filename">GameResource/tianshi.png</key>
-            <key type="filename">GameResource/yonghengzhushen.png</key>
-            <key type="filename">GameResource/yongren.png</key>
-            <key type="filename">GameResource/zhigaoshen.png</key>
-            <key type="filename">GameResource/zhihuizhushen.png</key>
-            <key type="filename">GameResource/zhitianshi.png</key>
-            <key type="filename">GameResource/zhongjimodaoshi.png</key>
-            <key type="filename">GameResource/zhongjimofashi.png</key>
-            <key type="filename">GameResource/zhutianshi.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>94,105,187,210</rect>
-                <key>scale9Paddings</key>
-                <rect>94,105,187,210</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -416,42 +354,10 @@
         </map>
         <key>fileList</key>
         <array>
-            <filename>GameResource/asteroid.png</filename>
             <filename>GameResource/beijing.png</filename>
-            <filename>GameResource/changgong.png</filename>
-            <filename>GameResource/chuangzaozhushen.png</filename>
-            <filename>GameResource/chujimodaoshi.png</filename>
-            <filename>GameResource/chujimofashi.png</filename>
-            <filename>GameResource/damodaoshi.png</filename>
-            <filename>GameResource/damofashi.png</filename>
-            <filename>GameResource/datianshi.png</filename>
             <filename>GameResource/dingbiankuang.png</filename>
-            <filename>GameResource/earth.png</filename>
-            <filename>GameResource/gaojimodaoshi.png</filename>
-            <filename>GameResource/gaojimofashi.png</filename>
-            <filename>GameResource/huozhishen.png</filename>
-            <filename>GameResource/jupiter.png</filename>
             <filename>GameResource/kaishi.png</filename>
-            <filename>GameResource/kapaibeimian.png</filename>
-            <filename>GameResource/mars.png</filename>
-            <filename>GameResource/mercury.png</filename>
-            <filename>GameResource/mofaxuetu.png</filename>
-            <filename>GameResource/moon.png</filename>
-            <filename>GameResource/muzhishen.png</filename>
-            <filename>GameResource/neptune.png</filename>
-            <filename>GameResource/nuli.png</filename>
-            <filename>GameResource/nupu.png</filename>
-            <filename>GameResource/pluto.png</filename>
-            <filename>GameResource/saturn.png</filename>
-            <filename>GameResource/shengmodaoshi.png</filename>
-            <filename>GameResource/shuizhishen.png</filename>
-            <filename>GameResource/sun.png</filename>
-            <filename>GameResource/tianshi.png</filename>
-            <filename>GameResource/uranus.png</filename>
-            <filename>GameResource/venus.png</filename>
             <filename>GameResource/xuanxiang.png</filename>
-            <filename>GameResource/yonghengzhushen.png</filename>
-            <filename>GameResource/yongren.png</filename>
             <filename>GameResource/youbiankaung6.png</filename>
             <filename>GameResource/youbiankuang.png</filename>
             <filename>GameResource/youbiankuang1.png</filename>
@@ -461,12 +367,6 @@
             <filename>GameResource/youbiankuang5.png</filename>
             <filename>GameResource/youxijilu.png</filename>
             <filename>GameResource/zanting.png</filename>
-            <filename>GameResource/zhigaoshen.png</filename>
-            <filename>GameResource/zhihuizhushen.png</filename>
-            <filename>GameResource/zhitianshi.png</filename>
-            <filename>GameResource/zhongjimodaoshi.png</filename>
-            <filename>GameResource/zhongjimofashi.png</filename>
-            <filename>GameResource/zhutianshi.png</filename>
             <filename>GameResource/zuobiankuan2.png</filename>
             <filename>GameResource/zuobiankuang.png</filename>
             <filename>GameResource/zuobiankuang1.png</filename>

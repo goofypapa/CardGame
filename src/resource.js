@@ -51,8 +51,12 @@ var res = {
     dl_plist:"res/dl.plist",
     dl_png:"res/dl.png",
 
-    gameBg: "res/GameResource.png",
-    gameBg: "res/GameResource.plist",
+    gameResource: "res/GameResource.png",
+    gameResourcePlist: "res/GameResource.plist",
+    cardResource: "res/CardResource.png",
+    cardResourcePlist: "res/CardResource.plist",
+    skinResource: "res/SkinResource.png",
+    skinResourcePlist: "res/SkinResource.plist",
 
 };
 var g_resources = [

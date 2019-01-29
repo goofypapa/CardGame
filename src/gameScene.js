@@ -53,9 +53,13 @@ var gameSceneLayer = cc.Layer.extend({
         }
 
         var layer = this;
-        cc.loader.load(["res/GameResource.plist","res/GameResource.png"], function(err, results) {
+        cc.loader.load(["res/GameResource.plist","res/GameResource.png", 
+        "SkinResource.plist", "SkinResource.png", 
+        "CardResource.plist", "CardResource.png"], function(err, results) {
 
             cc.spriteFrameCache.addSpriteFrames( "res/GameResource.plist" );
+            cc.spriteFrameCache.addSpriteFrames( "res/SkinResource.plist" );
+            cc.spriteFrameCache.addSpriteFrames( "res/CardResource.plist" );
 
             //背景
             var bgSprite =new cc.Sprite("#beijing.png");
