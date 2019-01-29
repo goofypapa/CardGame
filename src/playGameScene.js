@@ -198,11 +198,7 @@ var playGameLayer = cc.Layer.extend({
                 xhr.onreadystatechange=function() {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         var response = xhr.responseText;
-                        console.log("22222");
-                        console.log(response);
                         var dataP=JSON.parse(response);
-                        console.log(dataP);
-                        console.log(dataP.data);
                         var userMsg=dataP["msg"];
                         if(userMsg=="账号已存在"){
                             var errorImg=new cc.Sprite("res/error.png");
@@ -227,8 +223,8 @@ var playGameLayer = cc.Layer.extend({
                             cc.director.runScene( new gameScene( )  );
                         }
                     }
-                }
-
+                };
+                xhr.send(data);
 
                 jsonp( BASE_URL + "?" + data, function(data){
                     var userId=data.msg;
