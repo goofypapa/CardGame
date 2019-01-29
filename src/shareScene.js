@@ -46,8 +46,8 @@ var shareLayer = cc.Layer.extend({
         });
 
         layer.addChild( sprite );
-        cc.loader.load(["res/share.plist","res/share.png"], function(err, results){
-            cc.spriteFrameCache.addSpriteFrames("res/share.plist");
+        cc.loader.load([res.share_plist,res.share_png], function(err, results){
+            cc.spriteFrameCache.addSpriteFrames(res.share_plist);
             // 头像边框
             var pictureFrame=new cc.Sprite("#pictureFrame.png");
             var pictureFrameSize=pictureFrame.getContentSize();
@@ -120,12 +120,11 @@ var shareLayer = cc.Layer.extend({
             layer.addChild(shareInfo,10);
 
             // var text=new cc.LabelTTF("普天同庆“用户昵称”在“太阳系大作战”小游戏中，升到“用户等级”，成为“用户称号”","poster.ttf",50);
-            var text = new ccui.Text("普天同庆“用户昵称”在“太阳系大作战”小游戏中，升到“用户等级”，成为“用户称号”","poster.ttf",50);
+            var text = new ccui.Text("普天同庆“用户昵称”在“太阳系大作战”小游戏中，升到“用户等级”，成为“用户称号”","Poster",50);
             text.ignoreContentAdaptWithSize(false);
             text.setContentSize(cc.size(shareInfoSize.width/4*3*visibleSize.height/1080,shareInfoSize.height/2*visibleSize.height/1080));
             text.setTextHorizontalAlignment(cc.TEXTURE_ATLAS_USE_TRIANGLE_STRIP);
             text.setTouchScaleChangeEnabled(true);
-            text.setTouchEnabled(true);
             text.attr({
                 x:visibleOrigin.x+visibleSize.width-visibleSize.width/10-shareInfoSize.width/8,
                 y:visibleOrigin.y+visibleSize.height-visibleSize.height/10-shareInfoSize.height/2*visibleSize.height/1080,

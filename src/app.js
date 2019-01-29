@@ -74,7 +74,12 @@ var HelloWorldLayer = cc.Layer.extend({
                 "#start.png",
                 "#start.png",
                 function(){
-                    cc.director.runScene( new registerScene( ) );
+                    if( typeof( localStorage.getItem( "userId" ) ) == "string" )
+                    {
+                        cc.director.runScene( new gameScene() );
+                    }else{
+                        cc.director.runScene( new registerScene( ) );
+                    }
                 },this
             );
             var startMenuItemSize=startMenuItem.getContentSize();
@@ -117,7 +122,7 @@ var HelloWorldLayer = cc.Layer.extend({
                 "#tuichuyouxi.png",
                 "#tuichuyouxi.png",
                 function(){
-                    cc.director.runScene( new loadingScene() );
+                    cc.director.runScene( new shareScene() );
                 },this
             );
             exitMenuItem.attr({
@@ -141,12 +146,7 @@ var HelloWorldScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
 
-        if( typeof( localStorage.getItem( "userId" ) ) == "string" )
-        {
-            cc.director.runScene( new gameScene() );
-        }
-
-        var layer = new HelloWorldLayer();
+        var layer = new loadindLayer();
         this.addChild(layer);
     },
     onExit:function(){

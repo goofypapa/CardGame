@@ -50,6 +50,7 @@ cc.LoaderScene = cc.Scene.extend({
 
         // bg
         var bgLayer = self._bgLayer = new cc.LayerColor(cc.color(32, 32, 32, 255));
+        // var bgLayer= self._bgLayer=new cc.Sprite(res.indexBj );
         self.addChild(bgLayer, 0);
 
         //image move to CCSceneFile.js
@@ -57,7 +58,7 @@ cc.LoaderScene = cc.Scene.extend({
         if(cc._loaderImage) {
             //loading logo
             var image = new Image();
-            image.src = "res/shouye.png";
+            // image.src = "res/shouye.png";
             logoWidth = image.width;
             logoHeight = image.height;
             self._initStage(image, cc.visibleRect.center);

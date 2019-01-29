@@ -24,8 +24,8 @@ var methodLayer=cc.Layer.extend({
         //创建精灵帧缓存
         // var frameCache=cc.spriteFrameCache;
         // frameCache.addSpriteFrames(res.method_plist,res.method_png);
-        cc.loader.load(["res/method.plist","res/method.png"], function(err, results) {
-            cc.spriteFrameCache.addSpriteFrames("res/method.plist");
+        cc.loader.load([res.method_plist,res.method_png], function(err, results) {
+            cc.spriteFrameCache.addSpriteFrames(res.method_plist);
             // 标题
             var title=new cc.Sprite("#youxifangfa.png");
             var titleLableSize=title.getContentSize();

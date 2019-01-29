@@ -45,8 +45,8 @@ var medalLayer = cc.Layer.extend({
         });
 
         layer.addChild( sprite );
-        cc.loader.load(["res/medal.plist","res/medal.png"], function(err, results){
-            cc.spriteFrameCache.addSpriteFrames("res/medal.plist");
+        cc.loader.load([res.medal_plist,res.medal_png], function(err, results){
+            cc.spriteFrameCache.addSpriteFrames(res.medal_plist);
             // 标题
             var title=new cc.Sprite("#youxixunzhang.png");
             title.attr({
