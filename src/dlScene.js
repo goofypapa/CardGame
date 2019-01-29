@@ -28,6 +28,17 @@ var dlLayer = cc.Layer.extend({
     // ls:null,//昵称缓存
     userLable:null,
     ctor:function () {
+        function jsonp(url, callback) {
+            var callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+            window[callbackName] = function(data) {
+                delete window[callbackName];
+                document.body.removeChild(script);
+                callback(data);
+            };
+            var script = document.createElement('script');
+            script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
+            document.body.appendChild(script);
+        };
         this._super();
 
         // 设置以及获取用户的昵称缓存
@@ -280,9 +291,70 @@ var dlLayer = cc.Layer.extend({
                     console.log(userGameName,userGamePwd);
                     var BASE_URL="http://192.168.5.100:8080/gameUser/login.do";
                     var data="userName="+userGameName+"&userPwd="+userGamePwd+"&userType=1";
+                    console.log(BASE_URL,data);
+                    var xhr=cc.loader.getXMLHttpRequest();
+                    xhr.open("POST",BASE_URL);
+                    xhr.onreadystatechange=function(){
+                        if(xhr.readyState==4&&xhr.status==200){
+                            var response=xhr.responseText;
+                            console.log("22222");
+                            console.log(response);
+                            console.log(typeof( response ));
+                            var dataP=JSON.parse(response);
+                            // var userId=dataP.data[0].gameUserId;
+                            console.log(dataP["msg"]);
+                            var userMsg=dataP["msg"];
+                            // console.log(userMsg);
+                            if(userMsg=="账号不存在"){
+                                console.log("不   存   在");
+                                var errorImg=new cc.Sprite("res/error.png");
+                                errorImg.attr({
+                                    x:visibleOrigin.x+visibleSize.width/2,
+                                    y:visibleOrigin.y+visibleSize.height/2
+                                });
+                                errorImg.setTag(1);
+                                layer.addChild(errorImg,10);
+                                var text = new ccui.Text("账号不存在", "Microsoft Yahei", 35);
+                                text.attr({
+                                    x:visibleOrigin.x+visibleSize.width/2,
+                                    y:visibleOrigin.y+visibleSize.height/2
+                                });
+                                text.setTag(2);
+                                layer.addChild(text,10);
+
+
+
+                            }else if(userMsg=="账号或密码不正确"){
+                                var errorImg=new cc.Sprite("res/error.png");
+                                errorImg.attr({
+                                    x:visibleOrigin.x+visibleSize.width/2,
+                                    y:visibleOrigin.y+visibleSize.height/2
+                                });
+                                errorImg.setTag(1);
+                                layer.addChild(errorImg,10);
+                                var text = new ccui.Text("登录名密码错误", "Microsoft Yahei", 35);
+                                text.attr({
+                                    x:visibleOrigin.x+visibleSize.width/2,
+                                    y:visibleOrigin.y+visibleSize.height/2
+                                });
+                                text.setTag(2);
+                                layer.addChild(text,10);
+
+                            }else{
+
+                                // var obj = JSON.parse(response.data).data;
+
+                                localStorage.setItem( "userId", dataP.data[0].gameUserId);
+                                console.log("defasdd");
+                                cc.director.runScene( new gameScene( ) );
+                            }
+                        }
+                    };
+                    xhr.send(data);
                     jsonp( BASE_URL + "?" + data, function(data){
                         console.log("1111");
                         var userId=data.msg;
+                        console.log(data);
                         if(userId=="账号不存在"){
                             var errorImg=new cc.Sprite("res/error.png");
                             errorImg.attr({

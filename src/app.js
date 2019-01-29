@@ -75,6 +75,7 @@ var HelloWorldLayer = cc.Layer.extend({
                 "#start.png",
                 function(){
                     cc.director.runScene( new registerScene( ) );
+                    // cc.director.runScene( new gameScene());
                 },this
             );
             var startMenuItemSize=startMenuItem.getContentSize();

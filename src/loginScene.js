@@ -26,7 +26,19 @@ var loginLayer = cc.Layer.extend({
     sprite:null,
     // bottomDisplayText:null,
     // ls:null,//昵称缓存
+
     ctor:function () {
+        function jsonp(url, callback) {
+            var callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+            window[callbackName] = function(data) {
+                delete window[callbackName];
+                document.body.removeChild(script);
+                callback(data);
+            };
+            var script = document.createElement('script');
+            script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
+            document.body.appendChild(script);
+        };
         this._super();
         // 设置以及获取用户的昵称缓存
         // ls=cc.sys.localStorage;
@@ -358,6 +370,45 @@ var loginLayer = cc.Layer.extend({
                    }else{
                        var BASE_URL="http://192.168.5.100:8080/gameUser/userRegister.do";
                        var data="userName="+userName+"&userPwd="+userPwd+"&userType=1";
+
+                       console.log(BASE_URL,data);
+                       var xhr=cc.loader.getXMLHttpRequest();
+                       xhr.open("POST",BASE_URL);
+                       xhr.onreadystatechange=function() {
+                           if (xhr.readyState == 4 && xhr.status == 200) {
+                               var response = xhr.responseText;
+                               console.log("22222");
+                               console.log(response);
+                               var dataP=JSON.parse(response);
+                               console.log(dataP);
+                               console.log(dataP.data);
+                               var userMsg=dataP["msg"];
+                               if(userMsg=="账号已存在"){
+                                   var errorImg=new cc.Sprite("res/error.png");
+                                   errorImg.attr({
+                                       x:visibleOrigin.x+visibleSize.width/2,
+                                       y:visibleOrigin.y+visibleSize.height/2
+                                   });
+                                   errorImg.setTag(1);
+                                   layer.addChild(errorImg,10);
+                                   var text = new ccui.Text("账号已存在", "Microsoft Yahei", 35);
+                                   text.attr({
+                                       x:visibleOrigin.x+visibleSize.width/2,
+                                       y:visibleOrigin.y+visibleSize.height/2
+                                   });
+                                   text.setTag(2);
+                                   layer.addChild(text,10);
+
+                                   setTimeout(function(){
+                                       layer.removeChildByTag(1);
+                                       layer.removeChildByTag(2);
+                                   },1000)
+                               }else{
+                                   cc.director.runScene( new gameScene( )  );
+                               }
+                           }
+                       };
+
                        jsonp( BASE_URL + "?" + data, function(data){
                                var userId=data.msg;
                                if(userId=="账号已存在"){
