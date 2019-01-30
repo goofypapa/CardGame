@@ -75,7 +75,7 @@ var loadindLayer = cc.LayerColor.extend({//继承LayerColor，初始化的时候
         //toFixed(2)意思是取小数点后两位，小数点后第三位为四舍五入
         // subTile.setString("Loading :" + (this.a / 3).toFixed(2) *100 + "%");
         //加载完毕，貌似好多教程都是用百分比判断( >= 1 )
-        if (this.a == 3) {
+        if (this.a ==3) {
             var trans = new HelloScene();
             cc.director.runScene(trans);
         }
@@ -88,5 +88,10 @@ var HelloScene = cc.Scene.extend({
         //加载app.js的layer
         var layer = new HelloWorldLayer();
         this.addChild(layer);
+    },
+    onExit:function(){
+        this._super();
+
+        cc.spriteFrameCache.removeSpriteFrames();
     }
 });
