@@ -26,19 +26,18 @@ var dlLayer = cc.Layer.extend({
     sprite:null,
     // bottomDisplayText:null,
     // ls:null,//昵称缓存
-    userLable:null,
     ctor:function () {
-        function jsonp(url, callback) {
-            var callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
-            window[callbackName] = function(data) {
-                delete window[callbackName];
-                document.body.removeChild(script);
-                callback(data);
-            };
-            var script = document.createElement('script');
-            script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
-            document.body.appendChild(script);
-        };
+        // function jsonp(url, callback) {
+        //     var callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+        //     window[callbackName] = function(data) {
+        //         delete window[callbackName];
+        //         document.body.removeChild(script);
+        //         callback(data);
+        //     };
+        //     var script = document.createElement('script');
+        //     script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
+        //     document.body.appendChild(script);
+        // };
         this._super();
 
         // 设置以及获取用户的昵称缓存
@@ -87,6 +86,7 @@ var dlLayer = cc.Layer.extend({
             // 昵称背景边框
             var nickNameFrame=new cc.Sprite("#biankuang.png");
             var nickNameFrameSize=nickNameFrame.getContentSize();
+            console.log(nickNameFrameSize,"height");
             nickNameFrame.attr({
                 x:visibleOrigin.x+visibleSize.width/2,
                 y:visibleOrigin.y+visibleSize.height/9*6,
@@ -106,37 +106,13 @@ var dlLayer = cc.Layer.extend({
             layer.addChild(titleLable,1);
 
 
-            // 获取之前的缓存昵称
-            // var r=ls.getItem("nickname");
-            // 昵称输入框
-            // if(r!=undefined){
-            //     var textField = new ccui.TextField(r, "Marker Felt", 36);
-            // }else{
-            //     var textField = new ccui.TextField("您的昵称", "Marker Felt", 36);
-            // }
-            // var nickName = new ccui.TextField("您的昵称", "Marker Felt", 36);
-            // nickName.setMaxLengthEnabled(true);
-            // textField.setMaxLength(8);
-            // nickName.setContentSize(cc.size(nickNameFrameSize.width,nickNameFrameSize.height));
-            // nickName.setPlaceHolderColor(cc.color(104,99,128));
-            // textField.setColor(cc.color(255,255,255,0.2));
-            // nickName.attr({
-            //     x:visibleSize.width/2-nickNameFrameSize.width/2+40,
-            //     y:visibleOrigin.y+visibleSize.height/9*6,
-            //     anchorX:0,
-            //     anchorY:0.6
-            // });
-            // layer.addChild(nickName,1);
-
-
-
-            userLable = new cc.EditBox(cc.size(360.00,40.00));
+            var userLable = new cc.EditBox(nickNameFrameSize);
 
             userLable.attr({
                 x:visibleSize.width/2-nickNameFrameSize.width/2+40,
                     y:visibleOrigin.y+visibleSize.height/9*6,
                     anchorX:0,
-                    anchorY:0.5,
+                    anchorY:0.9,
                 fontSize:36
             });
 
@@ -339,56 +315,55 @@ var dlLayer = cc.Layer.extend({
                                 // var obj = JSON.parse(response.data).data;
 
                                 localStorage.setItem( "userId", dataP.data[0].gameUserId);
-                                console.log("defasdd");
                                 cc.director.runScene( new gameScene( ) );
                             }
                         }
                     };
                     xhr.send(data);
-                    jsonp( BASE_URL + "?" + data, function(data){
-                        console.log("1111");
-                        var userId=data.msg;
-                        console.log(data);
-                        if(userId=="账号不存在"){
-                            var errorImg=new cc.Sprite("res/error.png");
-                            errorImg.attr({
-                                x:visibleOrigin.x+visibleSize.width/2,
-                                y:visibleOrigin.y+visibleSize.height/2
-                            });
-                            errorImg.setTag(1);
-                            layer.addChild(errorImg,10);
-                            var text = new ccui.Text("账号不存在", "Microsoft Yahei", 35);
-                            text.attr({
-                                x:visibleOrigin.x+visibleSize.width/2,
-                                y:visibleOrigin.y+visibleSize.height/2
-                            });
-                            text.setTag(2);
-                            layer.addChild(text,10);
-
-
-
-                        }else if(userId=="账号或密码不正确"){
-                            var errorImg=new cc.Sprite("res/error.png");
-                            errorImg.attr({
-                                x:visibleOrigin.x+visibleSize.width/2,
-                                y:visibleOrigin.y+visibleSize.height/2
-                            });
-                            errorImg.setTag(1);
-                            layer.addChild(errorImg,10);
-                            var text = new ccui.Text("登录名密码错误", "Microsoft Yahei", 35);
-                            text.attr({
-                                x:visibleOrigin.x+visibleSize.width/2,
-                                y:visibleOrigin.y+visibleSize.height/2
-                            });
-                            text.setTag(2);
-                            layer.addChild(text,10);
-
-                        }else{
-                            localStorage.setItem( "userId", data.data[0].gameUserId );
-                            cc.director.runScene( new gameScene( ) );
-                        }
-
-                     })
+                    // jsonp( BASE_URL + "?" + data, function(data){
+                    //     console.log("1111");
+                    //     var userId=data.msg;
+                    //     console.log(data);
+                    //     if(userId=="账号不存在"){
+                    //         var errorImg=new cc.Sprite("res/error.png");
+                    //         errorImg.attr({
+                    //             x:visibleOrigin.x+visibleSize.width/2,
+                    //             y:visibleOrigin.y+visibleSize.height/2
+                    //         });
+                    //         errorImg.setTag(1);
+                    //         layer.addChild(errorImg,10);
+                    //         var text = new ccui.Text("账号不存在", "Microsoft Yahei", 35);
+                    //         text.attr({
+                    //             x:visibleOrigin.x+visibleSize.width/2,
+                    //             y:visibleOrigin.y+visibleSize.height/2
+                    //         });
+                    //         text.setTag(2);
+                    //         layer.addChild(text,10);
+                    //
+                    //
+                    //
+                    //     }else if(userId=="账号或密码不正确"){
+                    //         var errorImg=new cc.Sprite("res/error.png");
+                    //         errorImg.attr({
+                    //             x:visibleOrigin.x+visibleSize.width/2,
+                    //             y:visibleOrigin.y+visibleSize.height/2
+                    //         });
+                    //         errorImg.setTag(1);
+                    //         layer.addChild(errorImg,10);
+                    //         var text = new ccui.Text("登录名密码错误", "Microsoft Yahei", 35);
+                    //         text.attr({
+                    //             x:visibleOrigin.x+visibleSize.width/2,
+                    //             y:visibleOrigin.y+visibleSize.height/2
+                    //         });
+                    //         text.setTag(2);
+                    //         layer.addChild(text,10);
+                    //
+                    //     }else{
+                    //         localStorage.setItem( "userId", data.data[0].gameUserId );
+                    //         cc.director.runScene( new gameScene( ) );
+                    //     }
+                    //
+                    //  })
                 }
             );
             startBtn.attr({

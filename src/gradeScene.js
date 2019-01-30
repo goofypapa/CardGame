@@ -61,8 +61,8 @@ var gradeLayer = cc.Layer.extend({
             var memberBk=new cc.Sprite("#beijingkuang.png");
             var memberBkSize=memberBk.getContentSize();
             memberBk.attr({
-                x:visibleSize.width/2,
-                y:visibleSize.height/2-visibleSize.height/10,
+                x:visibleOrigin.x+visibleSize.width/2,
+                y:visibleOrigin.y+visibleSize.height/2-visibleSize.height/10,
             });
             layer.addChild(memberBk,10);
             // 游戏等级及称号
@@ -71,19 +71,20 @@ var gradeLayer = cc.Layer.extend({
             scrollView.setTouchEnabled(true);
             scrollView.setContentSize(cc.size(memberBkSize.width/0.85,memberBkSize.height*0.9));
             scrollView.attr({
-                x:visibleSize.width/2,
-                y:visibleSize.height/2-visibleSize.height/10,
+                x:visibleOrigin.x+visibleSize.width/2,
+                y:visibleOrigin.y+visibleSize.height/2-visibleSize.height/10,
                 anchorX:0.5,
                 anchorY:0.5
             });
             // var imageView = new ccui.ImageView("res/gradeInfo.png");
-            var imageView = new cc.Sprite("res/gradeInfo01.png");
+            var imageView = new cc.Sprite("res/gradeInfoNew.png");
             var innerWidth = scrollView.width;
-            var innerHeight = 3500;
+            var innerHeight = 2000;
 
             scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
             imageView.x = innerWidth / 2;
             imageView.y = visibleSize.height-visibleSize.height/2-visibleSize.height/10+memberBkSize.height/3;
+            imageView.scale=innerHeight/1080;
             scrollView.addChild(imageView);
             layer.addChild(scrollView,20);
 

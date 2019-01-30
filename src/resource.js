@@ -33,8 +33,10 @@ var res = {
     method_png:"res/method.png",
     top_plist:"res/top.plist",//排行榜页面
     top_png:"res/top.png",//排行榜页面图片
-    loadingTit:"res/loadingTit.png",
-    loadingGif:"res/loadingGif.gif",
+
+    loading_plist:"res/loading.plist",
+    loading_png:"res/loading.png",
+
     medal_plist:"res/medal.plist",
     medal_png:"res/medal.png",
 
@@ -50,6 +52,7 @@ var res = {
 
     dl_plist:"res/dl.plist",
     dl_png:"res/dl.png",
+
 
     gameResource: "res/GameResource.png",
     gameResourcePlist: "res/GameResource.plist",

@@ -61,8 +61,8 @@ var medalLayer = cc.Layer.extend({
             var memberBk=new cc.Sprite("#beijingkuang.png");
             var memberBkSize=memberBk.getContentSize();
             memberBk.attr({
-                x:visibleSize.width/2,
-                y:visibleSize.height/2-visibleSize.height/10,
+                x:visibleOrigin.x+visibleSize.width/2,
+                y:visibleOrigin.y+visibleSize.height/2-visibleSize.height/10,
             });
             layer.addChild(memberBk,10);
             // 游戏勋章
@@ -71,8 +71,8 @@ var medalLayer = cc.Layer.extend({
             scrollView.setTouchEnabled(true);
             scrollView.setContentSize(cc.size(memberBkSize.width,memberBkSize.height*0.9));
             scrollView.attr({
-                x:visibleSize.width/2,
-                y:visibleSize.height/2-visibleSize.height/10,
+                x:visibleOrigin.x+visibleSize.width/2,
+                y:visibleOrigin.y+visibleSize.height/2-visibleSize.height/10,
                 anchorX:0.5,
                 anchorY:0.5
             });
@@ -82,8 +82,8 @@ var medalLayer = cc.Layer.extend({
             var innerHeight = 1700;
 
             scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
-            imageView.x = innerWidth / 2;
-            imageView.y = visibleSize.height-visibleSize.height/2-visibleSize.height/10+memberBkSize.height/3;
+            imageView.x = visibleOrigin.x+innerWidth / 2;
+            imageView.y = visibleOrigin.y+visibleSize.height-visibleSize.height/2-visibleSize.height/10+memberBkSize.height/3;
             scrollView.addChild(imageView);
             layer.addChild(scrollView,20);
 

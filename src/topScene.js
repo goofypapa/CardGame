@@ -21,6 +21,18 @@
 var topLayer = cc.Layer.extend({
     sprite:null,
     ctor:function () {
+        // function jsonp(url, callback) {
+        //     var callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+        //     window[callbackName] = function(data) {
+        //         delete window[callbackName];
+        //         document.body.removeChild(script);
+        //         callback(data);
+        //     };
+        //     var script = document.createElement('script');
+        //     script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
+        //     document.body.appendChild(script);
+        // };
+
         this._super();
 
         var layer = new cc.Layer();
@@ -132,58 +144,123 @@ var topLayer = cc.Layer.extend({
             // };
             var BASE_URL="http://192.168.5.100:8080/gameUser/getRank.do";
             var data="top=10";
-            jsonp( BASE_URL + "?" + data, function(data) {
-                var datas=data.data;
-                console.log(datas);
-                var points=[400,50,20,958,274,75,5,985,23,205];
-                for(var i=0;i<datas.length;i++){
-                    console.log(datas[i].gameUserName);
-                    var score=points[i]
-                    console.log(score);
-                    // 获取等级
-                    console.log(getLevel(score));
-                    // 用户名次
-                    // var rankText=new ccui.Text(i+1,"Microsoft Yahei", 40);
-                    var rankText=new cc.LabelTTF(i+1,"Poster",40);
-                    var rankTextSize=100;
-                    rankText.attr({
-                        x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5,
-                        y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
-                        scale:visibleSize.height/1080,
-                    });
-                    scrollView.addChild(rankText,20);
 
-                    // 用户昵称
-                    var nickNameText=new ccui.Text(datas[i].gameUserName,"Microsoft Yahei", 40);
-                    // var nickNameText=new cc.LabelTTF(datas[i].gameUserName,"Poster",40);
-                    nickNameText.attr({
-                        x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*2,
-                        y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
-                        scale:visibleSize.height/1080,
-                    });
-                    scrollView.addChild(nickNameText,20);
+            var xhr=cc.loader.getXMLHttpRequest();
+            xhr.open("POST",BASE_URL);
+            xhr.onreadystatechange=function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = xhr.responseText;
+                    console.log("xhr后台返回数据",response);
+                    var dataP=JSON.parse(response);
+                    console.log("xhr第一个昵称",dataP.data[0].gameUserName);
 
-                    // 用户等级
-                    // var gradeText=new ccui.Text(getLevel(score)[1]+"级","Microsoft Yahei", 40);
-                    var gradeText=new cc.LabelTTF(getLevel(score)[1]+"级","Poster",40);
-                    gradeText.attr({
-                        x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*3,
-                        y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
-                        scale:visibleSize.height/1080,
-                    });
-                    scrollView.addChild(gradeText,20);
 
-                    // 用户称号
+                    var points=[400,50,20,958,274,75,5,985,23,205];
+                    for(var i=0;i<dataP.data.length;i++){
+                        console.log("xhr所有昵称",dataP.data[i].gameUserName);
+                        var score=points[i]
+                        console.log("xhr所有分数",score);
+                        // 获取等级
+                        console.log("xhr获取等级称号",getLevel(score));
+                        // 用户名次
+                        // var rankText=new ccui.Text(i+1,"Microsoft Yahei", 40);
+                        var rankText=new cc.LabelTTF(i+1,"Poster",40);
+                        var rankTextSize=100;
+                        rankText.attr({
+                            x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5,
+                            y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
+                            scale:visibleSize.height/1080,
+                        });
+                        scrollView.addChild(rankText,20);
 
-                    var nameText=new ccui.Text(getLevel(score)[2],"Microsoft Yahei", 40);
-                    nameText.attr({
-                        x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*4,
-                        y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
-                        scale:visibleSize.height/1080,
-                    });
-                    scrollView.addChild(nameText,20);
+                        // 用户昵称
+                        var nickNameText=new ccui.Text(dataP.data[i].gameUserName,"Microsoft Yahei", 40);
+                        // var nickNameText=new cc.LabelTTF(datas[i].gameUserName,"Poster",40);
+                        nickNameText.attr({
+                            x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*2,
+                            y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
+                            scale:visibleSize.height/1080,
+                        });
+                        scrollView.addChild(nickNameText,20);
+
+                        // 用户等级
+                        // var gradeText=new ccui.Text(getLevel(score)[1]+"级","Microsoft Yahei", 40);
+                        var gradeText=new cc.LabelTTF(getLevel(score)[1]+"级","Poster",40);
+                        gradeText.attr({
+                            x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*3,
+                            y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
+                            scale:visibleSize.height/1080,
+                        });
+                        scrollView.addChild(gradeText,20);
+
+                        // 用户称号
+
+                        var nameText=new ccui.Text(getLevel(score)[2],"Microsoft Yahei", 40);
+                        nameText.attr({
+                            x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*4,
+                            y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
+                            scale:visibleSize.height/1080,
+                        });
+                        scrollView.addChild(nameText,20);
+                    }
+
                 }
-            });
+            };
+            xhr.send(data);
+
+
+            // jsonp( BASE_URL + "?" + data, function(data) {
+            //     var datas=data.data;
+            //     console.log(datas);
+            //     var points=[400,50,20,958,274,75,5,985,23,205];
+            //     for(var i=0;i<datas.length;i++){
+            //         console.log(datas[i].gameUserName);
+            //         var score=points[i]
+            //         console.log(score);
+            //         // 获取等级
+            //         console.log(getLevel(score));
+            //         // 用户名次
+            //         // var rankText=new ccui.Text(i+1,"Microsoft Yahei", 40);
+            //         var rankText=new cc.LabelTTF(i+1,"Poster",40);
+            //         var rankTextSize=100;
+            //         rankText.attr({
+            //             x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5,
+            //             y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
+            //             scale:visibleSize.height/1080,
+            //         });
+            //         scrollView.addChild(rankText,20);
+            //
+            //         // 用户昵称
+            //         var nickNameText=new ccui.Text(datas[i].gameUserName,"Microsoft Yahei", 40);
+            //         // var nickNameText=new cc.LabelTTF(datas[i].gameUserName,"Poster",40);
+            //         nickNameText.attr({
+            //             x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*2,
+            //             y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
+            //             scale:visibleSize.height/1080,
+            //         });
+            //         scrollView.addChild(nickNameText,20);
+            //
+            //         // 用户等级
+            //         // var gradeText=new ccui.Text(getLevel(score)[1]+"级","Microsoft Yahei", 40);
+            //         var gradeText=new cc.LabelTTF(getLevel(score)[1]+"级","Poster",40);
+            //         gradeText.attr({
+            //             x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*3,
+            //             y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
+            //             scale:visibleSize.height/1080,
+            //         });
+            //         scrollView.addChild(gradeText,20);
+            //
+            //         // 用户称号
+            //
+            //         var nameText=new ccui.Text(getLevel(score)[2],"Microsoft Yahei", 40);
+            //         nameText.attr({
+            //             x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*4,
+            //             y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
+            //             scale:visibleSize.height/1080,
+            //         });
+            //         scrollView.addChild(nameText,20);
+            //     }
+            // });
             layer.addChild(scrollView,10);
 
             // 返回

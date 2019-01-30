@@ -4,7 +4,22 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>biaoti.png</key>
+            <key>loadingGif.gif</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{326,296}</string>
+                <key>spriteSourceSize</key>
+                <string>{326,296}</string>
+                <key>textureRect</key>
+                <string>{{0,0},{326,296}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>loadingTit.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -15,37 +30,22 @@
                 <key>spriteSourceSize</key>
                 <string>{1200,276}</string>
                 <key>textureRect</key>
-                <string>{{0,0},{1200,276}}</string>
+                <string>{{326,0},{1200,276}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>jindutiao1.png</key>
+            <key>shouye.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{1135,14}</string>
+                <string>{1920,1080}</string>
                 <key>spriteSourceSize</key>
-                <string>{1135,14}</string>
+                <string>{1920,1080}</string>
                 <key>textureRect</key>
-                <string>{{0,276},{1135,14}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>jindutiao2.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{667,14}</string>
-                <key>spriteSourceSize</key>
-                <string>{667,14}</string>
-                <key>textureRect</key>
-                <string>{{1135,276},{667,14}}</string>
+                <string>{{0,296},{1920,1080}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -61,9 +61,9 @@
             <key>realTextureFileName</key>
             <string>loading.png</string>
             <key>size</key>
-            <string>{1802,290}</string>
+            <string>{1920,1376}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:059c6a8d28c4b7644479ccc2b57f63c2:ea6d54b91b5791636139864f8c0c515e:e75714c0871c497b76d71a94e9da90fb$</string>
+            <string>$TexturePacker:SmartUpdate:6796b247bf95b8de0be5e22c66122157:54dd39c2db1ffe29e4f96827f1c83cd2:e75714c0871c497b76d71a94e9da90fb$</string>
             <key>textureFileName</key>
             <string>loading.png</string>
         </dict>
