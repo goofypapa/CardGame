@@ -1,4 +1,4 @@
-var loadindLayer = cc.LayerColor.extend({//继承LayerColor，初始化的时候可以直接改背景颜色
+var LoadingLayer = cc.LayerColor.extend({//继承LayerColor，初始化的时候可以直接改背景颜色
     a:0,//记录当前加载了多少个文件
     ctor : function() {
         this._super();
@@ -52,41 +52,40 @@ var loadindLayer = cc.LayerColor.extend({//继承LayerColor，初始化的时候
             });
             layer.addChild(spriteImg,30);
             cc.loader.load(g_resources,function(err, results) {
-                console.log(g_resources);
+                cc.director.runScene( new HelloWorldScene() );
             });
         });
-        var size = cc.winSize;
-        //添加一个文本框显示
-        var l = new cc.LabelTTF("Loading : 0%", "Arial", 38);
-        //居中
-        l.x = size.width * 0.5;
-        l.y = size.height * 0.2;
+        // var size = cc.winSize;
+        // //添加一个文本框显示
+        // var l = new cc.LabelTTF("Loading : 0%", "Arial", 38);
+        // //居中
+        // l.x = size.width * 0.5;
+        // l.y = size.height * 0.2;
         // this.addChild(l, 11, 12);
-        ccs.armatureDataManager.addArmatureFileInfoAsync(res.indexBj,this.loadCall,this);
-        cc.textureCache.addImage(res.indexBj,this.loadCall,this);
-        cc.loader.load(res.indexBj, this.loadCall,this);
-    },
+    }
+    
+    // ,
 
-    loadCall : function() {
-        //每次调用进行计数
-        this.a ++;
-        //以tag的形式获取文本框对象
-        var subTile = this.getChildByTag(12);
-        //toFixed(2)意思是取小数点后两位，小数点后第三位为四舍五入
-        // subTile.setString("Loading :" + (this.a / 3).toFixed(2) *100 + "%");
-        //加载完毕，貌似好多教程都是用百分比判断( >= 1 )
-        if (this.a == 3) {
-            var trans = new HelloScene();
-            cc.director.runScene(trans);
-        }
-    },
+    // loadCall : function() {
+    //     //每次调用进行计数
+    //     this.a ++;
+    //     //以tag的形式获取文本框对象
+    //     var subTile = this.getChildByTag(12);
+    //     //toFixed(2)意思是取小数点后两位，小数点后第三位为四舍五入
+    //     // subTile.setString("Loading :" + (this.a / 3).toFixed(2) *100 + "%");
+    //     //加载完毕，貌似好多教程都是用百分比判断( >= 1 )
+    //     if (this.a == 3) {
+    //         var trans = new HelloScene();
+    //         cc.director.runScene(trans);
+    //     }
+    // },
 });
 
-var HelloScene = cc.Scene.extend({
+var LoadingScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
         //加载app.js的layer
-        var layer = new HelloWorldLayer();
+        var layer = new LoadingLayer();
         this.addChild(layer);
     }
 });

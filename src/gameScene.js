@@ -7,6 +7,8 @@ var gameSceneLayer = cc.Layer.extend({
         gameClient: null,
         connectServerNum: 0,
         pairingLabdel: null,
+        gamePairing: false,
+        gameStarting: false,
         pleaseSelect: false,
         self: {
             headSprite: null,
@@ -362,7 +364,7 @@ var gameSceneLayer = cc.Layer.extend({
 
             layer.global.pairingLayer.addChild( mask );
 
-            mask.drawRect( cc.p( 0, 0 ), cc.p( visibleSize.width, visibleSize.height ), cc.color( 0, 0, 0, 180 ), 2, null );
+            mask.drawRect( cc.p( 0, 0 ), cc.p( visibleSize.width, visibleSize.height ), cc.color( 0, 0, 0, 180 ), 0, null );
 
             layer.global.pairingLabdel = new cc.LabelTTF( "正在匹配对手", "", 50 );
             layer.global.pairingLayer.addChild( layer.global.pairingLabdel );
@@ -374,30 +376,63 @@ var gameSceneLayer = cc.Layer.extend({
             layer.connectServer()
 
             //获取个人信息
-            jsonp( DATA_SERVER_HOST + "gameUser/getUser.do?userId=" + layer.global.userId, function( res ){
-                console.log( "userInfo:", res );
-                if( !res.success ){
-                    console.log( "error:", res.msg );
-                    return;
+            // jsonp( DATA_SERVER_HOST + "gameUser/getUser.do?userId=" + layer.global.userId, function( res ){
+            //     console.log( "userInfo:", res );
+            //     if( !res.success ){
+            //         console.log( "error:", res.msg );
+            //         return;
+            //     }
+    
+            //     var userInfo = res.data[0];
+    
+            //     if( !userInfo ){
+            //         return;
+            //     }
+    
+    
+            //     var globalSelf = layer.global.self;
+            //     var selfLevelInfo = getLevel( userInfo.gameUserPoints == null ? 0 : userInfo.gameUserPoints );
+    
+            //     globalSelf.headSprite.setSpriteFrame( selfLevelInfo[3] + ".png" );
+    
+            //     globalSelf.nameLabel.setString( userInfo.gameUserName );
+            //     globalSelf.titleLabel.setString( selfLevelInfo[2] );
+            //     globalSelf.levelLabel.setString( "L" + selfLevelInfo[1] );
+            //     globalSelf.scoreLabel.setString( "0" );
+            // } );
+
+            var xhr=cc.loader.getXMLHttpRequest();
+
+            xhr.open("POST","https://www.goofypapa.com/gameUser/getUser.do");
+            xhr.onreadystatechange=function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = xhr.responseText;
+                    var res = JSON.parse(response);
+                    
+                    if( !res.success ){
+                        console.log( "error:", res.msg );
+                        return;
+                    }
+        
+                    var userInfo = res.data[0];
+        
+                    if( !userInfo ){
+                        return;
+                    }
+        
+        
+                    var globalSelf = layer.global.self;
+                    var selfLevelInfo = getLevel( userInfo.gameUserPoints == null ? 0 : userInfo.gameUserPoints );
+        
+                    globalSelf.headSprite.setSpriteFrame( selfLevelInfo[3] + ".png" );
+        
+                    globalSelf.nameLabel.setString( userInfo.gameUserName );
+                    globalSelf.titleLabel.setString( selfLevelInfo[2] );
+                    globalSelf.levelLabel.setString( "L" + selfLevelInfo[1] );
+                    globalSelf.scoreLabel.setString( "0" );
                 }
-    
-                var userInfo = res.data[0];
-    
-                if( !userInfo ){
-                    return;
-                }
-    
-    
-                var globalSelf = layer.global.self;
-                var selfLevelInfo = getLevel( userInfo.gameUserPoints == null ? 0 : userInfo.gameUserPoints );
-    
-                globalSelf.headSprite.setSpriteFrame( selfLevelInfo[3] + ".png" );
-    
-                globalSelf.nameLabel.setString( userInfo.gameUserName );
-                globalSelf.titleLabel.setString( selfLevelInfo[2] );
-                globalSelf.levelLabel.setString( "L" + selfLevelInfo[1] );
-                globalSelf.scoreLabel.setString( "0" );
-            } );
+            };
+            xhr.send("userId=" + layer.global.userId);
         });
     },
 
@@ -430,17 +465,42 @@ var gameSceneLayer = cc.Layer.extend({
     },
     pair: function(){
         var layer = this;
+        var global = layer.global;
 
-        if( layer.global.gameClient == null )
+        if( global.gameClient == null )
         {
             console.log( "not connect server" );
             return;
         }
 
-        layer.global.gameClient.pair( layer.global.userId );
+        if( global.gameStarting ){
+            console.log( "Has started the game" );
+            return;
+        }
+
+        if( global.gamePairing ){
+            return;
+        }
+
+        for( var i = 0; i < global.cardList.length; ++i )
+        {
+            global.cardList[i].setSpriteFrame( "kapaibeimian.png" );
+        }
+
+        // var globalSelf = global.self.scoreLabel;
+        // var globalOpponent = global.opponent.scoreLabel;
+
+        // globalSelf.scoreLabel.setString( "0" );
+        // globalSelf.timeLabel.setString( "00:00" );
+
+        // globalOpponent.scoreLabel.setString( "0" );
+        // globalOpponent.nameLabel.setString( "对手" );
+
+        global.gamePairing = true;
+        global.gameClient.pair( global.userId );
 
         var pairNum = 0;
-        layer.global.pairingLabdel.runAction( cc.repeatForever( cc.sequence( cc.callFunc( function(){
+        global.pairingLabdel.runAction( cc.repeatForever( cc.sequence( cc.callFunc( function(){
 
             var str = "正在匹配对手";
             ++pairNum;
@@ -448,15 +508,15 @@ var gameSceneLayer = cc.Layer.extend({
             {
                 str += ".";
             }
-            layer.global.pairingLabdel.setString( str );
+            global.pairingLabdel.setString( str );
         }, this ), cc.delayTime( 0.5 ) ) ) );
 
-        layer.global.pairingLayer.setOpacity( 0 );
-        layer.global.pairingLayer.visible = true;
+        global.pairingLayer.setOpacity( 0 );
+        global.pairingLayer.visible = true;
         var opacity = 0;
 
-        layer.global.pairingLayer.runAction( cc.repeat( cc.sequence( cc.callFunc( function(){
-            layer.global.pairingLayer.setOpacity( ++opacity );
+        global.pairingLayer.runAction( cc.repeat( cc.sequence( cc.callFunc( function(){
+            global.pairingLayer.setOpacity( ++opacity );
         } ), cc.delayTime( 2 / 255 ) ), 255 ) );
     },
 
@@ -508,6 +568,9 @@ var gameSceneLayer = cc.Layer.extend({
             case "SelectedCard":
                 layer.onSelectedCard(res);
             break;
+            case "GameOver":
+                layer.onGameOver(res);
+            break;
         }
     },
     onPaired: function( e ){
@@ -516,6 +579,9 @@ var gameSceneLayer = cc.Layer.extend({
         var global = layer.global;
         var globalSelf = global.self;
         var globalOpponent = global.opponent;
+
+        global.gameStarting = true;
+        global.gamePairing = false;
 
         global.pairingLabdel.stopAllActions();
         global.pairingLayer.visible = false;
@@ -587,6 +653,17 @@ var gameSceneLayer = cc.Layer.extend({
         layer.global.self.scoreLabel.setString( e.self.userScore );
         layer.global.opponent.scoreLabel.setString( e.opponent.userScore );
 
+    },
+    onGameOver: function(e){
+        var layer = this;
+        var global = layer.global;
+
+        global.gameStarting = false;
+
+        var selfTimeLabel = global.self.timeLabel;
+        var opponentTimeLabel = global.opponent.timeLabel;
+        selfTimeLabel.stopAllActions();
+        opponentTimeLabel.stopAllActions();
     }
 });
 
