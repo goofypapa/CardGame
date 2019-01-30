@@ -65,7 +65,7 @@ var g_resources = [
     //fonts
     {
         type:"font",
-        name:"Poster",
+        name:"poster",
         srcs:["res/fonts/poster.ttf"]
     }
 ];
