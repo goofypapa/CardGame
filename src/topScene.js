@@ -142,7 +142,7 @@ var topLayer = cc.Layer.extend({
             //     Texts[i] = text;
             //     scrollView.addChild(Texts[i]);
             // };
-            var BASE_URL="http://192.168.5.100:8080/gameUser/getRank.do";
+            var BASE_URL="https://www.goofypapa.com/gameUser/getRank.do";
             var data="top=10";
 
             var xhr=cc.loader.getXMLHttpRequest();
@@ -164,7 +164,7 @@ var topLayer = cc.Layer.extend({
                         console.log("xhr获取等级称号",getLevel(score));
                         // 用户名次
                         // var rankText=new ccui.Text(i+1,"Microsoft Yahei", 40);
-                        var rankText=new cc.LabelTTF(i+1,"Poster",40);
+                        var rankText=new cc.LabelTTF(i+1,"res/fonts/poster.ttf",40);
                         var rankTextSize=100;
                         rankText.attr({
                             x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5,
@@ -185,7 +185,7 @@ var topLayer = cc.Layer.extend({
 
                         // 用户等级
                         // var gradeText=new ccui.Text(getLevel(score)[1]+"级","Microsoft Yahei", 40);
-                        var gradeText=new cc.LabelTTF(getLevel(score)[1]+"级","Poster",40);
+                        var gradeText=new cc.LabelTTF(getLevel(score)[1]+"级","Microsoft Yahei",40);
                         gradeText.attr({
                             x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*3,
                             y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
@@ -195,7 +195,7 @@ var topLayer = cc.Layer.extend({
 
                         // 用户称号
 
-                        var nameText=new ccui.Text(getLevel(score)[2],"Microsoft Yahei", 40);
+                        var nameText=new ccui.Text(getLevel(score)[2],"poster", 40);
                         nameText.attr({
                             x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*4,
                             y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
@@ -221,7 +221,7 @@ var topLayer = cc.Layer.extend({
             //         console.log(getLevel(score));
             //         // 用户名次
             //         // var rankText=new ccui.Text(i+1,"Microsoft Yahei", 40);
-            //         var rankText=new cc.LabelTTF(i+1,"Poster",40);
+            //         var rankText=new cc.LabelTTF(i+1,"poster",40);
             //         var rankTextSize=100;
             //         rankText.attr({
             //             x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5,
@@ -242,7 +242,7 @@ var topLayer = cc.Layer.extend({
             //
             //         // 用户等级
             //         // var gradeText=new ccui.Text(getLevel(score)[1]+"级","Microsoft Yahei", 40);
-            //         var gradeText=new cc.LabelTTF(getLevel(score)[1]+"级","Poster",40);
+            //         var gradeText=new cc.LabelTTF(getLevel(score)[1]+"级","Microsoft Yahei",40);
             //         gradeText.attr({
             //             x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*3,
             //             y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,
@@ -252,7 +252,7 @@ var topLayer = cc.Layer.extend({
             //
             //         // 用户称号
             //
-            //         var nameText=new ccui.Text(getLevel(score)[2],"Microsoft Yahei", 40);
+            //         var nameText=new ccui.Text(getLevel(score)[2],"poster", 40);
             //         nameText.attr({
             //             x:visibleOrigin.x+visibleSize.width/2-topBkSize.width/2+topBkSize.width/5*4,
             //             y:visibleOrigin.y+visibleSize.height/2+topBkSize.height/1.5-i*rankTextSize,

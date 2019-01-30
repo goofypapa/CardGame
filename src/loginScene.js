@@ -320,6 +320,8 @@ var loginLayer = cc.Layer.extend({
                                var response = xhr.responseText;
                                console.log(response);
                                var dataP=JSON.parse(response);
+                               console.log(dataP);
+                               console.log(typeof (dataP));
                                var userMsg=dataP["msg"];
                                if(userMsg=="账号已存在"){
                                    var errorImg=new cc.Sprite("res/error.png");
@@ -342,7 +344,7 @@ var loginLayer = cc.Layer.extend({
                                        layer.removeChildByTag(2);
                                    },1000)
                                }else{
-                                   localStorage.setItem( "userId", dataP.data[0].gameUserId);
+                                   localStorage.setItem( "userId", dataP["data"]["gameUserId"]);
                                    cc.director.runScene( new gameScene( ) );
                                }
                            }

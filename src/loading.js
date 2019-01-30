@@ -79,6 +79,7 @@ var LoadingLayer = cc.LayerColor.extend({//继承LayerColor，初始化的时候
     //         cc.director.runScene(trans);
     //     }
     // },
+
 });
 
 var LoadingScene = cc.Scene.extend({
@@ -87,5 +88,10 @@ var LoadingScene = cc.Scene.extend({
         //加载app.js的layer
         var layer = new LoadingLayer();
         this.addChild(layer);
+    },
+    onExit:function(){
+        this._super();
+
+        cc.spriteFrameCache.removeSpriteFrames();
     }
 });

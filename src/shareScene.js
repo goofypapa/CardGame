@@ -69,7 +69,7 @@ var shareLayer = cc.Layer.extend({
                 scale:visibleSize.height/1080,
             });
             layer.addChild(nickFrame,10);
-            var nickName=new cc.LabelTTF("用户昵称","res/fonts/poster.ttf",38);
+            var nickName=new cc.LabelTTF("用户昵称","poster",38);
             nickName.attr({
                 x:visibleOrigin.x+visibleSize.width/5,
                 y:visibleOrigin.y+visibleSize.height/8+nickFrameSize.height*2+20,
@@ -84,7 +84,7 @@ var shareLayer = cc.Layer.extend({
                 scale:visibleSize.height/1080,
             });
             layer.addChild(designationFrame,10);
-            var designation=new cc.LabelTTF("用户称号","poster.ttf",38);
+            var designation=new cc.LabelTTF("用户称号","poster",38);
             designation.attr({
                 x:visibleOrigin.x+visibleSize.width/5,
                 y:visibleOrigin.y+visibleSize.height/8+nickFrameSize.height+10,
@@ -99,7 +99,7 @@ var shareLayer = cc.Layer.extend({
                 scale:visibleSize.height/1080,
             });
             layer.addChild(gradeFrame,10);
-            var grade=new cc.LabelTTF("等级","poster.ttf",38);
+            var grade=new cc.LabelTTF("等级","poster",38);
             grade.attr({
                 x:visibleOrigin.x+visibleSize.width/5,
                 y:visibleOrigin.y+visibleSize.height/8,
@@ -120,7 +120,7 @@ var shareLayer = cc.Layer.extend({
             layer.addChild(shareInfo,10);
 
             // var text=new cc.LabelTTF("普天同庆“用户昵称”在“太阳系大作战”小游戏中，升到“用户等级”，成为“用户称号”","poster.ttf",50);
-            var text = new ccui.Text("普天同庆“用户昵称”在“太阳系大作战”小游戏中，升到“用户等级”，成为“用户称号”","Poster",50);
+            var text = new ccui.Text("普天同庆“用户昵称”在“太阳系大作战”小游戏中，升到“用户等级”，成为“用户称号”","poster",50);
             text.ignoreContentAdaptWithSize(false);
             text.setContentSize(cc.size(shareInfoSize.width/4*3*visibleSize.height/1080,shareInfoSize.height/2*visibleSize.height/1080));
             text.setTextHorizontalAlignment(cc.TEXTURE_ATLAS_USE_TRIANGLE_STRIP);

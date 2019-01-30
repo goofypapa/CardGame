@@ -273,6 +273,7 @@ var dlLayer = cc.Layer.extend({
                     xhr.onreadystatechange=function(){
                         if(xhr.readyState==4&&xhr.status==200){
                             var response=xhr.responseText;
+                            console.log(response);
                             var dataP=JSON.parse(response);
                             var userMsg=dataP["msg"];
                             if(userMsg=="账号不存在"){
