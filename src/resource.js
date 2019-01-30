@@ -23,7 +23,6 @@
  ****************************************************************************/
 
 var res = {
-    HelloWorld_png : "res/HelloWorld.png",
     indexBj:"res/shouye.png",//首页背景图,
     trialBj:"res/trial.jpg",//试玩页面背景图
     kapai_plist:"res/kapai.plist",//首页和试玩页面plist

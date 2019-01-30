@@ -27,17 +27,17 @@ var dlLayer = cc.Layer.extend({
     // bottomDisplayText:null,
     // ls:null,//昵称缓存
     ctor:function () {
-        // function jsonp(url, callback) {
-        //     var callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
-        //     window[callbackName] = function(data) {
-        //         delete window[callbackName];
-        //         document.body.removeChild(script);
-        //         callback(data);
-        //     };
-        //     var script = document.createElement('script');
-        //     script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
-        //     document.body.appendChild(script);
-        // };
+        function jsonp(url, callback) {
+            var callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+            window[callbackName] = function(data) {
+                delete window[callbackName];
+                document.body.removeChild(script);
+                callback(data);
+            };
+            var script = document.createElement('script');
+            script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
+            document.body.appendChild(script);
+        };
         this._super();
 
         // 设置以及获取用户的昵称缓存
@@ -265,7 +265,7 @@ var dlLayer = cc.Layer.extend({
                         layer.addChild(text,10);
                     }
                     console.log(userGameName,userGamePwd);
-                    var BASE_URL="http://192.168.5.100:8080/gameUser/login.do";
+                    var BASE_URL="https://www.goofypapa.com/gameUser/login.do";
                     var data="userName="+userGameName+"&userPwd="+userGamePwd+"&userType=1";
                     console.log(BASE_URL,data);
                     var xhr=cc.loader.getXMLHttpRequest();
@@ -320,50 +320,50 @@ var dlLayer = cc.Layer.extend({
                         }
                     };
                     xhr.send(data);
-                    // jsonp( BASE_URL + "?" + data, function(data){
-                    //     console.log("1111");
-                    //     var userId=data.msg;
-                    //     console.log(data);
-                    //     if(userId=="账号不存在"){
-                    //         var errorImg=new cc.Sprite("res/error.png");
-                    //         errorImg.attr({
-                    //             x:visibleOrigin.x+visibleSize.width/2,
-                    //             y:visibleOrigin.y+visibleSize.height/2
-                    //         });
-                    //         errorImg.setTag(1);
-                    //         layer.addChild(errorImg,10);
-                    //         var text = new ccui.Text("账号不存在", "Microsoft Yahei", 35);
-                    //         text.attr({
-                    //             x:visibleOrigin.x+visibleSize.width/2,
-                    //             y:visibleOrigin.y+visibleSize.height/2
-                    //         });
-                    //         text.setTag(2);
-                    //         layer.addChild(text,10);
-                    //
-                    //
-                    //
-                    //     }else if(userId=="账号或密码不正确"){
-                    //         var errorImg=new cc.Sprite("res/error.png");
-                    //         errorImg.attr({
-                    //             x:visibleOrigin.x+visibleSize.width/2,
-                    //             y:visibleOrigin.y+visibleSize.height/2
-                    //         });
-                    //         errorImg.setTag(1);
-                    //         layer.addChild(errorImg,10);
-                    //         var text = new ccui.Text("登录名密码错误", "Microsoft Yahei", 35);
-                    //         text.attr({
-                    //             x:visibleOrigin.x+visibleSize.width/2,
-                    //             y:visibleOrigin.y+visibleSize.height/2
-                    //         });
-                    //         text.setTag(2);
-                    //         layer.addChild(text,10);
-                    //
-                    //     }else{
-                    //         localStorage.setItem( "userId", data.data[0].gameUserId );
-                    //         cc.director.runScene( new gameScene( ) );
-                    //     }
-                    //
-                    //  })
+                    jsonp( BASE_URL + "?" + data, function(data){
+                        console.log("1111");
+                        var userId=data.msg;
+                        console.log(data);
+                        if(userId=="账号不存在"){
+                            var errorImg=new cc.Sprite("res/error.png");
+                            errorImg.attr({
+                                x:visibleOrigin.x+visibleSize.width/2,
+                                y:visibleOrigin.y+visibleSize.height/2
+                            });
+                            errorImg.setTag(1);
+                            layer.addChild(errorImg,10);
+                            var text = new ccui.Text("账号不存在", "Microsoft Yahei", 35);
+                            text.attr({
+                                x:visibleOrigin.x+visibleSize.width/2,
+                                y:visibleOrigin.y+visibleSize.height/2
+                            });
+                            text.setTag(2);
+                            layer.addChild(text,10);
+
+
+
+                        }else if(userId=="账号或密码不正确"){
+                            var errorImg=new cc.Sprite("res/error.png");
+                            errorImg.attr({
+                                x:visibleOrigin.x+visibleSize.width/2,
+                                y:visibleOrigin.y+visibleSize.height/2
+                            });
+                            errorImg.setTag(1);
+                            layer.addChild(errorImg,10);
+                            var text = new ccui.Text("登录名密码错误", "Microsoft Yahei", 35);
+                            text.attr({
+                                x:visibleOrigin.x+visibleSize.width/2,
+                                y:visibleOrigin.y+visibleSize.height/2
+                            });
+                            text.setTag(2);
+                            layer.addChild(text,10);
+
+                        }else{
+                            localStorage.setItem( "userId", data.data[0].gameUserId );
+                            cc.director.runScene( new gameScene( ) );
+                        }
+
+                     })
                 }
             );
             startBtn.attr({

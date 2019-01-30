@@ -236,37 +236,6 @@ var loginLayer = cc.Layer.extend({
             layer.addChild(titleLable,1);
 
 
-            // 获取之前的缓存昵称
-            // var r=ls.getItem("nickname");
-            // 昵称输入框
-            // if(r!=undefined){
-            //     var textField = new ccui.TextField(r, "Marker Felt", 36);
-            // }else{
-            //     var textField = new ccui.TextField("您的昵称", "Marker Felt", 36);
-            // }
-            // var confirmInfo= new ccui.TextField();
-            // confirmInfo.setPasswordEnabled(true);
-            // confirmInfo.setPasswordStyleText("*");
-            // confirmInfo.setTouchEnabled(true);
-            // confirmInfo.fontName = "Marker Felt";
-            // confirmInfo.fontSize = 36;
-            // confirmInfo.placeHolder = "确认密码（密码不得超过10位数）          ";
-            // confirmInfo.setMaxLengthEnabled(true);
-            // confirmInfo.setMaxLength(10);
-            // confirmInfo.setContentSize(nickNameFrameSize);
-            // confirmInfo.setPlaceHolderColor(cc.color(104,99,128));
-            // console.log(nickNameFrameSize);
-            // console.log(confirmInfo.getContentSize());
-            // confirmInfo.attr({
-            //     x:visibleSize.width/2-nickNameFrameSize.width/2+40,
-            //     y:visibleOrigin.y+visibleSize.height/9*4,
-            //     anchorX:0,
-            //     anchorY:0.6
-            // });
-            // layer.addChild(confirmInfo,1);
-
-
-
             var conpassWordBox = new cc.EditBox(cc.size(360.00,40.00));
 
             conpassWordBox.attr({
@@ -284,7 +253,6 @@ var loginLayer = cc.Layer.extend({
             conpassWordBox.setPlaceHolder("确认密码");
             conpassWordBox.setPlaceholderFontSize(36);
 
-            // titleLable.setInputFlag(cc.EDITBOX_INPUT_FLAG_SENSITIVE);//修改为不使用密文
             conpassWordBox.setInputFlag(cc.EDITBOX_INPUT_FLAG_PASSWORD);
 
             layer.addChild(conpassWordBox,1,10);
@@ -302,23 +270,7 @@ var loginLayer = cc.Layer.extend({
             var weixin=new cc.MenuItemImage(
                 "#weixin.png",
                 "#weixin.png"
-                // function(){
-                //     wx.login({
-                //         success(res) {
-                //             if (res.code) {
-                //                 // 发起网络请求
-                //                 wx.request({
-                //                     url: 'https://test.com/onLogin',
-                //                     data: {
-                //                         code: res.code
-                //                     }
-                //                 })
-                //             } else {
-                //                 console.log('登录失败！' + res.errMsg)
-                //             }
-                //         }
-                //     })
-                // },this
+
             );
             weixin.attr({
                 x:visibleSize.width/2-nickNameFrameSize.width/2+25,
@@ -338,17 +290,6 @@ var loginLayer = cc.Layer.extend({
                 "#anniu.png",
                 "#anniu.png",
                 function(){
-                    // 点击开始游戏时 获取用户昵称
-                    // console.log(r);
-                    // var name=textField.getString();
-                    // if(r!=undefined){
-                    //     console.log("!!!!!!");
-                    //     name=r;
-                    // }
-                    // console.log(name);
-                    // ls.setItem("nickname",name);
-                    // console.log(ls.getItem("nickname"));
-                    // cc.director.runScene( new mainGameScene( ) );
 
                     // 获取用户输入昵称
                     var userName=userLable.getString();
@@ -368,7 +309,7 @@ var loginLayer = cc.Layer.extend({
                        errorImg.setTag(1);
                        layer.addChild(errorImg,10);
                    }else{
-                       var BASE_URL="http://192.168.5.100:8080/gameUser/userRegister.do";
+                       var BASE_URL="https://www.goofypapa.com/gameUser/userRegister.do";
                        var data="userName="+userName+"&userPwd="+userPwd+"&userType=1";
 
                        console.log(BASE_URL,data);
@@ -377,6 +318,7 @@ var loginLayer = cc.Layer.extend({
                        xhr.onreadystatechange=function() {
                            if (xhr.readyState == 4 && xhr.status == 200) {
                                var response = xhr.responseText;
+                               console.log(response);
                                var dataP=JSON.parse(response);
                                var userMsg=dataP["msg"];
                                if(userMsg=="账号已存在"){
