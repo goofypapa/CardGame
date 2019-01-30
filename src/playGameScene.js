@@ -189,7 +189,7 @@ var playGameLayer = cc.Layer.extend({
                     //     layer.removeChildByTag(2);
                     // },1000)
                 }
-                var BASE_URL="http://192.168.5.100:8080/gameUser/login.do";
+                var BASE_URL="https://www.goofypapa.com/gameUser/login.do";
                 var data="userName="+userName+"&userType=0";
 
                 console.log(BASE_URL,data);
