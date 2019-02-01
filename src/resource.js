@@ -41,7 +41,9 @@ var res = {
 
     grade_plist:"res/grade.plist",
     grade_png:"res/grade.png",
-    gradeInfo:"res/gradeInfo.png",
+    gradeInfo01:"res/gradeInfo01.png",
+    gradeInfo02:"res/gradeInfo02.png",
+    gradeInfo03:"res/gradeInfo03.png",
 
     share_plist:"res/share.plist",
     share_png:"res/share.png",

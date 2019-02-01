@@ -45,10 +45,11 @@ var gradeLayer = cc.Layer.extend({
         });
 
         layer.addChild( sprite );
-        cc.loader.load([res.grade_plist,res.grade_png,res.gradeInfo], function(err, results){
+        cc.loader.load([res.grade_plist,res.grade_png,"res/gradeInfo01.png","res/gradeInfo02.png","res/gradeInfo03.png"], function(err, results){
             cc.spriteFrameCache.addSpriteFrames(res.grade_plist);
             // 标题
             var title=new cc.Sprite("#youxidengjiyuchenghao.png");
+            var titleSize=title.getContentSize();
             title.attr({
                 x:visibleOrigin.x+91,
                 y:visibleOrigin.y+visibleSize.height-24,
@@ -63,29 +64,47 @@ var gradeLayer = cc.Layer.extend({
             memberBk.attr({
                 x:visibleOrigin.x+visibleSize.width/2,
                 y:visibleOrigin.y+visibleSize.height/2-visibleSize.height/10,
+                anchorX:0.5,
+                anchorY:0.5,
+                scale:visibleSize.height/1080,
             });
             layer.addChild(memberBk,10);
             // 游戏等级及称号
             var scrollView = new ccui.ScrollView();
             scrollView.setDirection(ccui.ScrollView.DIR_VERTICAL);
             scrollView.setTouchEnabled(true);
-            scrollView.setContentSize(cc.size(memberBkSize.width/0.85,memberBkSize.height*0.9));
+            scrollView.setInertiaScrollEnabled(true);
+            scrollView.setBackGroundImageScale9Enabled(true);
+            // scrollView.setBackGroundImage("res/beijingkuang.png");
+            scrollView.setContentSize(cc.size(memberBkSize.width,memberBkSize.height*0.9));
             scrollView.attr({
                 x:visibleOrigin.x+visibleSize.width/2,
                 y:visibleOrigin.y+visibleSize.height/2-visibleSize.height/10,
                 anchorX:0.5,
-                anchorY:0.5
+                anchorY:0.5,
+                scale:visibleSize.height/1080
             });
-            // var imageView = new ccui.ImageView("res/gradeInfo.png");
-            var imageView = new cc.Sprite("res/gradeInfoNew.png");
-            var innerWidth = scrollView.width;
-            var innerHeight = 2000;
+            var innerHeight = 6500*visibleSize.height/1080;
 
-            scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
-            imageView.x = innerWidth / 2;
-            imageView.y = visibleSize.height-visibleSize.height/2-visibleSize.height/10+memberBkSize.height/3;
-            imageView.scale=innerHeight/1080;
-            scrollView.addChild(imageView);
+            scrollView.setInnerContainerSize(cc.size(memberBkSize.width, innerHeight));
+
+            for(var i = 0; i < 3; i++){
+                var num=i+1;
+                var sprite = new cc.Sprite('res/gradeInfo0'+num+'.png');
+                scrollView.addChild(sprite);
+                if(i==0){
+                    sprite.x = scrollView.width/2;
+                    sprite.y = scrollView.getInnerContainerSize().height- visibleSize.height/1080*1000 -20 ;
+                }else if(i==1){
+                    sprite.x = scrollView.width/2;
+                    sprite.y = scrollView.getInnerContainerSize().height- visibleSize.height/1080*3000 -20 ;
+                }else{
+                    sprite.x = scrollView.width/2;
+                    sprite.y = scrollView.getInnerContainerSize().height- visibleSize.height/1080*5000 -20 ;
+                }
+                sprite.scale=visibleSize.height/1080;
+                sprite.setAnchorPoint(cc.p(0.5,0.5));
+            }
             layer.addChild(scrollView,20);
 
             // 返回

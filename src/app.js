@@ -123,7 +123,8 @@ var HelloWorldLayer = cc.Layer.extend({
                 "#tuichuyouxi.png",
                 "#tuichuyouxi.png",
                 function(){
-                    cc.director.runScene( new shareScene() );
+                    cc.game.end();
+                    // cc.director.runScene( new shareScene() );
                 },this
             );
             exitMenuItem.attr({
